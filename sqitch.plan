@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=compagnon-jdr
+%uri=https://github.com/O-clock-Cassini/projet-04-compagnon-jdr-back
+
+user-features 2022-07-20T10:19:55Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Création de table et extension pour l'authentification d'utilisateur connecté et invité
