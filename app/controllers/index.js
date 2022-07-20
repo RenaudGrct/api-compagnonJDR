@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const apiController = {
   /**
      * Default API controller to show documention url.

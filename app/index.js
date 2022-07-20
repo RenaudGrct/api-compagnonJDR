@@ -1,11 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-
-const router = require("./app/routers");
-
 const app = express();
-require("./app/service/swaggerDocs")(app);
+require("./services/swaggerDocs")(app);
 
+const router = require("./routers");
 
 // ENCODAGE
 // JSON payload parser

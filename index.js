@@ -1,8 +1,8 @@
 const http = require("http");
 require("dotenv").config();
 const debug = require("debug")("app:server");
-const app = require ("./app");
-require("./app/service/swaggerDocs")(app);
+const app = require("./app");
+require("./app/services/swaggerDocs")(app);
 
 const port = process.env.PORT ?? 4000;
 
