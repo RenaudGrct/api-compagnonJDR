@@ -1,26 +1,25 @@
-const {
-    User
-} = require("../datamappers/user.js");
+const userDatamapper = require("../datamappers/user.js");
 
 const userController = {
 
     async findUser(req, res) {
         try{
-            const user = await User.findByPk();
-            res.json(user);
+            const userId = parseInt(req.params.id);
+            const result = await userDatamapper.findByPk(userId);
+            res.json(result);
         } catch(error) {
-            res.status(error.response.status).send("Une erreur est survenue");
-            console.log(error.response.status);
+            // res.status(error.response.status).send("Une erreur est survenue");
+            console.log(error);
         }
     },
 
     async createUser(req, res) {
         try {
-            const user = await User.insert(req.body);
-            res.send(user);
+            const result = await userDatamapper.insert(req.body);
+            res.send(result);
         } catch (error) {
-            res.status(error.response.status).send("Une erreur est survenue");
-            console.log(error.response.status);
+            // res.status(error.response.status).send("Une erreur est survenue");
+            console.log(error);
         }
 
     },
@@ -28,26 +27,26 @@ const userController = {
     async updateUser(req, res) {
         try {
 
-            const userId = req.params.id;
-            const user = await User.findByPk(userId);
-            if (!user) {
+            const userId = parseInt(req.params.id);
+            const result = await userDatamapper.findByPk(userId);
+            if (!result) {
                 return res.status(404).json("Modification impossible");
             }
-            await User.update(userId, req.body);
+            await userDatamapper.update(userId, req.body);
             return res.status(200).json("Modification réussie");
         } catch(error) {
-            res.status(error.response.status).send("Une erreur est survenue");
-            console.log(error.response.status);
+            // res.status(error.response.status).send("Une erreur est survenue");
+            console.log(error);
         }
     },
 
     async deleteUser(req, res) {
         try {
-            const userId = req.params.id;
-            await User.delete(userId);
+            const userId = parseInt(req.params.id);
+            await userDatamapper.delete(userId);
             return res.status(200).json("L'utilisateur a été supprimé");
         } catch (error) {
-            res.status(error.response.status).send("Une erreur est survenue");
+            // res.status(error.response.status).send("Une erreur est survenue");
             console.log(error.response.status);
         }
     }

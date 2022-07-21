@@ -9,7 +9,7 @@
 },
 "extends": "eslint:recommended",
 "rules": {
-  "indent": ["error", 4],
+  "indent": ["error", 2],
   "quotes": ["error", "double"],
   "semi": ["error", "always"],
   "no-multi-spaces": "error",

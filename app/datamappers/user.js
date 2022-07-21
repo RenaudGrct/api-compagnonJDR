@@ -13,7 +13,6 @@ const client = require("../services/database");
   * @property {string} email - Adresse mail de l'utilisateur
   * @property {string} username - Pseudo de l'utilisateur
   * @property {string} password - Mot de passe de l'utilisateur
-  * @property {boolean} isGuest - Défini si le compte est généré automatiquement
 */
 
 module.exports = {
@@ -25,7 +24,7 @@ module.exports = {
   async findByPk(userId) {
     const query = {
       text:`
-      SELECT * FROM user
+      SELECT * FROM cjdr.user
       WHERE id = $1
       `,
       values: [userId]
@@ -47,7 +46,7 @@ module.exports = {
     const {email, username, password } = user;
     const query = {
       text:`
-      INSERT INTO user 
+      INSERT INTO cjdr.user 
       (email, username, password) 
       VALUES ($1, $2, $3)`,
       values:[email, username, password]
@@ -62,19 +61,17 @@ module.exports = {
    * @returns Etat de l'update
    */
   async update(userId, userData) {
-    const { email, username, password, isGuest } = userData;
-    if (isGuest == true){
-      isGuest = false;
-    }
+    const { email, username, password} = userData;
+    const isGuest = false;
     const query = {
       text: `
-        UPDATE user
+        UPDATE cjdr.user
           SET
           "email" = $1,
           "username" = $2,
           "password" = $3,
-          "isGuest" = $4
-        WHERE "id" = $6
+          "isguest" = $4
+        WHERE "id" = $5
         `,
       values: [email, username, password, isGuest, userId]
 
@@ -93,7 +90,7 @@ module.exports = {
    * @returns Etat de la suppression
    */
   async delete(userId) {
-    const query = "DELETE FROM user WHERE id = $1";
+    const query = "DELETE FROM cjdr.user WHERE id = $1";
     const result = await client.query(query, [userId]);
     //On transforme en booléen le result
     return !!result.rowCount;

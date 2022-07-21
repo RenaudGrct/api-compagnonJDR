@@ -8,13 +8,13 @@ const options = {
   },
   baseDir: __dirname,
 
-  security: {
-    BasicAuth: {
-      type: "http",
-      scheme: "basic",
-    },
-  },
-  filesPattern: "../routers/*.js",
+  // security: {
+  //   BasicAuth: {
+  //     type: "http",
+  //     scheme: "basic",
+  //   },
+  // },
+  filesPattern: "../**/*.js",
   // URL de la page de documentation
   swaggerUIPath: process.env.API_DOCUMENTATION_ROUTE,
   // Activation de la documentation à travers une route de l'API
