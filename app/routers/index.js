@@ -5,7 +5,6 @@ const router = express.Router();
 const { errorHandler } = require("../services/handlers/errorHandler");
 
 // On préfixe les routers
-router.use("/", apiRouter);
 router.use("/api", apiRouter);
 
 // Route pour le gestionnaire d'erreur

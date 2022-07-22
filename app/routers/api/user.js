@@ -6,7 +6,7 @@ const createSchema = require("../../services/validation/schemas/userCreateSchema
 const updateSchema = require("../../services/validation/schemas/userUpdateSchema");
 const loginSchema = require("../../services/validation/schemas/loginSchema");
 
-const { userController } = require("../../controllers");
+const { userController : controller } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
@@ -21,7 +21,7 @@ router.route("/register")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .post(validate("body", createSchema), controllerHandler(userController.createProfile));
+  .post(validate("body", createSchema), controllerHandler(controller.createProfile));
 
 router.route("/:id(\\d+)")
   /**
@@ -31,9 +31,9 @@ router.route("/:id(\\d+)")
     * @param {number} id.path.required - user PK
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 404 - Profile note found - application/json
+    * @return {ApiError} 404 - Profile not found - application/json
   */
-  .get(controllerHandler(userController.getProfile))
+  .get(controllerHandler(controller.getProfile))
   /**
     * PATCH /api/profile/{id}
     * @summary Mise à jour du profile de l'utilisateur
@@ -42,19 +42,19 @@ router.route("/:id(\\d+)")
     * @param {InputUser} request.body.required - informations de l'utilisateur
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 404 - Profile note found - application/json
+    * @return {ApiError} 404 - Profile not found - application/json
   */
-  .patch(validate("body", updateSchema), controllerHandler(userController.updateProfile))
+  .patch(validate("body", updateSchema), controllerHandler(controller.updateProfile))
   /**
     * DELETE /api/profile/{id}
     * @summary Suppression du compte de l'utilisateur en BDD
     * @tags Profile
-    * @param {number} id.path.required - user PK
+    * @param {number} id.path.required - PK de l'utilisateur
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .delete(controllerHandler(userController.deleteProfile));
+  .delete(controllerHandler(controller.deleteProfile));
 
 router.route("/login")
   /**
@@ -67,6 +67,6 @@ router.route("/login")
     * @return {ApiError} 401 - Invalid connexion informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .post(validate("body", loginSchema),controllerHandler(userController.login));
+  .post(validate("body", loginSchema),controllerHandler(controller.login));
 
 module.exports = router;
