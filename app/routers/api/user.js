@@ -1,43 +1,72 @@
 const express = require("express");
-const userController = require("../../controllers/user");
+
+// Importation du service de validation Joi et ses schema.
+const validate = require("../../services/validation/validator");
+const createSchema = require("../../services/validation/schemas/userCreateSchema");
+const updateSchema = require("../../services/validation/schemas/userUpdateSchema");
+const loginSchema = require("../../services/validation/schemas/loginSchema");
+
+const { userController : controller } = require("../../controllers");
+const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
 
 router.route("/register")
   /**
     * POST /api/profile/register
-    * @summary Insert new user in database
+    * @summary Insertion d'un nouvel utilisateur en BDD
     * @tags Profile
     * @param {InputUser} request.body.required - user info
     * @return {User} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 404 - Profile note found - application/json
   */
-  .post(userController.createUser);
+  .post(validate("body", createSchema), controllerHandler(controller.createProfile));
 
 router.route("/:id(\\d+)")
   /**
     * GET /api/profile/{id}
-    * @summary Get an user profile by his PK
+    * @summary Renvoie le profile d'un utilisateur
     * @tags Profile
     * @param {number} id.path.required - user PK
     * @return {User} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 404 - Profile not found - application/json
   */
-  .get(userController.findUser)
+  .get(controllerHandler(controller.getProfile))
   /**
     * PATCH /api/profile/{id}
-    * @summary Update current user informations in database
+    * @summary Mise à jour du profile de l'utilisateur
     * @tags Profile
     * @param {number} id.path.required - PK de l'utilisateur
     * @param {InputUser} request.body.required - informations de l'utilisateur
     * @return {User} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 404 - Profile not found - application/json
   */
-  .patch(userController.updateUser)
+  .patch(validate("body", updateSchema), controllerHandler(controller.updateProfile))
   /**
     * DELETE /api/profile/{id}
-    * @summary Delete current user in database
+    * @summary Suppression du compte de l'utilisateur en BDD
     * @tags Profile
-    * @param {number} id.path.required - user PK
+    * @param {number} id.path.required - PK de l'utilisateur
     * @return {User} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 404 - Profile note found - application/json
   */
-  .delete(userController.deleteUser);
+  .delete(controllerHandler(controller.deleteProfile));
+
+router.route("/login")
+  /**
+    * POST /api/login
+    * @summary Vérification de l'existance de l'utilisateur en BDD
+    * @tags Login
+    * @param {LoginUser} request.body.required - informations de connexion
+    * @return {User} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connexion informations application/json
+    * @return {ApiError} 404 - Profile not found - application/json
+  */
+  .post(validate("body", loginSchema),controllerHandler(controller.login));
 
 module.exports = router;
