@@ -43,7 +43,7 @@ module.exports = {
    * @returns L'utilisateur insérer
    */
   async insert(user) {
-    const {email, username, password } = user;
+    const {email, username, password} = user;
     const query = {
       text:`
       INSERT INTO cjdr.user 
