@@ -18,6 +18,7 @@ router.route("/register")
     * @tags Profile
     * @param {InputUser} request.body.required - user info
     * @return {User} 200 - success response - application/json
+    * @example response - 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
@@ -26,7 +27,7 @@ router.route("/register")
 router.route("/:id(\\d+)")
   /**
     * GET /api/profile/{id}
-    * @summary Renvoie le profile d'un utilisateur
+    * @summary Renvoie le profil d'un utilisateur
     * @tags Profile
     * @param {number} id.path.required - user PK
     * @return {User} 200 - success response - application/json
@@ -36,7 +37,7 @@ router.route("/:id(\\d+)")
   .get(controllerHandler(controller.getProfile))
   /**
     * PATCH /api/profile/{id}
-    * @summary Mise à jour du profile de l'utilisateur
+    * @summary Mise à jour du profil de l'utilisateur
     * @tags Profile
     * @param {number} id.path.required - PK de l'utilisateur
     * @param {InputUser} request.body.required - informations de l'utilisateur
@@ -58,7 +59,7 @@ router.route("/:id(\\d+)")
 
 router.route("/login")
   /**
-    * POST /api/login
+    * POST /api/profile/login
     * @summary Vérification de l'existance de l'utilisateur en BDD
     * @tags Login
     * @param {LoginUser} request.body.required - informations de connexion
