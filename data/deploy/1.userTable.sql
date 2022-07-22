@@ -1,6 +1,7 @@
 -- Deploy compagnon-jdr:1.userTable to pg
 
 BEGIN;
+CREATE SCHEMA IF NOT EXISTS cjdr;
 
 CREATE SCHEMA IF NOT EXISTS cjdr;
 
