@@ -1,17 +1,12 @@
 const debug = require("debug")("SQL:log");
 const { Pool } = require("pg");
 
-const pool = new Pool();
-
-// const pg = require("pg");
-
-// const client = new pg.Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false
-//   }
-// });
-// client.connect();
+const pool = new Pool({
+  connectionString:process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 module.exports = {
   originalClient: pool,
