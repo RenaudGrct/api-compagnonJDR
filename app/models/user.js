@@ -15,6 +15,12 @@ const client = require("../services/database");
   * @property {string} password - Mot de passe de l'utilisateur
 */
 
+/**
+  * @typedef {object} LoginUser
+  * @property {string} email - Adresse mail de l'utilisateur
+  * @property {string} password - Mot de passe de l'utilisateur
+*/
+
 module.exports = {
   /**
     * Récupère l'utilisateur selon son id
@@ -101,7 +107,7 @@ module.exports = {
     * @param {Object} inputUser input envoyés par l'utilisateur
     * @returns Les champs unique en BDD si ils existent
     */
-  async isUnique(inputUser) {
+  async isExist(inputUser) {
     const fields = [];
     const values = [];
 
@@ -116,11 +122,14 @@ module.exports = {
         values.push(value);
       }
     });
-
     const query = {
-      text:`SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
+      text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
       values
     };
+
+    if (fields.lenght === 0) {
+      query.text = `SELECT * FROM cjdr.user WHERE (${fields})`;
+    }
 
     const result = await client.query(query);
     if (result.rowCount === 0) {

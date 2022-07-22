@@ -13,6 +13,17 @@ const userController = {
   },
 
   async createProfile(req, res) {
+    const user = await userDatamapper.isExist(req.body);
+    if (user) {
+      let field;
+      if (user.username === req.body.username) {
+        field = "ce nom d'utilisateur";
+      }
+      if (user.email === req.body.email) {
+        field = "cette adresse mail";
+      }
+      throw new ApiError (`Un profile existe déjà avec ${field}`, { statusCode : 404 });
+    }
     const result = await userDatamapper.insert(req.body);
     res.send(result);
   },
