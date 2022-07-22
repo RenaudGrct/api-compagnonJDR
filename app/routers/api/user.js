@@ -21,7 +21,7 @@ router.route("/register")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .post(validate("body", createSchema), controllerHandler(userController.createUser));
+  .post(validate("body", createSchema), controllerHandler(userController.createProfile));
 
 router.route("/:id(\\d+)")
   /**
@@ -33,7 +33,7 @@ router.route("/:id(\\d+)")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .get(controllerHandler(userController.findUser))
+  .get(controllerHandler(userController.getProfile))
   /**
     * PATCH /api/profile/{id}
     * @summary Mise à jour du profile de l'utilisateur
@@ -44,7 +44,7 @@ router.route("/:id(\\d+)")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .patch(validate("body", updateSchema), controllerHandler(userController.updateUser))
+  .patch(validate("body", updateSchema), controllerHandler(userController.updateProfile))
   /**
     * DELETE /api/profile/{id}
     * @summary Suppression du compte de l'utilisateur en BDD
@@ -54,7 +54,7 @@ router.route("/:id(\\d+)")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
-  .delete(controllerHandler(userController.deleteUser));
+  .delete(controllerHandler(userController.deleteProfile));
 
 router.route("/login")
   /**
