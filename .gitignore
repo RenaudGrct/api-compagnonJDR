@@ -1,6 +1,5 @@
 #sqitch
-data/
-
+/data
 # npm
 node_modules/
 package-lock.json
