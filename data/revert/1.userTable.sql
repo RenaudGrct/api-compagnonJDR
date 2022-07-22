@@ -2,7 +2,7 @@
 
 BEGIN;
 
-TRUNCATE public.user RESTART IDENTITY;
-DROP TABLE public.user;
-
+TRUNCATE cjdr.user RESTART IDENTITY;
+DROP TABLE cjdr.user;
+DROP SCHEMA cjdr;
 COMMIT;

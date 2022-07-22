@@ -2,7 +2,9 @@
 
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS public.user (
+CREATE SCHEMA IF NOT EXISTS cjdr;
+
+CREATE TABLE IF NOT EXISTS cjdr.user (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email text NOT NULL UNIQUE CHECK (email ~ '^[\w\-\.]+@([\w-]+\.)+[\w-]+$'),
     username text NOT NULL UNIQUE,
@@ -13,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.user (
     updatedAt TIMESTAMPTZ DEFAULT null
 );
 
-INSERT INTO public.user (email, username, password, isGuest)
+INSERT INTO cjdr.user (email, username, password, isGuest)
   VALUES
     ('michel@hotmail.com', 'michoux', 'michouxdu95', FALSE),
     ('Gimli@moria.org', 'nainportant', '123456789', FALSE);

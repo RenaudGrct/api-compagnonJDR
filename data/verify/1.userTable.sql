@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM public.user;
+SELECT * FROM cjdr.user;
 
 ROLLBACK;
