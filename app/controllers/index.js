@@ -1,4 +1,6 @@
 require("dotenv").config();
+const { userController } = require("./user");
+const { authController } = require("./auth");
 
 const apiController = {
   /**
@@ -16,4 +18,8 @@ const apiController = {
   },
 };
 
-module.exports = { apiController };
+module.exports = {
+  apiController,
+  userController,
+  authController
+};

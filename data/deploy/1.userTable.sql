@@ -6,9 +6,9 @@ CREATE SCHEMA IF NOT EXISTS cjdr;
 
 CREATE TABLE IF NOT EXISTS cjdr.user (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email text NOT NULL UNIQUE CHECK (email ~ '^[\w\-\.]+@([\w-]+\.)+[\w-]+$'),
+    email text NOT NULL UNIQUE,
     username text NOT NULL UNIQUE,
-    password text NOT NULL CHECK (password ~ '.{6,16}'),
+    password text NOT NULL,
     avatarURL text,
     isGuest BOOLEAN NOT NULL DEFAULT TRUE,
     createdAt TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
