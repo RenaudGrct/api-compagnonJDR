@@ -5,7 +5,7 @@ const client = require("../services/database");
   * @property {string} email - Adresse mail de l'utilisateur
   * @property {string} password - Mot de passe de l'utilisateur
   * @property {string} username - Pseudo de l'utilisateur
-  * @property {boolean} isGuest - Défini si le compte est généré automatiquement
+  * @property {boolean} isguest - Défini si le compte est généré automatiquement
 */
 
 /**
