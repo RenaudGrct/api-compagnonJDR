@@ -15,9 +15,15 @@ const client = require("../services/database");
   * @property {string} password - Mot de passe de l'utilisateur
 */
 
+/**
+  * @typedef {object} LoginUser
+  * @property {string} email - Adresse mail de l'utilisateur
+  * @property {string} password - Mot de passe de l'utilisateur
+*/
+
 module.exports = {
   /**
-    * Récupère l'utilisateur selon l'id
+    * Récupère l'utilisateur selon son id
     * @returns L'utilisateur existant en BDD
   */
 
@@ -56,8 +62,8 @@ module.exports = {
   },
 
   /**
-   * @param {number} userId Id de l'utilisateur à update
-   * @param {Object} userData informations de l'utilisateur à update en BDD
+   * @param {number} userId PK de l'utilisateur
+   * @param {Object} userData input de l'utilisateur à update en BDD
    * @returns Etat de l'update
    */
   async update(userId, userData) {
@@ -81,7 +87,7 @@ module.exports = {
       */
     };
     const result = await client.query(query);
-    //On transforme en booléen le result
+    //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
     return !!result.rowCount;
   },
 
@@ -92,7 +98,44 @@ module.exports = {
   async delete(userId) {
     const query = "DELETE FROM cjdr.user WHERE id = $1";
     const result = await client.query(query, [userId]);
-    //On transforme en booléen le result
+    //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
     return !!result.rowCount;
+  },
+
+  /**
+    * Vérification si l'utilisateur existe déjà en BDD avec l'email ou le nom d'utilisateur
+    * @param {Object} inputUser input envoyés par l'utilisateur
+    * @returns Les champs unique en BDD si ils existent
+    */
+  async isExist(inputUser) {
+    const fields = [];
+    const values = [];
+
+    // On récupère les entrée et les valeurs associé de l'objet
+    Object.entries(inputUser).forEach(([key, value]) => {
+      let index = 0;
+      // les deux clefs qui doivent être unique
+      if(["email", "username"].includes(key)) {
+        // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
+        fields.push(`"${key}" = $${index + 1}`);
+        // On insère les valeurs correspondantes à sa clef
+        values.push(value);
+      }
+    });
+    const query = {
+      text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
+      values
+    };
+
+    if (fields.lenght === 0) {
+      query.text = `SELECT * FROM cjdr.user WHERE (${fields})`;
+    }
+
+    const result = await client.query(query);
+    if (result.rowCount === 0) {
+      return null;
+    }
+
+    return result.rowCount[0];
   }
 };
