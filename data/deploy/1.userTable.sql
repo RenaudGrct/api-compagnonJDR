@@ -2,13 +2,13 @@
 
 BEGIN;
 CREATE SCHEMA IF NOT EXISTS cjdr;
+GRANT USAGE ON SCHEMA cjdr TO cjdr;
 
-CREATE SCHEMA IF NOT EXISTS cjdr;
 
 CREATE TABLE IF NOT EXISTS cjdr.user (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email text NOT NULL UNIQUE,
-    username text NOT NULL UNIQUE,
+    email text NOT NULL,
+    username text NOT NULL,
     password text NOT NULL,
     avatarURL text,
     isGuest BOOLEAN NOT NULL DEFAULT TRUE,
@@ -16,9 +16,10 @@ CREATE TABLE IF NOT EXISTS cjdr.user (
     updatedAt TIMESTAMPTZ DEFAULT null
 );
 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 INSERT INTO cjdr.user (email, username, password, isGuest)
   VALUES
     ('michel@hotmail.com', 'michoux', 'michouxdu95', FALSE),
-    ('Gimli@moria.org', 'nainportant', '123456789', FALSE);
+    ('gimli@moria.org', 'nainportant', '123456789', FALSE);
 
 COMMIT;

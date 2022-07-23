@@ -6,6 +6,7 @@ const createSchema = require("../../services/validation/schemas/userCreateSchema
 const updateSchema = require("../../services/validation/schemas/userUpdateSchema");
 const loginSchema = require("../../services/validation/schemas/loginSchema");
 
+// Importation du controller et le handler
 const { userController : controller } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
@@ -18,7 +19,6 @@ router.route("/register")
     * @tags Profile
     * @param {InputUser} request.body.required - user info
     * @return {User} 200 - success response - application/json
-    * @example response - 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
@@ -63,7 +63,7 @@ router.route("/login")
     * @summary Vérification de l'existance de l'utilisateur en BDD
     * @tags Login
     * @param {LoginUser} request.body.required - informations de connexion
-    * @return {User} 200 - success response - application/json
+    * @return {LoginUser} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 401 - Invalid connexion informations application/json
     * @return {ApiError} 404 - Profile not found - application/json

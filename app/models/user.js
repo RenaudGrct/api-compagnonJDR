@@ -107,31 +107,37 @@ module.exports = {
     * @param {Object} inputUser input envoyés par l'utilisateur
     * @returns Les champs unique en BDD si ils existent
     */
-  async isExist(inputUser) {
+  async isExist(inputUser, userId) {
     const fields = [];
     const values = [];
 
     // On récupère les entrée et les valeurs associé de l'objet
-    Object.entries(inputUser).forEach(([key, value]) => {
-      let index = 0;
+    Object.entries(inputUser).forEach(([key, value], index) => {
       // les deux clefs qui doivent être unique
       if(["email", "username"].includes(key)) {
         // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
         fields.push(`"${key}" = $${index + 1}`);
         // On insère les valeurs correspondantes à sa clef
-        values.push(value);
+        values.push(value.toLowerCase());
       }
     });
     const query = {
-      text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
+      text : `SELECT * FROM cjdr.user WHERE ${fields.join(" OR ")}`,
       values
     };
 
-    if (fields.lenght === 0) {
-      query.text = `SELECT * FROM cjdr.user WHERE (${fields})`;
+    if (fields.length === 1) {
+      query.text = `SELECT * FROM cjdr.user WHERE ${fields}`;
     }
 
+    // if (userId) {
+    //   query.text += ` AND id = $${values.length + 1}`;
+    //   query.values.push(userId);
+    // }
+    console.log(`🚀 line 129 ~ query`, query)
+
     const result = await client.query(query);
+    console.log(`🚀 line 140 ~ query result`, result.rowCount[0]);
     if (result.rowCount === 0) {
       return null;
     }
