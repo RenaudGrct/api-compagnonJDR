@@ -7,6 +7,6 @@ module.exports = {
   },
 
   async generateRefreshToken (user){
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1y"});
+    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "3M"});
   }
 };

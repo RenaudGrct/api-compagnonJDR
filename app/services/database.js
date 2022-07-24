@@ -11,6 +11,16 @@ const pool = new Pool({
 module.exports = {
   originalClient: pool,
 
+  async end(...params){
+    debug(...params);
+    return this.originalClient.end(...params);
+  },
+
+  async connect(...params){
+    debug(...params);
+    return this.originalClient.connect(...params);
+  },
+
   async query(...params){
     debug(...params);
     return this.originalClient.query(...params);

@@ -69,7 +69,7 @@ module.exports = {
    */
   async update(userId, userData) {
     const { email, username, password} = userData;
-    const isGuest = false;
+
     const query = {
       text: `
         UPDATE cjdr.user
@@ -77,10 +77,9 @@ module.exports = {
           "email" = $1,
           "username" = $2,
           "password" = $3,
-          "isguest" = $4
-        WHERE "id" = $5
+        WHERE "id" = $4
         `,
-      values: [email, username, password, isGuest, userId]
+      values: [email, username, password, userId]
 
       /* Potentiel function en BDD
       text: `SELECT update_user($1, $2)`,

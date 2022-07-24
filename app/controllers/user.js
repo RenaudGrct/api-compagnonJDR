@@ -1,7 +1,7 @@
 const debug = require("debug")("app:controllers");
-const bcrypt = require("bcrypt");
 const ApiError = require("../errors/apiError.js");
 const userDatamapper = require("../models/user.js");
+const { hashing } = require("../services/hashPassword.js");
 
 
 module.exports = {
@@ -41,8 +41,7 @@ module.exports = {
       throw new ApiError (`Un profile existe déjà avec ${field}`, { statusCode : 404 });
     }
     // Chiffrage du mot de passe
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(req.body.password, salt);
+    const hash = await hashing(req.body.password);
     req.body.password = hash;
     const result = await userDatamapper.insert(req.body);
     res.send(result);
@@ -68,15 +67,17 @@ module.exports = {
       debug("L'utilisateur existe : ", isUserExist);
       if (isUserExist) {
         let field;
-        if (isUserExist.username === req.body.username) {
+        if (user.id !== req.body.id && isUserExist.username === req.body.username) {
           field = "ce nom d'utilisateur";
         }
-        if (isUserExist.email === req.body.email) {
+        if (user.id !== req.body.id && isUserExist.email === req.body.email) {
           field = "cette adresse mail";
         }
         throw new ApiError (`Un profil existe déjà avec ${field}`, { statusCode : 404 });
       }
     }
+    const hash = await hashing(req.body.password);
+    req.body.password = hash;
     await userDatamapper.update(userId, req.body);
     return res.status(200).json("Votre profil à bien été mis à jour");
   },
