@@ -1,3 +1,5 @@
+const debug = require("debug")("app:controllers");
+const bcrypt = require("bcrypt");
 const ApiError = require("../errors/apiError.js");
 const userDatamapper = require("../models/user.js");
 
@@ -38,6 +40,10 @@ module.exports = {
       }
       throw new ApiError (`Un profile existe déjà avec ${field}`, { statusCode : 404 });
     }
+    // Chiffrage du mot de passe
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(req.body.password, salt);
+    req.body.password = hash;
     const result = await userDatamapper.insert(req.body);
     res.send(result);
   },
@@ -55,11 +61,11 @@ module.exports = {
     if (!user) {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
-    console.log(`🚀 line 60 ~ req.body`, req.body);
+    debug("body update profile : ", req.body);
 
     if (req.body.email || req.body.username) {
       const isUserExist = await userDatamapper.isExist(req.body, userId);
-      console.log(`🚀 line 62 ~ isUserExist`, isUserExist);
+      debug("L'utilisateur existe : ", isUserExist);
       if (isUserExist) {
         let field;
         if (isUserExist.username === req.body.username) {

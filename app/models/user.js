@@ -1,3 +1,4 @@
+const debug = require("debug")("app:models");
 const client = require("../services/database");
 /**
   * @typedef {object} User
@@ -134,10 +135,10 @@ module.exports = {
     //   query.text += ` AND id = $${values.length + 1}`;
     //   query.values.push(userId);
     // }
-    console.log(`🚀 line 129 ~ query`, query)
+    debug("query : ", query)
 
     const result = await client.query(query);
-    console.log(`🚀 line 140 ~ query result`, result.rowCount[0]);
+    debug("query result", result.rowCount[0]);
     if (result.rowCount === 0) {
       return null;
     }
