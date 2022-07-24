@@ -2,23 +2,30 @@
 
 BEGIN;
 CREATE SCHEMA IF NOT EXISTS cjdr;
+GRANT USAGE ON SCHEMA cjdr TO cjdr;
 
-CREATE SCHEMA IF NOT EXISTS cjdr;
 
 CREATE TABLE IF NOT EXISTS cjdr.user (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email text NOT NULL UNIQUE,
-    username text NOT NULL UNIQUE,
+    email text NOT NULL,
+    username text NOT NULL,
     password text NOT NULL,
     avatarURL text,
-    isGuest BOOLEAN NOT NULL DEFAULT TRUE,
+    isguest BOOLEAN NOT NULL DEFAULT FALSE,
     createdAt TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMPTZ DEFAULT null
 );
 
-INSERT INTO cjdr.user (email, username, password, isGuest)
-  VALUES
-    ('michel@hotmail.com', 'michoux', 'michouxdu95', FALSE),
-    ('Gimli@moria.org', 'nainportant', '123456789', FALSE);
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
+
+-- CREATE TRIGGER change_guest_status
+-- AFTER UPDATE ON cjdr.user
+-- WHEN (OLD.isguest = TRUE)
+-- BEGIN
+--   UPDATE cjdr.user
+--   SET isguest = FALSE
+--   WHERE id IN (SELECT DISTINCT id FROM inserted)
+-- END;
+
 
 COMMIT;
