@@ -60,17 +60,15 @@ module.exports = {
     if (!user) {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
-    debug("body update profile : ", req.body);
 
     if (req.body.email || req.body.username) {
       const isUserExist = await userDatamapper.isExist(req.body, userId);
-      debug("L'utilisateur existe : ", isUserExist);
-      if (isUserExist) {
+      if (isUserExist.id !== user.id) {
         let field;
-        if (user.id !== req.body.id && isUserExist.username === req.body.username) {
+        if (isUserExist.username === req.body.username) {
           field = "ce nom d'utilisateur";
         }
-        if (user.id !== req.body.id && isUserExist.email === req.body.email) {
+        if (isUserExist.email === req.body.email) {
           field = "cette adresse mail";
         }
         throw new ApiError (`Un profil existe déjà avec ${field}`, { statusCode : 404 });

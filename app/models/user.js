@@ -76,16 +76,16 @@ module.exports = {
           SET
           "email" = $1,
           "username" = $2,
-          "password" = $3,
+          "password" = $3
         WHERE "id" = $4
         `,
       values: [email, username, password, userId]
 
-      /* Potentiel function en BDD
-      text: `SELECT update_user($1, $2)`,
-      values: [userId, userData]
-      */
     };
+    /* Potentiel function en BDD
+    text: `SELECT update_user($1, $2)`,
+    values: [userId, userData]
+    */
     const result = await client.query(query);
     //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
     return !!result.rowCount;
@@ -129,11 +129,7 @@ module.exports = {
     if (fields.length === 1) {
       query.text = `SELECT * FROM cjdr.user WHERE ${fields}`;
     }
-
-    debug("query : ", query);
-
     const result = await client.query(query);
-    debug("query row result", result.rows[0]);
     if (result.rowCount === 0) {
       return null;
     }

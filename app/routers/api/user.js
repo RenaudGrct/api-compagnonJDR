@@ -10,6 +10,8 @@ const loginSchema = require("../../services/validation/schemas/loginSchema");
 const { userController : controller } = require("../../controllers");
 const { authController : auth } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
+const { authentificateToken } = require("../../services/Token/authMiddleware");
+const { refreshToken } = require("../../services/Token/refreshToken");
 
 const router = express.Router();
 
@@ -70,5 +72,32 @@ router.route("/login")
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .post(validate("body", loginSchema),controllerHandler(auth.login));
+
+router.route("/token")
+  /**
+    * POST /api/profile/login
+    * @summary Génère un nouvel Access Token via le refresh Token de l'utilisateur
+    * @tags Login
+    * @param {User} request.body.required - informations de connexion
+    * @return {LoginUser} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
+    * @return {ApiError} 403 - Forbidden application/json
+    * @return {ApiError} 404 - Profile not found - application/json
+  */
+  .post(refreshToken);
+
+router.route("/logout")
+  /**
+    * POST /api/profile/login
+    * @summary Deconnexion de l'utilisateur
+    * @tags Login
+    * @return {string} 200 - success response - application/json
+    * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
+    * @return {ApiError} 403 - Forbidden application/json
+    * @return {ApiError} 404 - Profile not found - application/json
+  */
+  .delete(authentificateToken, auth.logout);
 
 module.exports = router;

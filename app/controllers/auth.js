@@ -4,18 +4,14 @@ const ApiError = require("../errors/apiError.js");
 const userDatamapper = require("../models/user.js");
 const { generateAccessToken, generateRefreshToken } = require("../services/Token/generateToken.js");
 
-
 module.exports = {
   async login(req, res) {
-    debug("body du login : ", req.body);
     const { password } = req.body;
 
     const user = await userDatamapper.isExist(req.body);
     if (user) {
-      debug("utilisateur trouvé : ", user);
       // verification du mot de passe
       const check = await bcrypt.compare(password, user.password);
-      debug("le mot de passe est-il bon :", check);
       if (check) {
         const accessToken = await generateAccessToken(user);
         const refreshToken = await generateRefreshToken(user);
@@ -23,5 +19,9 @@ module.exports = {
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
+  },
+
+  async logout (req, res) {
+    res.sendStatus(204);
   }
 };
