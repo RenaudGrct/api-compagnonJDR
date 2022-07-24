@@ -9,6 +9,6 @@ const port = process.env.PORT ?? 4000;
 // Server creation using "app" config
 const server = http.createServer(app);
 
-server.listen(port, "localhost", () => {
+server.listen(port, () => {
   debug(`Server started on http://localhost:${port}`);
 });

@@ -108,7 +108,7 @@ module.exports = {
     * @param {Object} inputUser input envoyés par l'utilisateur
     * @returns Les champs unique en BDD si ils existent
     */
-  async isExist(inputUser, userId) {
+  async isExist(inputUser) {
     const fields = [];
     const values = [];
 
@@ -131,18 +131,14 @@ module.exports = {
       query.text = `SELECT * FROM cjdr.user WHERE ${fields}`;
     }
 
-    // if (userId) {
-    //   query.text += ` AND id = $${values.length + 1}`;
-    //   query.values.push(userId);
-    // }
-    debug("query : ", query)
+    debug("query : ", query);
 
     const result = await client.query(query);
-    debug("query result", result.rowCount[0]);
+    debug("query row result", result.rows[0]);
     if (result.rowCount === 0) {
       return null;
     }
 
-    return result.rowCount[0];
+    return result.rows[0];
   }
 };

@@ -8,6 +8,7 @@ const loginSchema = require("../../services/validation/schemas/loginSchema");
 
 // Importation du controller et le handler
 const { userController : controller } = require("../../controllers");
+const { authController : auth } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
@@ -65,9 +66,9 @@ router.route("/login")
     * @param {LoginUser} request.body.required - informations de connexion
     * @return {LoginUser} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 401 - Invalid connexion informations application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .post(validate("body", loginSchema),controllerHandler(controller.login));
+  .post(validate("body", loginSchema),controllerHandler(auth.login));
 
 module.exports = router;
