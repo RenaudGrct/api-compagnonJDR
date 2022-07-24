@@ -75,7 +75,7 @@ router.route("/login")
 
 router.route("/token")
   /**
-    * POST /api/profile/login
+    * POST /api/profile/token
     * @summary Génère un nouvel Access Token via le refresh Token de l'utilisateur
     * @tags Login
     * @param {User} request.body.required - informations de connexion
@@ -89,7 +89,7 @@ router.route("/token")
 
 router.route("/logout")
   /**
-    * POST /api/profile/login
+    * POST /api/profile/logout
     * @summary Deconnexion de l'utilisateur
     * @tags Login
     * @return {string} 200 - success response - application/json
