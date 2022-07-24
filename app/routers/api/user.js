@@ -89,7 +89,7 @@ router.route("/token")
 
 router.route("/logout")
   /**
-    * POST /api/profile/logout
+    * DELETE /api/profile/logout
     * @summary Deconnexion de l'utilisateur
     * @tags Login
     * @return {string} 200 - success response - application/json
