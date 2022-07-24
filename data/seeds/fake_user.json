@@ -1,0 +1,31 @@
+[
+  {
+    "email": "lesgouvernertous@mordor.com",
+    "username": "Sauron",
+    "password": "anneauUnique"
+  },
+
+  {
+    "email": "hobbitjoufflu@gollum.com",
+    "username": "Sméagol" ,
+    "password": "Delici0usFish"
+  },
+
+  {
+    "email": "drizztlemagnifique@outreterre.com",
+    "username": "Drizzt",
+    "password": "lik3N0t0th3rDr0w"
+  },
+
+  {
+    "email": "championdusprint@moria.com",
+    "username": "Gimli",
+    "password": "j@m@isS@nsM@H@che"
+  },
+
+  {
+    "email": "datasensei@yamete.com",
+    "username": "BenOclock",
+    "password": "N0C0DEmustdie!"
+  }
+]

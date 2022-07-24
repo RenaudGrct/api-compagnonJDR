@@ -1,3 +1,4 @@
+const debug = require("debug")("app:models");
 const client = require("../services/database");
 /**
   * @typedef {object} User
@@ -68,24 +69,23 @@ module.exports = {
    */
   async update(userId, userData) {
     const { email, username, password} = userData;
-    const isGuest = false;
+
     const query = {
       text: `
         UPDATE cjdr.user
           SET
           "email" = $1,
           "username" = $2,
-          "password" = $3,
-          "isguest" = $4
-        WHERE "id" = $5
+          "password" = $3
+        WHERE "id" = $4
         `,
-      values: [email, username, password, isGuest, userId]
+      values: [email, username, password, userId]
 
-      /* Potentiel function en BDD
-      text: `SELECT update_user($1, $2)`,
-      values: [userId, userData]
-      */
     };
+    /* Potentiel function en BDD
+    text: `SELECT update_user($1, $2)`,
+    values: [userId, userData]
+    */
     const result = await client.query(query);
     //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
     return !!result.rowCount;
@@ -112,30 +112,28 @@ module.exports = {
     const values = [];
 
     // On récupère les entrée et les valeurs associé de l'objet
-    Object.entries(inputUser).forEach(([key, value]) => {
-      let index = 0;
+    Object.entries(inputUser).forEach(([key, value], index) => {
       // les deux clefs qui doivent être unique
       if(["email", "username"].includes(key)) {
         // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
         fields.push(`"${key}" = $${index + 1}`);
         // On insère les valeurs correspondantes à sa clef
-        values.push(value);
+        values.push(value.toLowerCase());
       }
     });
     const query = {
-      text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
+      text : `SELECT * FROM cjdr.user WHERE ${fields.join(" OR ")}`,
       values
     };
 
-    if (fields.lenght === 0) {
-      query.text = `SELECT * FROM cjdr.user WHERE (${fields})`;
+    if (fields.length === 1) {
+      query.text = `SELECT * FROM cjdr.user WHERE ${fields}`;
     }
-
     const result = await client.query(query);
     if (result.rowCount === 0) {
       return null;
     }
 
-    return result.rowCount[0];
+    return result.rows[0];
   }
 };
