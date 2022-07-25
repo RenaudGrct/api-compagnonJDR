@@ -4,9 +4,8 @@ const client = require("../services/database");
   * @typedef {object} User
   * @property {number} id - Identifiant unique (PK)
   * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} password - Mot de passe de l'utilisateur
   * @property {string} username - Pseudo de l'utilisateur
-  * @property {boolean} isguest - Défini si le compte est généré automatiquement
+  * @property {string} password - Mot de passe de l'utilisateur
 */
 
 /**
@@ -49,8 +48,8 @@ module.exports = {
    * @param {inputUser} user - l'utilisateur à insérer
    * @returns L'utilisateur insérer
    */
-  async insert(user) {
-    const {email, username, password} = user;
+  async insert(guest) {
+    const {email, username, password} = guest;
     const query = {
       text:`
       INSERT INTO cjdr.user 

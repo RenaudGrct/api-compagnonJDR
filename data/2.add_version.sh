@@ -1,0 +1,1 @@
+# sqitch add 2.guestTable -n 'Création de la table guest et altération de la table user'
