@@ -37,7 +37,7 @@ router.route("/:id(\\d+)")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .get(controllerHandler(controller.getProfile))
+  .get(authentificateToken, controllerHandler(controller.getProfile))
   /**
     * PATCH /api/profile/{id}
     * @summary Mise à jour du profil de l'utilisateur
