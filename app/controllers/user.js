@@ -62,11 +62,6 @@ module.exports = {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
 
-    if(req.body.password){
-      const hash = await hashing(req.body.password);
-      req.body.password = hash;
-    }
-
     if (req.body.email || req.body.username) {
       const isUserExist = await userDatamapper.isExist(req.body, userId);
       if (isUserExist) {
@@ -81,6 +76,10 @@ module.exports = {
       }
     }
 
+    if(req.body.password){
+      const hash = await hashing(req.body.password);
+      req.body.password = hash;
+    }
 
     await userDatamapper.update(userId, req.body);
     return res.status(200).json("Votre profil à bien été mis à jour");
