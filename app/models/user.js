@@ -1,4 +1,4 @@
-const debug = require("debug")("app:models");
+const debug = require("debug")("models:user");
 const client = require("../services/database");
 /**
   * @typedef {object} User
@@ -58,6 +58,7 @@ module.exports = {
       values:[email, username, password]
     };
     const savedUser = await client.query(query);
+    debug("saved user : ", savedUser.rows[0]);
     return savedUser.rows[0];
   },
 
@@ -67,20 +68,31 @@ module.exports = {
    * @returns Etat de l'update
    */
   async update(userId, userData) {
-    const { email, username, password} = userData;
+    const fields = [];
+    const values = [];
+    // On récupère les entrée et les valeurs associé de l'objet
+    Object.entries(userData).forEach(([key, value], index) => {
+      // les deux clefs qui doivent être unique
+      if(["email", "username", "password"].includes(key)) {
+        // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
+        fields.push(`"${key}" = $${index + 1}`);
+        // On insère les valeurs correspondantes à sa clef
+        values.push(value.toLowerCase());
+      }
+    });
+    values.push(userId);
 
     const query = {
-      text: `
-        UPDATE cjdr.user
-          SET
-          "email" = $1,
-          "username" = $2,
-          "password" = $3
-        WHERE "id" = $4
-        `,
-      values: [email, username, password, userId]
-
+      text :
+      `
+      UPDATE cjdr.user
+        SET
+        ${fields.join(",")}
+        WHERE "id" = $${values.length}
+      `,
+      values
     };
+
     /* Potentiel function en BDD
     text: `SELECT update_user($1, $2)`,
     values: [userId, userData]
@@ -106,7 +118,7 @@ module.exports = {
     * @param {Object} inputUser input envoyés par l'utilisateur
     * @returns Les champs unique en BDD si ils existent
     */
-  async isExist(inputUser) {
+  async isExist(inputUser, userId) {
     const fields = [];
     const values = [];
 
@@ -121,12 +133,13 @@ module.exports = {
       }
     });
     const query = {
-      text : `SELECT * FROM cjdr.user WHERE ${fields.join(" OR ")}`,
+      text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
       values
     };
 
-    if (fields.length === 1) {
-      query.text = `SELECT * FROM cjdr.user WHERE ${fields}`;
+    if (userId) {
+      query.text += ` AND id <> $${values.length + 1}`;
+      query.values.push(userId);
     }
     const result = await client.query(query);
     if (result.rowCount === 0) {

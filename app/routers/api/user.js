@@ -113,6 +113,6 @@ router.route("/logout")
     * @return {ApiError} 403 - Forbidden application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .delete(authentificateToken, auth.logout);
+  .delete(auth.logout);
 
 module.exports = router;
