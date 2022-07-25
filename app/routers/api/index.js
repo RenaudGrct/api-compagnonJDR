@@ -2,7 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 const userRouter = require("./user");
-
 const { apiController } = require("../../controllers");
 const { ApiError } = require("../../services/handlers/errorHandler");
 

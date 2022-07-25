@@ -44,7 +44,8 @@ module.exports = {
     const hash = await hashing(req.body.password);
     req.body.password = hash;
     const result = await userDatamapper.insert(req.body);
-    res.send(result);
+    debug("create profile result : ", result);
+    return res.status(200).json("Votre compte à bien été enregistré");
   },
 
   /**
@@ -61,9 +62,14 @@ module.exports = {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
 
+    if(req.body.password){
+      const hash = await hashing(req.body.password);
+      req.body.password = hash;
+    }
+
     if (req.body.email || req.body.username) {
       const isUserExist = await userDatamapper.isExist(req.body, userId);
-      if (isUserExist.id !== user.id) {
+      if (isUserExist) {
         let field;
         if (isUserExist.username === req.body.username) {
           field = "ce nom d'utilisateur";
@@ -74,8 +80,8 @@ module.exports = {
         throw new ApiError (`Un profil existe déjà avec ${field}`, { statusCode : 404 });
       }
     }
-    const hash = await hashing(req.body.password);
-    req.body.password = hash;
+
+
     await userDatamapper.update(userId, req.body);
     return res.status(200).json("Votre profil à bien été mis à jour");
   },
