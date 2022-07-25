@@ -19,7 +19,7 @@ module.exports = {
 
     jwt.verify(token, process.env.ACCES_TOKEN_SECRET, async (err, user) =>{
       if (err) {
-        throw new ApiError(" Accès non autorisé !", { statusCode : 403 });
+        throw new ApiError(" Accès non autorisé !", { statusCode : 401 });
       }
       const isUserExist = await userDatamapper.isExist(user);
       if (isUserExist) {
