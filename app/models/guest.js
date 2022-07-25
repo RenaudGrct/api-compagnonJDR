@@ -12,6 +12,16 @@ const client = require("../services/database");
   * @property {string} username - Pseudo de l'utilisateur
   * @property {string} password - Mot de passe de l'utilisateur
 */
+
+/**
+  * @typedef {object} GuestLogged
+  * @property {number} id - ID de l'utilisateur
+  * @property {string} email - Adresse mail de l'utilisateur
+  * @property {string} username - Mot de passe de l'utilisateur
+  * @property {string} accessToken - AccessToken de l'utilisateur
+  * @property {string} refreshToken - RefreshToken de l'utilisateur
+*/
+
 module.exports = {
 
   /**

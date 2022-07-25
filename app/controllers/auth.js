@@ -13,9 +13,14 @@ module.exports = {
       // verification du mot de passe
       const check = await bcrypt.compare(req.body.password, user.password);
       if (check) {
+        delete user.password;
         const accessToken = await generateAccessToken(user);
         const refreshToken = await generateRefreshToken(user);
-        return res.status(200).json({ accessToken, refreshToken, user});
+        return res.status(200).json({
+          accessToken,
+          refreshToken,
+          user
+        });
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
@@ -27,6 +32,7 @@ module.exports = {
       // verification du mot de passe
       const check = await bcrypt.compare(req.body.password, user.password);
       if (check) {
+        delete user.password;
         const accessToken = await generateAccessToken(user);
         const refreshToken = await generateRefreshToken(user);
         return res.status(200).json({ accessToken, refreshToken, user});
@@ -36,6 +42,8 @@ module.exports = {
   },
 
   async logout (req, res) {
-    res.sendStatus(204);
+    delete req.user;
+    delete req.headers.authorization;
+    return res.sendStatus(204);
   }
 };

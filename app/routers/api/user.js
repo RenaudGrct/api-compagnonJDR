@@ -35,7 +35,7 @@ router.route("/guest")
     * POST /api/profile/guest
     * @summary Création d'un compte invité suivi d'un login
     * @tags Login
-    * @return {LoginUser} 200 - success response - application/json
+    * @return {GuestLogged} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
@@ -81,7 +81,7 @@ router.route("/login")
     * @summary Vérification de l'existance de l'utilisateur en BDD
     * @tags Login
     * @param {LoginUser} request.body.required - informations de connexion
-    * @return {LoginUser} 200 - success response - application/json
+    * @return {UserLogged} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
@@ -94,7 +94,7 @@ router.route("/token")
     * @summary Génère un nouvel Access Token via le refresh Token de l'utilisateur
     * @tags Login
     * @param {User} request.body.required - informations de connexion
-    * @return {LoginUser} 200 - success response - application/json
+    * @return {UserLogged} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 403 - Forbidden application/json
@@ -109,8 +109,6 @@ router.route("/logout")
     * @tags Login
     * @return {string} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 401 - Invalid connection informations application/json
-    * @return {ApiError} 403 - Forbidden application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .delete(auth.logout);

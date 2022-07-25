@@ -21,6 +21,15 @@ const client = require("../services/database");
   * @property {string} password - Mot de passe de l'utilisateur
 */
 
+/**
+  * @typedef {object} UserLogged
+  * @property {number} id - ID de l'utilisateur
+  * @property {string} email - Adresse mail de l'utilisateur
+  * @property {string} username - Mot de passe de l'utilisateur
+  * @property {string} accessToken - AccessToken de l'utilisateur
+  * @property {string} refreshToken - RefreshToken de l'utilisateur
+*/
+
 module.exports = {
   /**
     * Récupère l'utilisateur selon son id
@@ -58,8 +67,8 @@ module.exports = {
       values:[email, username, password]
     };
     const savedUser = await client.query(query);
-    debug("saved user : ", savedUser.rows[0]);
-    return savedUser.rows[0];
+    //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
+    return !!savedUser.rowCount;
   },
 
   /**
