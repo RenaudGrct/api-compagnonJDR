@@ -19,14 +19,14 @@ module.exports = {
    * @param {InputGuest} guest - l'utilisateur invité à insérer
    * @returns L'utilisateur invité insérer
    */
-  async insert(guest) {
-    const {email, username, password} = guest;
+  async insert(guest, hashPassword) {
+    const {email, username} = guest;
     const query = {
       text:`
       INSERT INTO cjdr.guest
       (email, username, password)
       VALUES ($1, $2, $3)`,
-      values:[email, username, password]
+      values:[email, username, hashPassword]
     };
     const savedGuest = await client.query(query);
     return savedGuest.rows[0];
@@ -43,7 +43,7 @@ module.exports = {
         WHERE "username"
         LIKE 'vecna%'
         ORDER BY "username"
-        DSC LIMIT 1
+        DESC LIMIT 1
       `
     };
     const existingVecna = await client.query(query);
@@ -51,5 +51,36 @@ module.exports = {
       return null;
     }
     return existingVecna.rows[0];
+  },
+
+  /**
+  * On vérifie si l'invité existe en BDD
+  * @returns {Object} utilisateur invité trouvé
+  */
+  async isVecna(inputUser) {
+    const fields = [];
+    const values = [];
+
+    // On récupère les entrée et les valeurs associé de l'objet
+    Object.entries(inputUser).forEach(([key, value], index) => {
+      // les deux clefs qui doivent être unique
+      if(["email", "username"].includes(key)) {
+        // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
+        fields.push(`"${key}" = $${index + 1}`);
+        // On insère les valeurs correspondantes à sa clef
+        values.push(value.toLowerCase());
+      }
+    });
+    const query = {
+      text : `SELECT * FROM cjdr.guest WHERE ${fields.join(" OR ")}`,
+      values
+    };
+
+    const result = await client.query(query);
+    if (result.rowCount === 0) {
+      return null;
+    }
+
+    return result.rows[0];
   }
 };

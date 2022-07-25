@@ -40,7 +40,7 @@ router.route("/guest")
     * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .post(createGuestProfile, controllerHandler(auth.login));
+  .post(createGuestProfile, controllerHandler(auth.guestLogin));
 
 router.route("/:id(\\d+)")
   /**

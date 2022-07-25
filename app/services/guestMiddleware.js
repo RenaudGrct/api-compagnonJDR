@@ -1,4 +1,5 @@
 const guestDatamapper = require("../models/guest");
+const { hashing } = require("../services/hashPassword");
 
 
 function genPassword() {
@@ -23,21 +24,24 @@ module.exports = {
   */
 
   async createGuestProfile(req, res, next){
-    // const password = genPassword();
-    // const guest = { email: "vecna1@donjonsql.com", username: "vecna1", password: password};
-    req.body.password = genPassword();
     req.body.username = "vecna1";
     req.body.email = "vecna1@donjonsql.com";
+    req.body.password = genPassword();
+    const hashPassword = await hashing(req.body.password);
     const isGuestExist = await guestDatamapper.isGuestExist();
     if(!isGuestExist){
-      await guestDatamapper.insert(req.body);
+      await guestDatamapper.insert(req.body, hashPassword);
       next();
     }
-    const newVecna = req.body.username.replace("1", isGuestExist.username.slice(5) + 1);
-    req.body.username = newVecna;
-    req.body.email.replace("vecna1", newVecna);
-    await guestDatamapper.insert(req.body);
-    next();
+    else {
+      let vecnaNumber = parseInt(isGuestExist.username.slice(5));
+      vecnaNumber++;
+      const newVecna = req.body.username.replace("1", vecnaNumber);
+      req.body.username = newVecna;
+      req.body.email = req.body.email.replace("vecna1", newVecna);
+      await guestDatamapper.insert(req.body, hashPassword);
+      next();
+    }
   }
 };
 
