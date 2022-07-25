@@ -18,6 +18,6 @@ module.exports = (property, schema) => async (request, _, next) => {
     next();
   } catch (error) {
     // Je dois afficher l'erreur à l'utilisateur
-    next(new ApiError(error.details[0].message, { statusCode: 400 }));
+    next(new ApiError(`L'information ${error.details[0].message.split(" ", 1).toString().slice(1,-1)} ne rempli pas les conditions de saisie`, { statusCode: 400 }));
   }
 };
