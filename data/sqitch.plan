@@ -3,3 +3,4 @@
 %uri=https://github.com/O-clock-Cassini/projet-04-compagnon-jdr-back
 
 1.userTable 2022-07-20T14:10:23Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Création de la table user
+2.guestTable 2022-07-25T10:33:36Z Etudiant O'clock <student@teleporter> # Création de la table guest et altération de la table user
