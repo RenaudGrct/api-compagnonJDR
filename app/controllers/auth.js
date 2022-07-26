@@ -7,11 +7,12 @@ const { generateAccessToken, generateRefreshToken } = require("../services/Token
 
 module.exports = {
   async login(req, res) {
-
+    debug("login password :", req.body.password);
     const user = await userDatamapper.isExist(req.body);
     if (user) {
       // verification du mot de passe
       const check = await bcrypt.compare(req.body.password, user.password);
+      debug("password is okay ? ", req.body.password, user.password, check);
       if (check) {
         delete user.password;
         const accessToken = await generateAccessToken(user);

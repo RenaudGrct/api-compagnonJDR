@@ -101,7 +101,7 @@ module.exports = {
       `,
       values
     };
-
+    debug("values updated  :", values);
     /* Potentiel function en BDD
     text: `SELECT update_user($1, $2)`,
     values: [userId, userData]
