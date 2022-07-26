@@ -61,7 +61,8 @@ module.exports = {
     if (!user) {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
-    const check = bcrypt.compare(req.body.password, user.password);
+    const check = await bcrypt.compare(req.body.password, user.password);
+
     if (!check) {
       throw new ApiError("Mot de passe incorrect", { statusCode : 401 });
     }

@@ -17,7 +17,7 @@ module.exports = {
       throw new ApiError(" Token non valide !", { statusCode : 403 });
     }
 
-    jwt.verify(token, process.env.ACCES_TOKEN_SECRET, async (err, user) =>{
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) =>{
       if (err) {
         throw new ApiError(" Accès non autorisé !", { statusCode : 401 });
       }

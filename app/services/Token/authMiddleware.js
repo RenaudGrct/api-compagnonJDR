@@ -18,7 +18,7 @@ module.exports = {
       throw new ApiError(" Accès non autorisé !", { statusCode : 403 });
     }
 
-    jwt.verify(token, process.env.ACCES_TOKEN_SECRET, (err, user) =>{
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
       if (err) {
         throw new ApiError(" Accès non autorisé !", { statusCode : 403 });
       }
