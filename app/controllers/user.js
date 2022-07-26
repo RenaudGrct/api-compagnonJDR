@@ -2,6 +2,7 @@ const debug = require("debug")("app:controllers");
 const ApiError = require("../errors/apiError.js");
 const userDatamapper = require("../models/user.js");
 const { hashing } = require("../services/hashPassword.js");
+const bcrypt = require("bcrypt");
 
 
 module.exports = {
@@ -42,9 +43,7 @@ module.exports = {
     }
     // Chiffrage du mot de passe
     const hash = await hashing(req.body.password);
-    debug("password avant hash : ", req.body);
     req.body.password = hash;
-    debug("password après hash : ", req.body);
     await userDatamapper.insert(req.body);
     return res.status(200).json("Votre compte à bien été enregistré");
   },
@@ -62,10 +61,12 @@ module.exports = {
     if (!user) {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
-
-    debug("password dans le body avant hash:", req.body.password);
-    if(req.body.password){
-      const hash = await hashing(req.body.password);
+    const check = bcrypt.compare(req.body.password, user.password);
+    if (!check) {
+      throw new ApiError("Mot de passe incorrect", { statusCode : 401 });
+    }
+    if(req.body.newPassword){
+      const hash = await hashing(req.body.newPassword);
       req.body.password = hash;
     }
 
@@ -82,7 +83,6 @@ module.exports = {
         throw new ApiError (`Un profil existe déjà avec ${field}`, { statusCode : 404 });
       }
     }
-    debug("password dans le body après hash:", req.body.password);
     await userDatamapper.update(userId, req.body);
     return res.status(200).json("Votre profil à bien été mis à jour");
   },
