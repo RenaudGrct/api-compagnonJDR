@@ -10,7 +10,7 @@ module.exports = {
     const token = authHeader && authHeader.split(" ")[1];
 
     if (token == null) {
-      throw new ApiError(" Token non trouvé !", { statusCode : 401 });
+      throw new ApiError(" Aucun Token trouvé !", { statusCode : 401 });
     }
 
     if (!token) {

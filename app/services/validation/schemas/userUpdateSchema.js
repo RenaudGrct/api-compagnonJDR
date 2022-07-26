@@ -6,4 +6,6 @@ module.exports = Joi.object({
   username: Joi.string(),
   password: Joi.string()
     .pattern(/.{8,16}/),
+  newPassword: Joi.string()
+    .pattern(/.{8,16}/),
 }).min(1).required();
