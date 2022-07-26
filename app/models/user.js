@@ -13,6 +13,7 @@ const client = require("../services/database");
   * @property {string} email - Adresse mail de l'utilisateur
   * @property {string} username - Pseudo de l'utilisateur
   * @property {string} password - Mot de passe de l'utilisateur
+  * @property {string} newPassword - Nouveau mot de passe de l'utilisateur
 */
 
 /**
@@ -86,7 +87,7 @@ module.exports = {
         // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
         fields.push(`"${key}" = $${index + 1}`);
         // On insère les valeurs correspondantes à sa clef
-        values.push(value.toLowerCase());
+        values.push(value);
       }
     });
     values.push(userId);
@@ -101,7 +102,7 @@ module.exports = {
       `,
       values
     };
-
+    debug("values updated  :", values);
     /* Potentiel function en BDD
     text: `SELECT update_user($1, $2)`,
     values: [userId, userData]
@@ -138,7 +139,7 @@ module.exports = {
         // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
         fields.push(`"${key}" = $${index + 1}`);
         // On insère les valeurs correspondantes à sa clef
-        values.push(value.toLowerCase());
+        values.push(value);
       }
     });
     const query = {
