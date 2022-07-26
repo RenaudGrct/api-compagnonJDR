@@ -44,7 +44,6 @@ module.exports = {
     const hash = await hashing(req.body.password);
     req.body.password = hash;
     const result = await userDatamapper.insert(req.body);
-    debug("create profile result : ", result);
     return res.status(200).json("Votre compte à bien été enregistré");
   },
 
