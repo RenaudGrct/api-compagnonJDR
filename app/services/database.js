@@ -2,9 +2,9 @@ const debug = require("debug")("SQL:log");
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  // ssl: {
-  //   rejectUnauthorized: false
-  // },
+  ssl: {
+    rejectUnauthorized: false
+  },
   connectionString:process.env.DATABASE_URL
 
 });
