@@ -58,6 +58,7 @@ module.exports = {
   async updateProfile(req, res) {
     const userId = parseInt(req.params.id);
     const user = await userDatamapper.findByPk(userId);
+
     if (!user) {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
