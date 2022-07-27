@@ -5,7 +5,7 @@ const credentials = (req, res, next) => {
   if (allowedOrigins.includes(origin)){
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Acces-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE");
-    // res.header("Acces-Control-Allow-Credentials", true);
+    res.headers("Acces-Control-Allow-Credentials", true);
   }
   next();
 };
