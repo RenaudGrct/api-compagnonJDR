@@ -20,14 +20,8 @@ CREATE TABLE IF NOT EXISTS cjdr.user (
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
--- CREATE TRIGGER change_guest_status
--- AFTER UPDATE ON cjdr.user
--- WHEN (OLD.isguest = TRUE)
--- BEGIN
---   UPDATE cjdr.user
---   SET isguest = FALSE
---   WHERE id IN (SELECT DISTINCT id FROM inserted)
--- END;
+INSERT INTO cjdr.user (email, username, password)
+VALUES ("vecna@donjonsql.com", "vecna", "archiliche");
 
 
 COMMIT;
