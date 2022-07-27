@@ -70,9 +70,10 @@ module.exports = {
     if (!check) {
       throw new ApiError("Mot de passe incorrect", { statusCode : 401 });
     }
+
     if(req.body.newPassword){
       const hash = await hashing(req.body.newPassword);
-      req.body.password = hash;
+      req.body.newPassword = hash;
     }
 
     if (req.body.email || req.body.username) {

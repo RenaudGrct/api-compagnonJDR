@@ -52,9 +52,32 @@ module.exports = {
       const check = await bcrypt.compare(req.body.password, user.password);
       if (check) {
         delete user.password;
-        const accessToken = await generateAccessToken(user);
-        const refreshToken = await generateRefreshToken(user);
-        return res.status(200).json({ accessToken, refreshToken, user});
+        const accessToken = await generateAccessToken({
+          username : user.username,
+          email : user.email
+        });
+        const refreshToken = await generateRefreshToken({
+          username : user.username,
+          email: user.email
+        });
+        await userDatamapper.update(user.id, { refresh_token : refreshToken });
+
+        const cookieOption = {
+          httpOnly:true,
+          sameSite: "None",
+          maxAge: 24*60*60*1000
+        };
+
+        if (process.env.NODE_ENV === "prod") {
+          cookieOption.secure = true;
+        }
+
+        res.cookie("jwt", refreshToken, cookieOption);
+        delete user.refresh_token;
+        return res.status(200).json({
+          accessToken,
+          user
+        });
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
