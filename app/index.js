@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //~~ Middleware pour autoriser les credentials du front (cookies)
-app.use(credentials);
+// app.use(credentials);
 
 //~~ CORS config
 app.use(cors(corsOptions));

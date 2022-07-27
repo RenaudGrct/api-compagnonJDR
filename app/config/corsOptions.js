@@ -6,6 +6,7 @@ const corsOptions = {
     if(!allowedOrigins.includes(origin)){
       throw new ApiError("Origin not allowed by CORS", { statusCode: 503 });
     }
+    return true;
   },
   preflightContinue: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
