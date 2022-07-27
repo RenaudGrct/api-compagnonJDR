@@ -1,13 +1,15 @@
+const ApiError = require("../errors/apiError");
 const allowedOrigins = require("./allowedOrigins");
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin){
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+  origin: (origin) =>{
+    if(!allowedOrigins.includes(origin)){
+      throw new ApiError("Origin not allowed by CORS", { statusCode: 503 });
     }
   },
+  preflightContinue: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
   optionSuccessStatus: 200
 };
 
