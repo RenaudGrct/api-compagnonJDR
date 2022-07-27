@@ -1,9 +1,6 @@
-const ApiError = require("../errors/apiError");
-const allowedOrigins = require("./allowedOrigins");
-
 const corsOptions = {
-  origin: "http://localhost:8080",
-  preflightContinue: true,
+  origin: process.env.BACKEND_LOCAL_URL,
+  preflightContinue: false,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionSuccessStatus: 200

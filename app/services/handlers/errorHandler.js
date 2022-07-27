@@ -3,6 +3,7 @@
  * qui sera chargé de répondre à l'utilisateur
  * en cas de passage d'erreur à la function next()
  */
+require("dotenv").config();
 const ApiError = require("../../errors/apiError");
 
 /**
@@ -18,9 +19,9 @@ const errorHandler = (err, res) => {
   }
 
   //! Si l'application n'est pas en développement on reste vague sur l'erreur serveur
-  // if (statusCode === 500 && res.app.get("env") !== "development") {
-  //   message = "Internal Server Error";
-  // }
+  if (statusCode === 500 && process.env.NODE_ENV !== "dev") {
+    message = "Internal Server Error";
+  }
 
   res.status(statusCode).json({
     status: "error",

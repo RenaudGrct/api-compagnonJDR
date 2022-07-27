@@ -23,10 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 // COOKIE parser
 app.use(cookieParser());
 
-//~~ Middleware pour autoriser les credentials du front (cookies)
-// app.use(credentials);
 
 //~~ CORS config
+if (process.env.NODE_ENV === "prod"){
+  corsOptions.origin = process.env.FRONTEND_LOCAL_URL;
+}
 app.use(cors(corsOptions));
 
 // ROUTER

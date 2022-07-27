@@ -1,13 +1,15 @@
 const debug = require("debug")("SQL:log");
 const { Pool } = require("pg");
 
-const pool = new Pool({
-  ssl: {
-    rejectUnauthorized: false
-  },
-  connectionString:process.env.DATABASE_URL
+const config = {
+  connectionString: process.env.DATABASE_URL
+};
 
-});
+if (process.env.NODE_ENV === "prod") {
+  config.ssl = { rejectUnauthorized :false };
+}
+
+const pool = new Pool(config);
 
 module.exports = {
   originalClient: pool,

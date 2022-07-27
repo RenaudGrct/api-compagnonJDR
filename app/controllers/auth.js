@@ -1,3 +1,4 @@
+require("dotenv").config();
 const debug = require("debug")("app:login");
 const bcrypt = require("bcrypt");
 const ApiError = require("../errors/apiError.js");
@@ -22,15 +23,18 @@ module.exports = {
           email: user.email
         });
         await userDatamapper.update(user.id, { refresh_token : refreshToken });
-        res.cookie(
-          "jwt",
-          refreshToken,
-          {
-            httpOnly: true,
-            secure: true,
-            sameSite: "None", //Chrome cookies option
-            maxAge: 24*60*60*1000
-          });
+
+        const cookieOption = {
+          httpOnly:true,
+          sameSite: "None",
+          maxAge: 24*60*60*1000
+        };
+
+        if (process.env.NODE_ENV === "prod") {
+          cookieOption.secure = true;
+        }
+
+        res.cookie("jwt", cookieOption);
         delete user.refresh_token;
         return res.status(200).json({
           accessToken,
@@ -58,6 +62,14 @@ module.exports = {
 
   async logout (req, res) {
     const cookies = req.cookies;
+    const cookieOption = {
+      httpOnly:true,
+      sameSite: "None"
+    };
+    if (process.env.NODE_ENV === "prod") {
+      cookieOption.secure = true;
+    }
+
     if (!cookies?.jwt) {
       return res.sendStatus(204);
     }
@@ -66,25 +78,13 @@ module.exports = {
     // Verifions si le refreshToken est en BDD
     const user = await userDatamapper.isExist({ refresh_token : refreshToken });
     if (!user) {
-      res.clearCookies(
-        "jwt",
-        {
-          httpOnly : true,
-          secure : true, // pour la prod
-          sameSite: "None"
-        });
+      res.clearCookies("jwt", cookieOption);
       return res.sendStatus(204);
     }
 
     // Suppression du refreshToken en BDD
     await userDatamapper.update(user.id, { refresh_token : null });
-    res.clearCookies(
-      "jwt",
-      {
-        httpOnly: true,
-        secure: true, // pour la prod
-        sameSite: "None"
-      });
+    res.clearCookies("jwt", cookieOption);
     res.sendStatus(204);
 
   }
