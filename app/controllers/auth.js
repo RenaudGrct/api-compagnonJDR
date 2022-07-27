@@ -34,7 +34,7 @@ module.exports = {
           cookieOption.secure = true;
         }
 
-        res.cookie("jwt", cookieOption);
+        res.cookie("jwt", refreshToken, cookieOption);
         delete user.refresh_token;
         return res.status(200).json({
           accessToken,

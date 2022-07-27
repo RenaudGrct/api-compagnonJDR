@@ -28,8 +28,15 @@ const client = require("../services/database");
   * @property {string} email - Adresse mail de l'utilisateur
   * @property {string} username - Mot de passe de l'utilisateur
   * @property {string} accessToken - AccessToken de l'utilisateur
-  * @property {string} refreshToken - RefreshToken de l'utilisateur
 */
+
+/**
+  * @typedef {object} InputUserRegister
+  * @property {string} email - Adresse mail de l'utilisateur
+  * @property {string} username - Pseudo de l'utilisateur
+  * @property {string} password - Mot de passe de l'utilisateur
+*/
+
 
 module.exports = {
   /**

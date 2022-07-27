@@ -24,7 +24,7 @@ router.route("/register")
     * POST /api/auth/register
     * @summary Création d'un nouveau compte utilisateur
     * @tags Authentification
-    * @param {InputUser} request.body.required - user info
+    * @param {InputUserRegister} request.body.required - user info
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile not found - application/json

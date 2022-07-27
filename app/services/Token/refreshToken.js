@@ -1,4 +1,5 @@
 require("dotenv").config();
+const debug = require("debug")("services:refresh");
 const ApiError = require("../../errors/apiError");
 const jwt = require("jsonwebtoken");
 const { generateAccessToken } = require("./generateToken");
