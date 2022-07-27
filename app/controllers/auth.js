@@ -27,7 +27,7 @@ module.exports = {
           refreshToken,
           {
             httpOnly: true,
-            //secure: true, // pour la prod
+            secure: true,
             sameSite: "None", //Chrome cookies option
             maxAge: 24*60*60*1000
           });
@@ -70,7 +70,7 @@ module.exports = {
         "jwt",
         {
           httpOnly : true,
-          //secure : true, // pour la prod
+          secure : true, // pour la prod
           sameSite: "None"
         });
       return res.sendStatus(204);
@@ -82,7 +82,7 @@ module.exports = {
       "jwt",
       {
         httpOnly: true,
-        //secure: true, // pour la prod
+        secure: true, // pour la prod
         sameSite: "None"
       });
     res.sendStatus(204);
