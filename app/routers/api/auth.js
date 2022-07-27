@@ -12,7 +12,7 @@ const controllerHandler = require("../../services/handlers/controllerHandler");
 
 // Importation des middlewares
 const { refreshToken } = require("../../services/Token/refreshToken");
-const { createGuestProfile } = require ("../../services/guestMiddleware");
+const { createGuestProfile } = require ("../../middleware/createGuest");
 
 const router = express.Router();
 
@@ -70,9 +70,9 @@ router.route("/logout")
   */
   .delete(auth.logout);
 
-router.route("/token")
+router.route("/refresh")
   /**
-    * POST /api/auth/token
+    * GET /api/auth/refresh
     * @summary Génère un nouvel Access Token via le refresh Token de l'utilisateur
     * @tags Authentification
     * @param {User} request.body.required - informations de connexion
@@ -82,6 +82,6 @@ router.route("/token")
     * @return {ApiError} 403 - Forbidden application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .post(refreshToken);
+  .get(refreshToken);
 
 module.exports = router;

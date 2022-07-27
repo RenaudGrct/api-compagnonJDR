@@ -13,11 +13,27 @@ module.exports = {
       const check = await bcrypt.compare(req.body.password, user.password);
       if (check) {
         delete user.password;
-        const accessToken = await generateAccessToken(user);
-        const refreshToken = await generateRefreshToken(user);
+        const accessToken = await generateAccessToken({
+          username : user.username,
+          email : user.email
+        });
+        const refreshToken = await generateRefreshToken({
+          username : user.username,
+          email: user.email
+        });
+        await userDatamapper.update(user.id, { refresh_token : refreshToken });
+        res.cookie(
+          "jwt",
+          refreshToken,
+          {
+            httpOnly: true,
+            //secure: true, // pour la prod
+            sameSite: "None", //Chrome cookies option
+            maxAge: 24*60*60*1000
+          });
+        delete user.refresh_token;
         return res.status(200).json({
           accessToken,
-          refreshToken,
           user
         });
       }
@@ -41,8 +57,35 @@ module.exports = {
   },
 
   async logout (req, res) {
-    delete req.user;
-    delete req.headers.authorization;
-    return res.sendStatus(204);
+    const cookies = req.cookies;
+    if (!cookies?.jwt) {
+      return res.sendStatus(204);
+    }
+    const refreshToken = cookies.jwt;
+
+    // Verifions si le refreshToken est en BDD
+    const user = await userDatamapper.isExist({ refresh_token : refreshToken });
+    if (!user) {
+      res.clearCookies(
+        "jwt",
+        {
+          httpOnly : true,
+          //secure : true, // pour la prod
+          sameSite: "None"
+        });
+      return res.sendStatus(204);
+    }
+
+    // Suppression du refreshToken en BDD
+    await userDatamapper.update(user.id, { refresh_token : null });
+    res.clearCookies(
+      "jwt",
+      {
+        httpOnly: true,
+        //secure: true, // pour la prod
+        sameSite: "None"
+      });
+    res.sendStatus(204);
+
   }
 };
