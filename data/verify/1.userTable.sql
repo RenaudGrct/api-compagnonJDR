@@ -2,6 +2,13 @@
 
 BEGIN;
 
-SELECT * FROM cjdr.user;
-
+INSERT INTO cjdr.user (
+  email,
+  username,
+  password)
+VALUES (
+  "vecna1@donjonsql.com",
+  "vecna1",
+  "archiliche"
+);
 ROLLBACK;

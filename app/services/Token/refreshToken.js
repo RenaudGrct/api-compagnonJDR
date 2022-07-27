@@ -6,29 +6,30 @@ const userDatamapper = require("../../models/user");
 
 module.exports = {
   async refreshToken (req, res){
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    if (token == null) {
-      throw new ApiError(" Aucun Token trouvé !", { statusCode : 401 });
+    const cookies = req.cookies;
+    if (!cookies?.jwt) {
+      throw new ApiError(
+        "Vous devez être connecté pour accèder à cette page",
+        { statusCode : 401 }
+      );
+    }
+    const refreshToken = cookies.jwt;
+    const user = await userDatamapper.isExist({ refresh_token : refreshToken });
+    if (!user) {
+      throw new ApiError(" Accès non autorisé ", { statusCode : 403 });
     }
 
-    if (!token) {
-      throw new ApiError(" Token non valide !", { statusCode : 403 });
-    }
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) =>{
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) =>{
       if (err) {
-        throw new ApiError(" Accès non autorisé !", { statusCode : 401 });
+        throw new ApiError(" Accès non autorisé ", { statusCode : 403 });
       }
-      const isUserExist = await userDatamapper.isExist(user);
-      if (isUserExist) {
-        delete user.iat;
-        delete user.exp;
-        const refreshedToken = generateAccessToken(user);
-        return res.status(200).json("Access token : ", refreshedToken);
-      }
-      throw new ApiError(" L'utilisateur n'existe pas !", { statusCode : 404 });
+      delete user.iat;
+      delete user.exp;
+      const accessToken = await generateAccessToken({
+        username: user.username,
+        email: user.email
+      });
+      return res.status(200).json(accessToken);
     });
   }
 };

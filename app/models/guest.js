@@ -52,7 +52,7 @@ module.exports = {
       SELECT * FROM cjdr.guest
         WHERE "username"
         LIKE 'vecna%'
-        ORDER BY "username"
+        ORDER BY "id"
         DESC LIMIT 1
       `
     };
