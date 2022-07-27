@@ -1,5 +1,9 @@
 #sqitch
+<<<<<<< HEAD
+/data
+=======
 
+>>>>>>> e585afad849891d53b8d3de249b9ffb784be3872
 # npm
 node_modules/
 package-lock.json

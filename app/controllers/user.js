@@ -44,7 +44,9 @@ module.exports = {
     // Chiffrage du mot de passe
     const hash = await hashing(req.body.password);
     req.body.password = hash;
+
     await userDatamapper.insert(req.body);
+
     return res.status(200).json("Votre compte à bien été enregistré");
   },
 
@@ -63,6 +65,7 @@ module.exports = {
       throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
     }
     const check = await bcrypt.compare(req.body.password, user.password);
+
 
     if (!check) {
       throw new ApiError("Mot de passe incorrect", { statusCode : 401 });
@@ -85,6 +88,7 @@ module.exports = {
         throw new ApiError (`Un profil existe déjà avec ${field}`, { statusCode : 404 });
       }
     }
+
     await userDatamapper.update(userId, req.body);
     return res.status(200).json("Votre profil à bien été mis à jour");
   },

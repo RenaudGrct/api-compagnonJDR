@@ -6,6 +6,7 @@ const pool = new Pool({
   //   rejectUnauthorized: false
   // },
   connectionString:process.env.DATABASE_URL
+
 });
 
 module.exports = {
