@@ -68,7 +68,7 @@ router.route("/logout")
     * @return {ApiError} 400 - Bad request response - application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .delete(auth.logout);
+  .delete(controllerHandler(auth.logout));
 
 router.route("/refresh")
   /**
@@ -82,6 +82,6 @@ router.route("/refresh")
     * @return {ApiError} 403 - Forbidden application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
-  .get(refreshToken);
+  .get(controllerHandler(refreshToken));
 
 module.exports = router;
