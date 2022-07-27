@@ -10,9 +10,9 @@ module.exports = {
     const token = authHeader && authHeader.split(" ")[1];
 
     if (!token) {
-      throw new ApiError(" Vous devez vous reconnecter pour accèder à cette page", { statusCode : 401 });
+      throw new ApiError("Vous devez vous reconnecter pour accèder à cette page", { statusCode : 401 });
     }
-
+    console.log("J'ai continué ma route après le vérif du token undefined");
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
       if (err) {
         throw new ApiError(" Token invalide !", { statusCode : 403 });

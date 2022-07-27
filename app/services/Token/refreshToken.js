@@ -9,7 +9,7 @@ module.exports = {
     const cookies = req.cookies;
     if (!cookies?.jwt) {
       throw new ApiError(
-        " Vous devez être connecté pour accèder à cette page ",
+        "Vous devez être connecté pour accèder à cette page",
         { statusCode : 401 }
       );
     }
