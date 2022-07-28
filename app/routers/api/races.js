@@ -1,17 +1,15 @@
 const express = require("express");
 
 // Importation du controller et le handler
-// const { racesController : controller } = require("../../controllers");
-// const controllerHandler = require("../../services/handlers/controllerHandler");
-const racesJSON = require("../../../data/seeds/races.json");
+const { racesController : races } = require("../../controllers");
+const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
 
 //~~~~~~~~~~~~~~
 //~~ SELECT RACE
 //~~~~~~~~~~~~~~
-// router.route("/{index}")
-router.route("/dragonborn")
+router.route("/{index}")
 /**
  * GET /api/races/{index}
  * @summary Renvoie toutes les données liées à la race selectionnée
@@ -22,8 +20,6 @@ router.route("/dragonborn")
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json
  */
-  .get((req, res) => {
-    res.status(200).json(racesJSON[0]);
-  });
+  .get(controllerHandler(races.getRaceSelected));
 
 module.exports = router;
