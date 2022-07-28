@@ -1,4 +1,4 @@
--- Verify cjdr:1.userTable on pg
+-- Verify compagnon-jdr:1.userTable on pg
 
 BEGIN;
 
