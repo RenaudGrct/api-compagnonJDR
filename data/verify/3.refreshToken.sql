@@ -1,4 +1,4 @@
--- Verify cjdr:3.refreshToken on pg
+-- Verify compagnonjdr:3.refreshToken on pg
 
 BEGIN;
 
