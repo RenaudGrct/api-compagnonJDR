@@ -1,5 +1,5 @@
 %syntax-version=1.0.0
-%project=compagnon-cjdr
+%project=compagnon-jdr
 %uri=https://github.com/O-clock-Cassini/projet-04-compagnon-jdr-back
 
 1.userTable 2022-07-28T07:48:56Z Etudiant O'clock <student@teleporter> # Création de la table user
