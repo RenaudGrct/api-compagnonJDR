@@ -1,4 +1,4 @@
--- Revert compagnon-jdr:3.refreshToken from pg
+-- Revert cjdr:3.refreshToken from pg
 
 BEGIN;
 

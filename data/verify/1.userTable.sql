@@ -1,4 +1,4 @@
--- Verify compagnon-jdr:1.userTable on pg
+-- Verify cjdr:1.userTable on pg
 
 BEGIN;
 
@@ -11,4 +11,5 @@ VALUES (
   "vecna1",
   "archiliche"
 );
+
 ROLLBACK;

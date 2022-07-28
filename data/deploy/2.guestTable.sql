@@ -1,4 +1,4 @@
--- Deploy compagnon-jdr:2.guestTable to pg
+-- Deploy cjdr:2.guestTable to pg
 
 BEGIN;
 
@@ -16,6 +16,5 @@ CREATE TABLE IF NOT EXISTS cjdr.guest (
 );
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
-
 
 COMMIT;

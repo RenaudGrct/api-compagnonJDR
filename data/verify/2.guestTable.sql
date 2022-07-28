@@ -1,4 +1,4 @@
--- Verify compagnon-jdr:2.guestTable on pg
+-- Verify cjdr:2.guestTable on pg
 
 BEGIN;
 

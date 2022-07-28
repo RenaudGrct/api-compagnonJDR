@@ -1,4 +1,4 @@
--- Revert compagnon-jdr:2.guestTable from pg
+-- Revert cjdr:2.guestTable from pg
 
 BEGIN;
 
