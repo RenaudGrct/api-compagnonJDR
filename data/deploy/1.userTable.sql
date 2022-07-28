@@ -1,4 +1,4 @@
--- Deploy cjdr:1.userTable to pg
+-- Deploy compagnon-jdr:1.userTable to pg
 
 BEGIN;
 
