@@ -24,6 +24,7 @@ router.route("/:id(\\d+)")
     * @param {number} id.path.required - user PK
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .get(controllerHandler(controller.getProfile))
@@ -35,6 +36,7 @@ router.route("/:id(\\d+)")
     * @param {InputUser} request.body.required - informations de l'utilisateur
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .patch(validate("body", updateSchema), controllerHandler(controller.updateProfile))
@@ -45,6 +47,7 @@ router.route("/:id(\\d+)")
     * @param {number} id.path.required - PK de l'utilisateur
     * @return {User} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile note found - application/json
   */
   .delete(controllerHandler(controller.deleteProfile));
