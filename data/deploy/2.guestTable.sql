@@ -1,4 +1,4 @@
--- Deploy cjdr:2.guestTable to pg
+-- Deploy compagnon-jdr:2.guestTable to pg
 
 BEGIN;
 
