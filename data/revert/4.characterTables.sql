@@ -1,4 +1,4 @@
--- Revert cjdr:4.characterTables from pg
+-- Revert compagnon-jdr:4.characterTables from pg
 
 BEGIN;
 
