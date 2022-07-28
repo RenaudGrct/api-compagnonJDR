@@ -38,7 +38,6 @@ router.route("/guest")
     * @tags Authentification
     * @return {GuestLogged} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .post(createGuestProfile, controllerHandler(auth.guestLogin));
@@ -66,6 +65,7 @@ router.route("/logout")
     * @tags Authentification
     * @return {string} 200 - success response - application/json
     * @return {ApiError} 400 - Bad request response - application/json
+    * @return {ApiError} 401 - Invalid connection informations application/json
     * @return {ApiError} 404 - Profile not found - application/json
   */
   .delete(auth.logout);
