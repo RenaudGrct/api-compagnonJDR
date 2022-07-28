@@ -1,4 +1,4 @@
--- Verify cjdr:4.characterTables on pg
+-- Verify compagnon-jdr:4.characterTables on pg
 
 BEGIN;
 

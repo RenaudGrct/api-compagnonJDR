@@ -32,6 +32,23 @@ CREATE TABLE IF NOT EXISTS cjdr.skill (
   
 );
 
+CREATE TABLE IF NOT EXISTS cjdr.has_skill (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CONSTRAINT has_skill PRIMARY KEY (id),
+    CONSTRAINT skill_id FOREIGN KEY (skill_id)
+        REFERENCES cjdr.skill (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT proficiencies_id FOREIGN KEY (proficiencies_id)
+        REFERENCES cjdr.proficiencies (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+     CONSTRAINT background_id FOREIGN KEY (background_id)
+        REFERENCES cjdr.background (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTIO
+);
+
 CREATE TABLE IF NOT EXISTS cjdr.race (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    name text COLLATE pg_catalog."default" NOT NULL,
@@ -54,10 +71,36 @@ CREATE TABLE IF NOT EXISTS cjdr.score_modifier (
     CONSTRAINT score_modifier_pkey PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS cjdr.has_score_modifier (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CONSTRAINT has_score_modifier_pkey PRIMARY KEY (id),
+    CONSTRAINT race_id FOREIGN KEY (race_id)
+        REFERENCES cjdr.race (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT score_modifier_id FOREIGN KEY (score_modifier_id)
+        REFERENCES cjdr.score_modifier (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
 CREATE TABLE IF NOT EXISTS cjdr.world_language (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT world_language_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS cjdr.has_racial_ability (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CONSTRAINT has_world_language_pkey PRIMARY KEY (id),
+    CONSTRAINT race_id FOREIGN KEY (race_id)
+        REFERENCES cjdr.race (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT world_language_id FOREIGN KEY (rworld_language_id)
+        REFERENCES cjdr.world_language (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.racial_ability (
@@ -65,6 +108,19 @@ CREATE TABLE IF NOT EXISTS cjdr.racial_ability (
     name text COLLATE pg_catalog."default" NOT NULL,
     description text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT racial_ability_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS cjdr.has_racial_ability (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CONSTRAINT has_racial_ability_pkey PRIMARY KEY (id),
+    CONSTRAINT race_id FOREIGN KEY (race_id)
+        REFERENCES cjdr.race (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT racial_ability_id FOREIGN KEY (racial_ability_id)
+        REFERENCES cjdr.racial_ability (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.class (
@@ -93,6 +149,19 @@ CREATE TABLE IF NOT EXISTS cjdr.saving_throw (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT saving_throw_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS cjdr.has_saving_throw (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CONSTRAINT has_saving_throw_pkey PRIMARY KEY (id),
+    CONSTRAINT saving_throw_id FOREIGN KEY (saving_throw_id)
+        REFERENCES cjdr.saving_throw (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT proficiencies_id FOREIGN KEY (proficiencies_id)
+        REFERENCES cjdr.proficiencies (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.proficiencies (
