@@ -1,4 +1,4 @@
--- Deploy cjdr:4.characterTables to pg
+-- Deploy compagnon-jdr:4.characterTables to pg
 
 BEGIN;
 
