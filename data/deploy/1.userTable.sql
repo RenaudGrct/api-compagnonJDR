@@ -1,6 +1,7 @@
 -- Deploy compagnon-jdr:1.userTable to pg
 
 BEGIN;
+
 CREATE SCHEMA IF NOT EXISTS cjdr;
 GRANT USAGE ON SCHEMA cjdr TO iqnjpsmxnndhqm;
 -- GRANT USAGE ON SCHEMA cjdr TO cjdr;
@@ -22,6 +23,5 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
 
 INSERT INTO cjdr.user (email, username, password)
 VALUES ("vecna@donjonsql.com", "vecna", "archiliche");
-
 
 COMMIT;

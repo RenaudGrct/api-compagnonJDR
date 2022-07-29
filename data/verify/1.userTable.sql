@@ -11,4 +11,5 @@ VALUES (
   "vecna1",
   "archiliche"
 );
+
 ROLLBACK;

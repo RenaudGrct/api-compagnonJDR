@@ -2,6 +2,7 @@
 %project=compagnon-jdr
 %uri=https://github.com/O-clock-Cassini/projet-04-compagnon-jdr-back
 
-1.userTable 2022-07-20T14:10:23Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Création de la table user
-2.guestTable 2022-07-25T10:33:36Z Etudiant O'clock <student@teleporter> # Création de la table guest et altération de la table user
-3.refreshToken 2022-07-27T08:12:01Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Ajout de la colonnes pour stocker le refreshToken dans les tables user et guest
+1.userTable 2022-07-28T07:48:56Z Etudiant O'clock <student@teleporter> # Création de la table user
+2.guestTable 2022-07-28T07:50:26Z Etudiant O'clock <student@teleporter> # Création de la table guest et altération de la table user
+3.refreshToken 2022-07-28T07:50:40Z Etudiant O'clock <student@teleporter> # Ajout de la colonnes pour stocker le refreshToken dans les tables user et guest
+4.characterTables 2022-07-28T07:50:53Z Etudiant O'clock <student@teleporter> # Création de toutes les tables concernant le personnage
