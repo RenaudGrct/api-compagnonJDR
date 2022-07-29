@@ -53,10 +53,8 @@ CREATE TABLE IF NOT EXISTS cjdr.race (
    name text COLLATE pg_catalog."default" NOT NULL,
     speed text COLLATE pg_catalog."default" NOT NULL,
     ability_score_modifier integer NOT NULL,
-    extra_language boolean NOT NULL,
+    extra_language integer NOT NULL,
     language text COLLATE pg_catalog."default" NOT NULL,
-    damage_resistance text COLLATE pg_catalog."default" NOT NULL,
-    ascending text COLLATE pg_catalog."default",
     night_vision boolean NOT NULL,
     racial_ability text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT race_pkey PRIMARY KEY (id)
