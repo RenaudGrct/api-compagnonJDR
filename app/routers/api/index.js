@@ -22,6 +22,8 @@ router.use("/auth", authRouter);
 router.use(controllerHandler(verifyToken));
 
 router.use("/profile", userRouter);
+
+//TODO controller/dataMapper correspondants au routes suivantes :
 router.use("/races", racesRouter);
 router.use("/classes", classesRouter);
 router.use("/backgrounds", backgroundsRouter);

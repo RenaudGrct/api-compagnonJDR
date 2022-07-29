@@ -39,7 +39,6 @@ module.exports = {
     * Récupère l'utilisateur selon son id
     * @returns L'utilisateur existant en BDD
   */
-
   async findByPk(userId) {
     const query = {
       text:`

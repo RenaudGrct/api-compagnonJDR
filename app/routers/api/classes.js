@@ -1,9 +1,8 @@
 const express = require("express");
 
 // Importation du controller et le handler
-// const { classesController : controller } = require("../../controllers");
-// const controllerHandler = require("../../services/handlers/controllerHandler");
-const classesJSON = require("../../../data/seeds/classes.json");
+const { classesController : classes } = require("../../controllers");
+const controllerHandler = require("../../services/handlers/controllerHandler");
 
 
 const router = express.Router();
@@ -11,8 +10,7 @@ const router = express.Router();
 //~~~~~~~~~~~~~~
 //~~ SELECT CLASS
 //~~~~~~~~~~~~~~
-// router.route("/{index}") // <---- à utiliser quand le controller et le dattamapper seront fait
-router.route("/paladin")
+router.route("/{index}")
 /**
  * GET /api/classes/{index}
  * @summary Renvoie toutes les données liées à la classe selectionnée
@@ -23,8 +21,6 @@ router.route("/paladin")
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json
  */
-  .get((req, res) => {
-    res.status(200).json(classesJSON[0]); // Renvoie un JSON pour les tests sans BDD
-  });
+  .get(controllerHandler(classes.getClassSelected));
 
 module.exports = router;
