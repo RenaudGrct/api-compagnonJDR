@@ -1,10 +1,8 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 require("./services/swaggerDocs")(app);
-const corsOptions = require("./config/corsOptions");
 const credentials = require("./middleware/credentials");
 
 const router = require("./routers");
@@ -13,9 +11,8 @@ const router = require("./routers");
 app.use(helmet());
 
 
-//~~~~~~~~~~~~
-//~~ ENCODAGE~
-//~~~~~~~~~~~~
+
+//~~ ENCODAGE
 // JSON payload parser
 app.use(express.json());
 // URLENCODED payload parser
@@ -23,13 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 // COOKIE parser
 app.use(cookieParser());
 
-//~~ Middleware pour autoriser les credentials du front (cookies)
+//~~ Middleware des CORS options
 app.use(credentials);
 
-//~~ CORS config
-app.use(cors(corsOptions));
 
-// ROUTER
+//~~ ROUTER
 app.use(router);
 
 module.exports = app;

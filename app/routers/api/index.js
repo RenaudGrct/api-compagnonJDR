@@ -18,10 +18,12 @@ router.all("/", apiController.home);
 
 router.use("/auth", authRouter);
 
-// Middleware qui vérifie le jwt et protège nos routes
+// Middleware qui vérifie le jwt et protège nos routes qui suivent
 router.use(controllerHandler(verifyToken));
 
 router.use("/profile", userRouter);
+
+//TODO controller/dataMapper correspondants au routes suivantes :
 router.use("/races", racesRouter);
 router.use("/classes", classesRouter);
 router.use("/backgrounds", backgroundsRouter);

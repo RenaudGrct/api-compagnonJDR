@@ -1,5 +1,7 @@
 const debug = require("debug")("models:user");
 const client = require("../services/database");
+
+//~~~~ DOC SWAGGER ~~~~
 /**
   * @typedef {object} User
   * @property {number} id - Identifiant unique (PK)
@@ -30,13 +32,13 @@ const client = require("../services/database");
   * @property {string} accessToken - AccessToken de l'utilisateur
   * @property {string} refreshToken - RefreshToken de l'utilisateur
 */
+//~~~~~~~~
 
 module.exports = {
   /**
     * Récupère l'utilisateur selon son id
     * @returns L'utilisateur existant en BDD
   */
-
   async findByPk(userId) {
     const query = {
       text:`
