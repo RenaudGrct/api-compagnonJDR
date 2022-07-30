@@ -1,9 +1,9 @@
 require("dotenv").config();
 const userController = require("./user");
 const authController = require("./auth");
-const racesController = require("./races");
-const classesController = require("./classes");
-const backgroundsController = require("./backgrounds");
+const raceController = require("./race");
+const classeController = require("./classe");
+const backgroundController = require("./background");
 const guestController = require("./guest");
 
 const apiController = {
@@ -26,8 +26,8 @@ module.exports = {
   apiController,
   userController,
   authController,
-  racesController,
-  classesController,
-  backgroundsController,
+  raceController,
+  classeController,
+  backgroundController,
   guestController
 };

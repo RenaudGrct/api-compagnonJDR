@@ -3,6 +3,7 @@ const guestDatamapper = require("./guest");
 const racesDatamapper = require("./races");
 const classesDatamapper = require("./classes");
 const backgroundsDatamapper = require("./backgrounds");
+const characterDatamapper = require("./characters");
 
 
 // Ici on regroupe tous les datamapper pour utiliser un seul fichier et les renommer dans un require
@@ -12,5 +13,6 @@ module.exports = {
   guestDatamapper,
   racesDatamapper,
   classesDatamapper,
-  backgroundsDatamapper
+  backgroundsDatamapper,
+  characterDatamapper
 };

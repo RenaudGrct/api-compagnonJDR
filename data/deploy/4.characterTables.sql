@@ -2,7 +2,6 @@
 
 BEGIN;
 
-
 CREATE TABLE IF NOT EXISTS cjdr.ability_score (
     id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     strength integer NOT NULL,
@@ -223,6 +222,7 @@ CREATE TABLE IF NOT EXISTS cjdr.character (
         ON DELETE CASCADE
 );
 
+-- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
 COMMIT;

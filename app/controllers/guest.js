@@ -1,9 +1,9 @@
 // const debug = require("debug")("controllers:guest");
-const ApiError = require("../errors/apiError.js");
 const { unvailableFields } = require("../services/unvailableFields");
 const {
-  guestDatamapper : guest,
-  userDatamapper : profile
+  guestDatamapper: guest,
+  userDatamapper: profile,
+  characterDatamapper: character
 } = require("../models/");
 const { hashing } = require("../services/hashPassword.js");
 
@@ -36,6 +36,14 @@ module.exports = {
 
     await profile.insert(req.body);
 
-    return res.status(200).json("Votre compte à bien été enregistré");
+    // Mise à jour des personnages présent sur le compte invité transférant la valeur de la colonne guest_id vers user_id
+    const guestCharacters = await character.findAll();
+    if (guestCharacters) {
+      await character.update(guestId, [guestCharacters.id]);
+      const transferConfirmed = "Vos personnages ont été transférés sur votre nouveau compte d'utilisateur.";
+      return res.status(200).json(`Votre compte à bien été enregistré. ${transferConfirmed}`);
+    }
+
+    return res.status(200).json("Votre compte à bien été enregistré.");
   }
 };

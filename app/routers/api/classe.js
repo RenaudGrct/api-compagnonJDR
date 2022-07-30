@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Importation du controller et le handler
-const { classesController : classes } = require("../../controllers");
+const { classeController : classe } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 
@@ -21,6 +21,6 @@ router.route("/{index}")
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json
  */
-  .get(controllerHandler(classes.getClassSelected));
+  .get(controllerHandler(classe.getClassSelected));
 
 module.exports = router;

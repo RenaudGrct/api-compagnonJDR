@@ -1,10 +1,10 @@
--- Deploy compagnon-jdr:1.userTable to pg
+-- Deploy compagnon-jdr:1.userTables to pg
 
 BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS cjdr;
-GRANT USAGE ON SCHEMA cjdr TO iqnjpsmxnndhqm;
--- GRANT USAGE ON SCHEMA cjdr TO cjdr;
+-- GRANT USAGE ON SCHEMA cjdr TO iqnjpsmxnndhqm;
+GRANT USAGE ON SCHEMA cjdr TO cjdr;
 
 
 CREATE TABLE IF NOT EXISTS cjdr.user (
@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS cjdr.user (
     updatedAt TIMESTAMPTZ DEFAULT null
 );
 
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
+-- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
 INSERT INTO cjdr.user (email, username, password)
-VALUES ("vecna@donjonsql.com", "vecna", "archiliche");
+VALUES ('vecna@donjonsql.com', 'vecna', 'archiliche');
 
 COMMIT;

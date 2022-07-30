@@ -1,4 +1,4 @@
-const debug = require("debug")("models:backgrounds");
+// const debug = require("debug")("models:backgrounds");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~

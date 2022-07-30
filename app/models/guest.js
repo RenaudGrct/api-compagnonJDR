@@ -96,23 +96,5 @@ module.exports = {
     }
 
     return result.rows[0];
-  },
-
-  /**
-   * Ajoute un utilisateur invité en BDD
-   * @param {InputUser} user - l'utilisateur à insérer
-   * @returns L'utilisateur insérer
-   */
-  async transformAccount(guestId, inputUser){
-    const { email, username, hashPassword } = inputUser;
-    const query = {
-      text:`
-      INSERT INTO cjdr.user
-      (email, username, password)
-      VALUES ($1, $2, $3)`,
-      values:[email, username, hashPassword]
-    };
-    const savedGuest = await client.query(query);
-    return savedGuest.rows[0];
   }
 };

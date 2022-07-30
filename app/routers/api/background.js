@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Importation du controller et le handler
-const { backgroundsController : backgrounds } = require("../../controllers");
+const { backgroundController : background } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
@@ -19,6 +19,6 @@ router.route("/")
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json
  */
-  .get(controllerHandler(backgrounds.getAllBackgrounds));
+  .get(controllerHandler(background.getAllBackgrounds));
 
 module.exports = router;

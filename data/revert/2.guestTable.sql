@@ -2,10 +2,6 @@
 
 BEGIN;
 
-ALTER TABLE cjdr.user
-ADD isguest BOOLEAN NOT NULL DEFAULT FALSE;
-
-TRUNCATE cjdr.guest RESTART IDENTITY;
-DROP TABLE cjdr.guest;
+-- XXX Add DDLs here.
 
 COMMIT;
