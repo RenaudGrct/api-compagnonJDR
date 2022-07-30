@@ -1,4 +1,4 @@
-const debug = require("debug")("controllers:races");
+// const debug = require("debug")("controllers:backgrounds");
 const ApiError = require("../errors/apiError.js");
 const backgroundsDatamapper = require("../models/backgrounds.js");
 const backgroundsJSON = require("../../data/seeds/backgrounds.json");

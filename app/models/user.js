@@ -1,4 +1,4 @@
-const debug = require("debug")("models:user");
+// const debug = require("debug")("models:user");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
@@ -104,7 +104,6 @@ module.exports = {
       `,
       values
     };
-    debug("values updated  :", values);
     /* Potentiel function en BDD
     text: `SELECT update_user($1, $2)`,
     values: [userId, userData]

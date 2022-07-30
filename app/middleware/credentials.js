@@ -16,5 +16,3 @@ module.exports = {
     next();
   }
 };
-
-//TODO à partager dans entraide

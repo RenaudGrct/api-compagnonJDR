@@ -1,3 +1,4 @@
+// const debug = require("debug")("models:races");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~

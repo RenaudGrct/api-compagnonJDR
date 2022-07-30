@@ -1,6 +1,7 @@
-const debug = require("debug")("controllers:races");
+// const debug = require("debug")("controllers:races");
 const ApiError = require("../errors/apiError.js");
-const racesDatamapper = require("../models/races.js");
+const { racesDatamapper : races } = require("../models/");
+
 
 const racesJSON = require("../../data/seeds/races.json");
 
@@ -15,7 +16,7 @@ module.exports = {
   async getRaceSelected (req, res){
     const raceIndex = req.params.index;
     //On requête la BDD si il existe une race demandé en req.params
-    // const foundRace = await racesDatamapper.findOne(raceIndex); //TODO connexion BDD et requête SQL
+    // const foundRace = await races.findOne(raceIndex); //TODO connexion BDD et requête SQL
 
     // if (!foundRace) {
     //   throw new ApiError("Aucune races trouvées", { statusCode: 404 });
