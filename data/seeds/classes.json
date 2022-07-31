@@ -1,0 +1,84 @@
+[
+  {
+    "name" : "paladin" ,
+    "hit-point": 10,  
+    "proficiencies": [
+      {
+      "name": "paladin",
+      "saving_throw": [
+        {
+        "name": "sagesse"
+        },
+        {
+          "name": "charisme"
+        }
+      ],
+      "skills": [
+        {
+          "name": "athlètisme"
+        },
+        {
+          "name": "religion"
+        }
+      ],
+      "features": [
+          {
+            "name": "sens divin",
+            "description": "Par une action, jusqu’à la fin de votre prochain tour, vous connaissez l’emplacement de toute créature céleste, fiélon ou mort-vivante dans un rayon de 18 mètres autour de vous, et qui ne se trouve pas derrière un abri total. Vous connaissez le type (céleste, fiélon ou mort-vivant) et le nombre de tous les êtres dont vous sentez la présence, mais pas leur identité. Dans ce même rayon, vous détectez également la présence d’un lieu ou d’un objet qui a été consacré ou profané, comme avec le sort sanctification.",
+            "number_of_use": "1 + modificateur de charisme",
+            "reset": "Long repos"
+          },
+          {
+            "name": "imposition des mains",
+            "description":"Votre toucher béni peut guérir les blessures. Avec cette réserve, vous pouvez restaurer un nombre total de points de vie égal à votre niveau de paladin multiplié par 5. Au prix d’une action, vous pouvez toucher une créature et puiser dans votre réserve pour soigner autant de points de vie que vous le désirez, sans dépasser le nombre de points dans votre réserve bien entendu. Vous pouvez également dépenser 5 points de vie de votre réserve pour guérir la cible d’une maladie ou neutraliser un poison qui l’affecte. Vous pouvez soigner plusieurs maladies et neutraliser plusieurs poisons avec une seule imposition des mains en dépensant les points de vie séparément pour chacun d’entre eux. L’imposition des mains n’a pas d’effet sur les morts-vivants et les artificiels.",
+            "number_of_use": "5",
+            "reset": "Long repos"
+          }
+        ]
+      }
+    ]
+  },
+
+
+  {
+    "name" : "Guerrier" ,
+    "hit-point": 10,  
+    "proficiencies": [
+      {
+        "name": "guerrier",
+        "saving_throw": [
+          {
+          "name": "force"
+          },
+          {
+            "name": "constitution"
+          }
+        ],
+        "skills": [
+          {
+            "name": "intimidation"
+          },
+          {
+            "name": "accrobaties"
+          }
+        ],
+        "features": [
+          {
+            "name": "style de combat",
+            "description": "Vous adoptez un style particulier de combat qui sera votre spécialité.",
+            "features_choice": [
+              {
+              "name":"armes à deux mains",
+              "description":"Lorsque vous obtenez 1 ou 2 à un dé de dégâts lors d’une attaque que vous effectuez avec une arme de corps à corps que vous tenez avec vos deux mains, vous pouvez relancer le dé et obligatoirement prendre le nouveau résultat, même si celui-ci est un 1 ou un 2. L’arme doit avoir la propriété à deux mains ou polyvalente pour octroyer cet avantage."
+              },
+              {
+                "name": "combat à deux armes",
+                "description": "Lorsque vous vous engagez dans un combat avec deux armes en mains, vous pouvez ajouter votre modificateur de caractéristique aux dégâts de la seconde attaque."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

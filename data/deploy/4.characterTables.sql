@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS cjdr.background (
     name text COLLATE pg_catalog."default" NOT NULL,
     additional_language text COLLATE pg_catalog."default" NOT NULL,
     ability text COLLATE pg_catalog."default" NOT NULL,
-    ability_description text COLLATE pg_catalog."default" NOT NULL,
-    skill text COLLATE pg_catalog."default" NOT NULL
+    ability_description text COLLATE pg_catalog."default" NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.skill (
@@ -30,11 +29,8 @@ CREATE TABLE IF NOT EXISTS cjdr.race (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text COLLATE pg_catalog."default" NOT NULL,
     speed text COLLATE pg_catalog."default" NOT NULL,
-    ability_score_modifier integer NOT NULL,
     extra_language integer NOT NULL,
-    language text COLLATE pg_catalog."default" NOT NULL,
-    night_vision boolean NOT NULL,
-    racial_ability text COLLATE pg_catalog."default" NOT NULL
+    night_vision boolean NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.score_modifier (
@@ -54,7 +50,8 @@ CREATE TABLE IF NOT EXISTS cjdr.has_score_modifier (
     CONSTRAINT fk_score_modifier FOREIGN KEY (score_modifier_id)
         REFERENCES cjdr.score_modifier (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (race_id, score_modifier_id)
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.world_language (
@@ -73,14 +70,14 @@ CREATE TABLE IF NOT EXISTS cjdr.has_world_language (
     CONSTRAINT fk_world_language FOREIGN KEY (world_language_id)
         REFERENCES cjdr.world_language (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (race_id, world_language_id)
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.racial_ability (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text COLLATE pg_catalog."default" NOT NULL,
-    description text COLLATE pg_catalog."default" NOT NULL,
-    choice text COLLATE pg_catalog."default" NULL
+    description text COLLATE pg_catalog."default" NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.has_racial_ability (
@@ -94,15 +91,14 @@ CREATE TABLE IF NOT EXISTS cjdr.has_racial_ability (
     CONSTRAINT fk_racial_ability FOREIGN KEY (racial_ability_id)
         REFERENCES cjdr.racial_ability (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (race_id, racial_ability_id)
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.class (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text COLLATE pg_catalog."default" NOT NULL,
-    proficiencies integer NOT NULL,
-    hit_points integer NOT NULL,
-    features integer NOT NULL
+    hit_points integer NOT NULL
 );
 
 
@@ -132,7 +128,8 @@ CREATE TABLE IF NOT EXISTS cjdr.has_saving_throw (
     CONSTRAINT fk_proficiencies FOREIGN KEY (proficiencies_id)
         REFERENCES cjdr.proficiencies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (saving_throw_id, proficiencies_id)
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.features (
@@ -141,7 +138,6 @@ CREATE TABLE IF NOT EXISTS cjdr.features (
     description text COLLATE pg_catalog."default" NOT NULL,
     number_of_use text,
     reset text,
-    features_choice integer,
     class_id integer NOT NULL,
     CONSTRAINT fk_class FOREIGN KEY (class_id)
         REFERENCES cjdr.class (id) MATCH SIMPLE
@@ -205,11 +201,12 @@ CREATE TABLE IF NOT EXISTS cjdr.has_skill (
         REFERENCES cjdr.proficiencies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
-    background_id INT NOT NULL,
+    background_id INT,
     CONSTRAINT fk_background FOREIGN KEY (background_id)
         REFERENCES cjdr.background (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    UNIQUE (skill_id, proficiencies_id, background_id)
 );
 
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
