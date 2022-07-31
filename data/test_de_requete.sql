@@ -6,12 +6,14 @@ class.hit_points,
 Prof.name AS proficiencies,
 JSON_AGG(DISTINCT ST.name) AS saving_throw,
 JSON_AGG(DISTINCT S.name) AS skill,
-(SELECT JSON_AGG(JSON_BUILD_OBJECT(
+(SELECT JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 	'feature_name', F.name,
 	'description', F.description,
-	'choice', (SELECT JSON_AGG(FC.*)
-			  FROM cjdr.features_choice AS FC
-			  WHERE FC.features_id = F.id)
+	'number_of_use', F.number_of_use,
+	'reset', F.reset,
+	'choice', (SELECT JSONB_AGG(FC.*)
+			FROM cjdr.features_choice AS FC
+			WHERE FC.features_id = F.id)
 	)))AS features
 FROM cjdr.class
 JOIN cjdr.proficiencies AS Prof
