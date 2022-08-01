@@ -17,7 +17,5 @@ CREATE TABLE IF NOT EXISTS cjdr.guest (
 
 INSERT INTO cjdr.guest (email, username, password)
 VALUES ('vecna@donjonsql.com', 'vecna', 'archiliche');
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
 COMMIT;

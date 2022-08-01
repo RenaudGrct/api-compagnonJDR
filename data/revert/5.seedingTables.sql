@@ -4,7 +4,7 @@ BEGIN;
 
 TRUNCATE 
 cjdr.ability_score,
-cjdr.backgrounds,
+cjdr.background,
 cjdr.skill,
 cjdr.race,
 cjdr.score_modifier,
@@ -12,7 +12,7 @@ cjdr.world_language,
 cjdr.racial_ability,
 cjdr.class,
 cjdr.saving_throw,
-cjdr.proficencies,
+cjdr.proficiencies,
 cjdr.features,
 cjdr.features_choice,
 cjdr.character,

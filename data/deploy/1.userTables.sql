@@ -3,8 +3,9 @@
 BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS cjdr;
--- GRANT USAGE ON SCHEMA cjdr TO iqnjpsmxnndhqm;
-GRANT USAGE ON SCHEMA cjdr TO cjdr;
+ALTER SCHEMA cjdr OWNER TO cjdr;
+-- ALTER SCHEMA cjdr OWNER TO iqnjpsmxnndhqm;
+
 
 
 CREATE TABLE IF NOT EXISTS cjdr.user (
@@ -17,9 +18,6 @@ CREATE TABLE IF NOT EXISTS cjdr.user (
     createdAt TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMPTZ DEFAULT null
 );
-
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
 INSERT INTO cjdr.user (email, username, password)
 VALUES ('vecna@donjonsql.com', 'vecna', 'archiliche');

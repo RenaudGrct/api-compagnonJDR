@@ -209,7 +209,5 @@ CREATE TABLE IF NOT EXISTS cjdr.has_skill (
     UNIQUE (skill_id, proficiencies_id, background_id)
 );
 
--- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO iqnjpsmxnndhqm;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA cjdr TO cjdr;
 
 COMMIT;
