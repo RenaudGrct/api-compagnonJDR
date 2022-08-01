@@ -1,0 +1,61 @@
+[
+  {
+    "name" : "Drakéide" ,
+    "speed": "9 m",
+    "score_modifier": [
+      {
+      "name": "force",
+      "number": 2
+      },
+      {
+      "name": "charisme",
+      "number": 1
+      }
+    ],
+    "language": ["commun", "draconique"],
+    "extra_language": 0,
+    "racial_ability": [
+      {
+        "name": "ascendance draconique",
+        "description": "Vous avez une ascendance draconique. Votre souffle et votre résistance aux dégâts sont déterminés par le type de dragon.",
+        "choice": ["Or","Argent","cuivre"]
+      }
+    ],
+    "night_vision": false
+  },
+
+  {
+    "name" : "Humain",
+    "speed": "9 m",
+    "score_modifier": [
+      {
+      "name": "force"  ,
+      "number": 1 
+      },
+      {
+      "name": "dextérité",
+      "number": 1
+      },
+      {
+        "name": "constitution",
+        "number": 1
+      },
+      {
+        "name": "sagesse",
+        "number": 1
+      },
+      {
+        "name": "charisme",
+        "number": 1
+      },
+      {
+        "name": "intelligence",
+        "number": 1
+      }
+    ],
+    "language": ["commun"],
+    "extra_language": 1,
+    "racial_ability": [],
+    "night_vision": false
+  }
+]
