@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Importation du controller et le handler
-const { backgroundsController : backgrounds } = require("../../controllers");
+const { backgroundController : backgrounds } = require("../../controllers");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.route("/")
 /**
  * GET /api/backgrounds
  * @summary Renvoie tous les Historiques
- * @tags Background (non fonctionnelle)
+ * @tags Création du personnage
  * @return {Race} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 401 - Invalid connection informations application/json

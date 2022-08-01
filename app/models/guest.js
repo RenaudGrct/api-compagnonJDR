@@ -1,3 +1,4 @@
+// const debug  require("debug")("models:guest");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~

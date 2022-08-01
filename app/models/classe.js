@@ -1,3 +1,4 @@
+// const debug = require("debug")("models:classes");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
@@ -6,10 +7,9 @@ const client = require("../services/database");
   * @property {number} id - Identifiant unique (PK)
   * @property {string} name - Nom de la race
   * @property {array<object>} proficiencies - Compétences liées à la classe
-  * @property {array<object>} saving_throw - Jet de sauvegarde liée à la classe
-  * @property {array<Object>} skills - Aptitudes maîtrisées liées à la classe
+  * @property {array<string>} saving_throw - Jet de sauvegarde liée à la classe
+  * @property {array<string>} skills - Aptitudes maîtrisées liées à la classe
   * @property {array<object>} features - caractéristiques liées à la classe
-  * @property {boolean} night_vision - Vision nocturne
 */
 //~~~~~~~~
 
@@ -24,16 +24,16 @@ module.exports = {
     //les données liées à cette classe.
 
     const query = {
-      text: "", //TODO string de la requête en BDD à faire
-      values: [classIndex.name]
+      text: "SELECT * FROM cjdr.class_list WHERE LOWER(class_list.name) = LOWER($1)",
+      values: [classIndex]
     };
 
-    // const result = await client.query(query); //TODO en attente du texte de la requête SQL
+    const result = await client.query(query);
 
-    // if (!result.rowCount === 0 ) {
-    //   return null;
-    // }
+    if (!result.rowCount === 0 ) {
+      return null;
+    }
 
-    // return result.rows[0];
+    return result.rows[0];
   }
 };

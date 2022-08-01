@@ -1,4 +1,4 @@
-const debug = require("debug")("app:login");
+// const debug = require("debug")("controllers:auth");
 const bcrypt = require("bcrypt");
 const ApiError = require("../errors/apiError.js");
 const userDatamapper = require("../models/user.js");

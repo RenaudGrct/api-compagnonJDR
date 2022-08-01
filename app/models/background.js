@@ -1,3 +1,4 @@
+// const debug = require("debug")("models:backgrounds");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
@@ -20,15 +21,15 @@ module.exports = {
   async findAll(){
 
     const query = {
-      text: "", //TODO string de la requête en BDD à faire
+      text: "SELECT * FROM cjdr.background_list",
     };
 
-    // const result = await client.query(query); //TODO en attente du texte de la requête SQL
+    const result = await client.query(query);
 
-    // if (!result.rowCount === 0 ) {
-    //   return null;
-    // }
+    if (!result.rowCount === 0 ) {
+      return null;
+    }
 
-    // return result.rows;
+    return result.rows;
   }
 };

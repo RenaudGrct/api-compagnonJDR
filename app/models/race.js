@@ -1,8 +1,9 @@
+// const debug = require("debug")("models:races");
 const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
 /**
-  * @typedef {object} Classes
+  * @typedef {object} Races
   * @property {number} id - Identifiant unique (PK)
   * @property {string} name - Nom de la race
   * @property {string} speed - Vitesse de marche
@@ -25,16 +26,16 @@ module.exports = {
     //les données liées à cette race.
 
     const query = {
-      text: "", //TODO string de la requête en BDD à faire
-      values: [raceIndex.name]
+      text: "SELECT * FROM cjdr.race_list WHERE LOWER(race_list.name) = LOWER($1)",
+      values: [raceIndex]
     };
 
-    // const result = await client.query(query); //TODO en attente du texte de la requête SQL
+    const result = await client.query(query);
 
-    // if (!result.rowCount === 0 ) {
-    //   return null;
-    // }
+    if (!result.rowCount === 0 ) {
+      return null;
+    }
 
-    // return result.rows[0];
+    return result.rows[0];
   }
 };
