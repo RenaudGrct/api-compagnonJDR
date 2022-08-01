@@ -1,7 +1,6 @@
 // const debug = require("debug")("controllers:classes");
 const ApiError = require("../errors/apiError.js");
-const { classDatamapper: classes } = require("../models");
-const classesJSON = require("../../data/seeds/classes.json");
+const { classesDatamapper: classes } = require("../models");
 
 module.exports = {
   /**
@@ -14,12 +13,12 @@ module.exports = {
   async getClassSelected (req, res){
     const classIndex = req.params.index;
     //On requête la BDD si il existe une classe demandé en req.params
-    // const foundedClass = await classes.findOne(classIndex); //TODO connexion BDD et requête SQL
+    const foundedClass = await classes.findOne(classIndex);
 
-    // if (!foundedClass) {
-    //   throw new ApiError("Aucune races trouvées", { statusCode: 404 });
-    // }
+    if (!foundedClass) {
+      throw new ApiError("Aucune classes trouvées", { statusCode: 404 });
+    }
 
-    return res.status(200).json(classesJSON[0]);
+    return res.status(200).json(foundedClass);
   }
 };

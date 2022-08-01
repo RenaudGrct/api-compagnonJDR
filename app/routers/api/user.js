@@ -59,17 +59,17 @@ router.route("/:id(\\d+)")
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~ CREATE USER ACCOUNT FROM GUEST
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-router.route("/{id}/confirm-register")
-  /**
-    * POST /api/auth/confirm-register
-    * @summary Création d'un nouveau compte utilisateur à partir d'un profil invité
-    * @tags Profile (non fonctionnelle)
-    * @param {number} id.path.required - PK de l'invité
-    * @param {InputUser} request.body.required - user info
-    * @return {User} 200 - success response - application/json
-    * @return {ApiError} 400 - Bad request response - application/json
-    * @return {ApiError} 404 - Profile not found - application/json
-  */
-  .post(validate("body", createSchema), controllerHandler(guest.transformAccount));
+// router.route("/{id}/confirm-register")
+  // /**
+  //   * POST /api/auth/confirm-register
+  //   * @summary Création d'un nouveau compte utilisateur à partir d'un profil invité
+  //   * @tags Profile (non fonctionnelle)
+  //   * @param {number} id.path.required - PK de l'invité
+  //   * @param {InputUser} request.body.required - user info
+  //   * @return {User} 200 - success response - application/json
+  //   * @return {ApiError} 400 - Bad request response - application/json
+  //   * @return {ApiError} 404 - Profile not found - application/json
+  // */
+  // .post(validate("body", createSchema), controllerHandler(guest.transformAccount));
 
 module.exports = router;

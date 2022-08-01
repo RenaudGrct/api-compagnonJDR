@@ -3,8 +3,6 @@
 BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS cjdr;
-ALTER SCHEMA cjdr OWNER TO cjdr;
--- ALTER SCHEMA cjdr OWNER TO iqnjpsmxnndhqm;
 
 
 

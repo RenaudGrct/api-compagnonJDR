@@ -1,7 +1,6 @@
 // const debug = require("debug")("controllers:backgrounds");
 const ApiError = require("../errors/apiError.js");
 const { backgroundsDatamapper: background } = require("../models");
-const backgroundsJSON = require("../../data/seeds/backgrounds.json");
 
 module.exports = {
   /**
@@ -13,12 +12,12 @@ module.exports = {
   */
   async getAllBackgrounds (req, res){
     //On requête la BDD si il existe une race demandé en req.params
-    // const backgrounds = await background.findAll(); //TODO connection et requête BDD
+    const backgrounds = await background.findAll();
 
-    // if (!backgrounds) {
-    //   throw new ApiError("Aucuns historiques trouvés", { statusCode: 404 });
-    // }
+    if (!backgrounds) {
+      throw new ApiError("Aucuns historiques trouvés", { statusCode: 404 });
+    }
 
-    return res.status(200).json(backgroundsJSON);
+    return res.status(200).json(backgrounds);
   }
 };

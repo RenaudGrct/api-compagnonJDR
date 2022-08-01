@@ -3,7 +3,7 @@ const app = express();
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 require("./services/swaggerDocs")(app);
-const credentials = require("./middleware/credentials");
+const { accessControl } = require("./middleware/accessControl");
 
 const router = require("./routers");
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //~~ Middleware des CORS options
-app.use(credentials);
+app.use(accessControl);
 
 
 //~~ ROUTER

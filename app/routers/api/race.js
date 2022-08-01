@@ -9,11 +9,11 @@ const router = express.Router();
 //~~~~~~~~~~~~~~
 //~~ SELECT RACE
 //~~~~~~~~~~~~~~
-router.route("/{index}")
+router.route("/:index")
 /**
  * GET /api/races/{index}
  * @summary Renvoie toutes les données liées à la race selectionnée
- * @tags Races (non fonctionnelles)
+ * @tags Création du personnage
  * @param {string} name.path.required - index de la race (dragonborn, human, ...)
  * @return {RaceSelected} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
