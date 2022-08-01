@@ -1,5 +1,4 @@
 #sqitch
-data/
 # npm
 node_modules/
 package-lock.json
@@ -8,5 +7,4 @@ package-lock.json
 
 #config
 .env
-sqitch.conf
 .eslintrc

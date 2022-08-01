@@ -1,4 +1,7 @@
+// const debug  require("debug")("models:guest");
 const client = require("../services/database");
+
+//~~~~ DOC SWAGGER ~~~~
 /**
   * @typedef {object} Guest
   * @property {number} id - Identifiant unique (PK)
@@ -21,6 +24,7 @@ const client = require("../services/database");
   * @property {string} accessToken - AccessToken de l'utilisateur
   * @property {string} refreshToken - RefreshToken de l'utilisateur
 */
+//~~~~~~~~~~
 
 module.exports = {
 
