@@ -7,13 +7,16 @@ const options = {
     description: "API du projet d'apothéose Compagnon JDR",
   },
   baseDir: __dirname,
-
-  // security: {
-  //   BasicAuth: {
-  //     type: "http",
-  //     scheme: "basic",
-  //   },
-  // },
+  security:{
+    BasicAuth:{
+      type: "http",
+      scheme: "basic"
+    },
+    BearerAuth : {
+      type: "http",
+      scheme: "bearer"
+    }
+  },
   filesPattern: "../**/*.js",
   // URL de la page de documentation
   swaggerUIPath: process.env.API_DOCUMENTATION_ROUTE,

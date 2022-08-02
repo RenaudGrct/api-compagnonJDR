@@ -15,7 +15,7 @@ router.route("/:index")
  * GET /api/classes/{index}
  * @summary Renvoie toutes les données liées à la classe selectionnée
  * @tags Création du personnage
- * @param {string} name.path.required - index de la classe (paladin, warrior, ...)
+ * @param {string} name.path.required - index de la classe - enum: Paladin, Guerrier
  * @return {Class} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 401 - Invalid connection informations application/json
