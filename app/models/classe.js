@@ -3,7 +3,7 @@ const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
 /**
-  * @typedef {object} Classes
+  * @typedef {object} ClassSelected
   * @property {number} id - Identifiant unique (PK)
   * @property {string} name - Nom de la race
   * @property {array<object>} proficiencies - Compétences liées à la classe
