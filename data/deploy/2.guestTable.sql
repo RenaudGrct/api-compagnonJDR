@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS cjdr.guest (
 );
 
 INSERT INTO cjdr.guest (email, username, password)
-VALUES ('vecna@donjonsql.com', 'vecna', 'archiliche');
+VALUES ('vecna1@donjonsql.com', 'vecna1', 'archiliche');
 
 COMMIT;

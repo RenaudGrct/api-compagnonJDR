@@ -118,7 +118,6 @@ CREATE TABLE IF NOT EXISTS cjdr.proficiencies (
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.has_saving_throw (
-    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     saving_throw_id INT NOT NULL,
     CONSTRAINT fk_saving_throw FOREIGN KEY (saving_throw_id)
         REFERENCES cjdr.saving_throw (id) MATCH SIMPLE
@@ -129,7 +128,7 @@ CREATE TABLE IF NOT EXISTS cjdr.has_saving_throw (
         REFERENCES cjdr.proficiencies (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
-    UNIQUE (saving_throw_id, proficiencies_id)
+    PRIMARY KEY (saving_throw_id, proficiencies_id)
 );
 
 CREATE TABLE IF NOT EXISTS cjdr.features (

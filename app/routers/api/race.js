@@ -14,11 +14,12 @@ router.route("/:index")
  * GET /api/races/{index}
  * @summary Renvoie toutes les données liées à la race selectionnée
  * @tags Création du personnage
- * @param {string} name.path.required - index de la race (dragonborn, human, ...)
+ * @param {string} name.path.required - index de la race - enum: Drakéide, Humain
  * @return {RaceSelected} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json
+ * @security BasicAuth || BearerAuth
  */
   .get(controllerHandler(race.getRaceSelected));
 
