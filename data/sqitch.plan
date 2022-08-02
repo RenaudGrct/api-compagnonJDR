@@ -7,3 +7,4 @@
 4.characterTables 2022-07-30T21:59:29Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # ajout des tables nécessaire à la création du personnages
 5.seedingTables 2022-07-31T12:45:23Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Seeding des tables pour la crÃ©ation de personnage
 6.views 2022-08-01T08:33:23Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # CrÃ©ation des views pour les diffÃ©rentes sections de la crÃ©ation de personnage
+7.character_build_tables 2022-08-02T20:13:40Z Renaud GARCONNET <hidra@DESKTOP-FJ9IT14> # Ajout d'une table pour le CRUD du personnages choisi par l'utilisateur
