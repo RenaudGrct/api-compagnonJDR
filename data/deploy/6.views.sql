@@ -35,12 +35,12 @@ C."name",
 				'name', FC."name",
 				'description', FC."description"
 			))
-			FROM cjdr.features_choice AS FC
-			WHERE FC.features_id = F.id)
-	)))AS features
+			FROM cjdr.feature_choice AS FC
+			WHERE FC.feature_id = F.id)
+	)))AS feature
 
 FROM cjdr."class" AS C
-JOIN cjdr.features AS F ON F.class_id = C.id
+JOIN cjdr.feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;
 
