@@ -150,6 +150,7 @@ module.exports = {
         values.push(value);
       }
     });
+
     const query = {
       text : `SELECT * FROM cjdr.user WHERE (${fields.join(" OR ")})`,
       values

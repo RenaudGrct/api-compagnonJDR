@@ -14,7 +14,7 @@ router.route("/")
  * GET /api/backgrounds
  * @summary Renvoie tous les Historiques
  * @tags Création du personnage
- * @return {Race} 200 - success response - application/json
+ * @return {Backgrounds} 200 - success response - application/json
  * @return {ApiError} 400 - Bad request response - application/json
  * @return {ApiError} 401 - Invalid connection informations application/json
  * @return {ApiError} 404 - race not found - application/json

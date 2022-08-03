@@ -3,7 +3,7 @@ const client = require("../services/database");
 
 //~~~~ DOC SWAGGER ~~~~
 /**
-  * @typedef {object} Races
+  * @typedef {object} RaceSelected
   * @property {number} id - Identifiant unique (PK)
   * @property {string} name - Nom de la race
   * @property {string} speed - Vitesse de marche

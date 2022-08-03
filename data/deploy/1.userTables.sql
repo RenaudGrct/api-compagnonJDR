@@ -18,6 +18,6 @@ CREATE TABLE IF NOT EXISTS cjdr.user (
 );
 
 INSERT INTO cjdr.user (email, username, password)
-VALUES ('vecna@donjonsql.com', 'vecna', 'archiliche');
+VALUES ('vecna@donjonsql.com', 'vecna', '$2b$10$hJIF5HQSe6aa19oHhKQbXuiTBgnXhw3gm2yT4tpQLmaIHZCO3qOEa');
 
 COMMIT;
