@@ -7,6 +7,7 @@ BEGIN;
 CREATE OR REPLACE VIEW cjdr.class_list
 AS
 SELECT
+C.id,
 C."name",
 (SELECT JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 	'skills', (SELECT JSON_AGG(S.*)
@@ -35,12 +36,12 @@ C."name",
 				'name', FC."name",
 				'description', FC."description"
 			))
-			FROM cjdr.features_choice AS FC
-			WHERE FC.features_id = F.id)
-	)))AS features
+			FROM cjdr.feature_choice AS FC
+			WHERE FC.feature_id = F.id)
+	)))AS feature
 
 FROM cjdr."class" AS C
-JOIN cjdr.features AS F ON F.class_id = C.id
+JOIN cjdr.feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;
 
@@ -82,6 +83,7 @@ GROUP BY R.id
 CREATE OR REPLACE VIEW cjdr.background_list
 AS
 SELECT
+B.id,
 B."name",
 B.additional_language,
 B.ability,

@@ -79,7 +79,7 @@ VALUES
 ('Guerrier', 2)
 ;
 
-INSERT INTO cjdr.features ("name", "description", number_of_use, use_reset, class_id)
+INSERT INTO cjdr.feature ("name", "description", number_of_use, use_reset, class_id)
 VALUES
 ('Imposition des mains', 'Votre toucher béni peut guérir les blessures. Vous possédez une réserve de points de vie à soigner qui se récupère après chaque repos long. Avec cette réserve, vous pouvez restaurer  un  nombre  total  de  points  de  vie  égal  à  votre niveau  de  paladin  multiplié  par  5.  Au  prix  d’une  action, vous  pouvez  toucher  une  créature  et  puiser  dans  votre réserve  pour  soigner  autant  de  points  de  vie  que  vous  le désirez,  sans  dépasser  le  nombre  de  points  dans  votre réserve bien entendu. Vous  pouvez  également  dépenser  5  points  de  vie  de  votre réserve pour guérir la cible d’une maladie ou neutraliser un poison qui l’affecte. Vous pouvez soigner plusieurs maladies  et  neutraliser  plusieurs  poisons  avec  une  seule imposition des mains en dépensant les points de vie séparément  pour  chacun  d’entre  eux. L’imposition des mains n’a pas d’effet sur les morts-vivants et les artificiels.', 5, 'Long repos', 1),
 ('Sens divin', 'Une forte présence maléfique éveille vos sens, comme une odeur  nocive,  et  un  bien  puissant  fait  résonner  dans  vos oreilles une musique céleste. Par une action, vous pouvez éveiller  votre  conscience  pour  détecter  de  telles  forces. Jusqu’à  la  fin  de  votre  prochain  tour,  vous  connaissez l’emplacement  de  toute  créature  céleste,  fiélon  ou  mort-vivante dans un rayon de 18 mètres autour de vous, et qui ne se trouve pas derrière un abri total. Vous connaissez le type (céleste, fiélon ou mort-vivant) et le nombre de tous les êtres dont vous sentez la présence, mais pas leur identité (le vampire comte Strahd von Zarovich, par exemple). Dans ce même rayon, vous détectez également la présence d’un lieu ou d’un objet qui a été consacré ou profané, comme avec le sort sanctification.', 2, 'Long repos', 1),
@@ -87,7 +87,7 @@ VALUES
 ('Second souffle', 'Vous possédez une réserve d’endurance limitée dans laquelle vous pouvez puiser pour vous protéger contre les dégâts. À votre tour vous pouvez utiliser une action bonus pour regagner un nombre de pv égal à 1d10 + votre niveau de guerrier.', 1, 'Court ou Long repos', 2)
 ;
 
-INSERT INTO cjdr.features_choice ("name", "description", features_id)
+INSERT INTO cjdr.feature_choice ("name", "description", feature_id)
 VALUES
 ('Archerie', 'Vous obtenez un bonus de +2  aux jets d’attaque  avec une arme à distance', 3),
 ('Arme à deux mains', 'Lorsque vous obtenez 1 ou 2 à un dé de dégâts lors d’une attaque que vous effectuez avec une arme de corps à corps que vous tenez avec vos deux mains, vous pouvez relancer le dé et obligatoirement prendre le nouveau résultat, même si celui-ci est un 1 ou un 2. L’arme doit avoir la propriété à deux mains ou polyvalente pour octroyer cet avantage.', 3),
@@ -96,10 +96,6 @@ VALUES
 ('Duel', 'Lorsque vous attaquez avec une arme de corps à corps dans une main et aucune autre arme, vous obtenez un bonus de +2 aux dégâts avec cette arme.', 3)
 ;
 
-INSERT INTO cjdr."character" ("name", "user_id", guest_id, race_id, class_id, ability_score_id, background_id)
-VALUES
-('BenOclock', 1, 1, 2, 1, 1, 1)
-;
 
 INSERT INTO cjdr.has_score_modifier (race_id, score_modifier_id)
 VALUES

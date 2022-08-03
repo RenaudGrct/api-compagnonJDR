@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS cjdr.has_saving_throw (
     PRIMARY KEY (saving_throw_id, proficiencies_id)
 );
 
-CREATE TABLE IF NOT EXISTS cjdr.features (
+CREATE TABLE IF NOT EXISTS cjdr.feature (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" text COLLATE pg_catalog."default" NOT NULL,
     "description" text COLLATE pg_catalog."default" NOT NULL,
@@ -144,13 +144,13 @@ CREATE TABLE IF NOT EXISTS cjdr.features (
         ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS cjdr.features_choice (
+CREATE TABLE IF NOT EXISTS cjdr.feature_choice (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" text COLLATE pg_catalog."default" NOT NULL,
     "description" text COLLATE pg_catalog."default" NOT NULL,
-    features_id integer NOT NULL,
-    CONSTRAINT fk_features FOREIGN KEY (features_id)
-        REFERENCES cjdr.features (id) MATCH SIMPLE
+    feature_id integer NOT NULL,
+    CONSTRAINT fk_feature FOREIGN KEY (feature_id)
+        REFERENCES cjdr.feature (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );

@@ -29,12 +29,12 @@ C.name,
 				'name', FC.name,
 				'description', FC.description
 			))
-			FROM cjdr.features_choice AS FC
-			WHERE FC.features_id = F.id)
-	)))AS features
+			FROM cjdr.feature_choice AS FC
+			WHERE FC.feature_id = F.id)
+	)))AS feature
 
 FROM cjdr.class AS C
-JOIN cjdr.features AS F ON F.class_id = C.id
+JOIN cjdr.feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;
 
@@ -56,9 +56,9 @@ JSON_AGG(DISTINCT S.name) AS skill,
 				'name', FC.name,
 				'description', FC.description
 			))
-			FROM cjdr.features_choice AS FC
-			WHERE FC.features_id = F.id)
-	)))AS features
+			FROM cjdr.feature_choice AS FC
+			WHERE FC.feature_id = F.id)
+	)))AS feature
 
 FROM cjdr.class AS C
 JOIN cjdr.proficiencies AS P
@@ -67,7 +67,7 @@ JOIN (cjdr.saving_throw AS ST JOIN cjdr.has_saving_throw AS HST ON HST.saving_th
   ON P.id = HST.proficiencies_id
 JOIN (cjdr.skill AS S JOIN cjdr.has_skill AS HS ON HS.skill_id = S.id)
 	ON P.id = HS.proficiencies_id
-JOIN cjdr.features AS F
+JOIN cjdr.feature AS F
 	ON C.id = F.class_id
 GROUP BY C.name, C.hit_points
 ;
