@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE cjdr.user
+ALTER TABLE cjdr."user"
 ADD isguest BOOLEAN NOT NULL DEFAULT FALSE;
 
 TRUNCATE cjdr.guest RESTART IDENTITY;

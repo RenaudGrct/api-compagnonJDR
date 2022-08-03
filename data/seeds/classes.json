@@ -21,7 +21,7 @@
           "name": "religion"
         }
       ],
-      "features": [
+      "feature": [
           {
             "name": "sens divin",
             "description": "Par une action, jusqu’à la fin de votre prochain tour, vous connaissez l’emplacement de toute créature céleste, fiélon ou mort-vivante dans un rayon de 18 mètres autour de vous, et qui ne se trouve pas derrière un abri total. Vous connaissez le type (céleste, fiélon ou mort-vivant) et le nombre de tous les êtres dont vous sentez la présence, mais pas leur identité. Dans ce même rayon, vous détectez également la présence d’un lieu ou d’un objet qui a été consacré ou profané, comme avec le sort sanctification.",
@@ -62,11 +62,11 @@
             "name": "accrobaties"
           }
         ],
-        "features": [
+        "feature": [
           {
             "name": "style de combat",
             "description": "Vous adoptez un style particulier de combat qui sera votre spécialité.",
-            "features_choice": [
+            "feature_choice": [
               {
               "name":"armes à deux mains",
               "description":"Lorsque vous obtenez 1 ou 2 à un dé de dégâts lors d’une attaque que vous effectuez avec une arme de corps à corps que vous tenez avec vos deux mains, vous pouvez relancer le dé et obligatoirement prendre le nouveau résultat, même si celui-ci est un 1 ou un 2. L’arme doit avoir la propriété à deux mains ou polyvalente pour octroyer cet avantage."

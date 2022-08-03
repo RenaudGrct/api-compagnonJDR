@@ -2,7 +2,7 @@
 
 BEGIN;
 
-UPDATE cjdr.user
+UPDATE cjdr."user"
   SET refresh_token
   VALUES "!1doy/203koi54d@de26!#"
 WHERE id = 1;
