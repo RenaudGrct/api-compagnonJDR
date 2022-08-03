@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE cjdr.user
+ALTER TABLE cjdr."user"
 DROP refresh_token;
 ALTER TABLE cjdr.guest
 DROP refresh_token;
