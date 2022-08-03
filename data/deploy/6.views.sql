@@ -7,6 +7,7 @@ BEGIN;
 CREATE OR REPLACE VIEW cjdr.class_list
 AS
 SELECT
+C.id,
 C."name",
 (SELECT JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 	'skills', (SELECT JSON_AGG(S.*)
@@ -82,6 +83,7 @@ GROUP BY R.id
 CREATE OR REPLACE VIEW cjdr.background_list
 AS
 SELECT
+B.id,
 B."name",
 B.additional_language,
 B.ability,
