@@ -6,6 +6,7 @@ const userRouter = require("./user");
 const racesRouter = require("./race");
 const classesRouter = require("./classe");
 const backgroundsRouter = require("./background");
+const characterRouter = require("./character");
 const { apiController } = require("../../controllers");
 const { ApiError } = require("../../services/handlers/errorHandler");
 const { verifyToken } = require("../../middleware/verifyJWT");
@@ -25,6 +26,7 @@ router.use("/profile", userRouter);
 router.use("/races", racesRouter);
 router.use("/classes", classesRouter);
 router.use("/backgrounds", backgroundsRouter);
+router.use("/character", characterRouter);
 
 // 404 pour les routes de l'API
 router.use(() => {
