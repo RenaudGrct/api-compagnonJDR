@@ -12,15 +12,6 @@ DROP COLUMN class_id,
 DROP COLUMN background_id
 ;
 
-ALTER TABLE IF EXISTS cjdr."character"
-ADD character_build INTEGER
--- CONSTRAINT fk_character_build
---       REFERENCES cjdr.character_build (id) MATCH SIMPLE
---       ON UPDATE NO ACTION
---       ON DELETE CASCADE
-;
-
-
 CREATE TABLE IF NOT EXISTS cjdr.character_build(
   id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" TEXT NOT NULL,
@@ -51,4 +42,11 @@ CREATE TABLE IF NOT EXISTS cjdr.character_build(
         ON DELETE CASCADE
 );
 
+ALTER TABLE IF EXISTS cjdr."character"
+ADD character_build INTEGER
+CONSTRAINT fk_character_build
+      REFERENCES cjdr.character_build (id) MATCH SIMPLE
+      ON UPDATE NO ACTION
+      ON DELETE CASCADE
+;
 COMMIT;

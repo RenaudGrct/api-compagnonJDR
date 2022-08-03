@@ -96,10 +96,6 @@ VALUES
 ('Duel', 'Lorsque vous attaquez avec une arme de corps à corps dans une main et aucune autre arme, vous obtenez un bonus de +2 aux dégâts avec cette arme.', 3)
 ;
 
-INSERT INTO cjdr."character" ("name", "user_id", guest_id, race_id, class_id, ability_score_id, background_id)
-VALUES
-('BenOclock', 1, 1, 2, 1, 1, 1)
-;
 
 INSERT INTO cjdr.has_score_modifier (race_id, score_modifier_id)
 VALUES
