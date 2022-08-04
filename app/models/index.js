@@ -4,6 +4,9 @@ const racesDatamapper = require("./race");
 const classesDatamapper = require("./classe");
 const backgroundsDatamapper = require("./background");
 const characterDatamapper = require("./character");
+const abilityScoreDatamapper = require("./abilityScore");
+const chosenSkillsDatamapper = require("./chosenSkills");
+const chosenFeatureChoiceDatamapper = require("./chosenFeatureChoice");
 
 
 // Ici on regroupe tous les datamapper pour utiliser un seul fichier et les renommer dans un require
@@ -14,5 +17,8 @@ module.exports = {
   racesDatamapper,
   classesDatamapper,
   backgroundsDatamapper,
-  characterDatamapper
+  characterDatamapper,
+  abilityScoreDatamapper,
+  chosenSkillsDatamapper,
+  chosenFeatureChoiceDatamapper
 };

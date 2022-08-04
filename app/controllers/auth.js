@@ -53,7 +53,7 @@ module.exports = {
         res.cookie("jwt", refreshToken, cookieOptions);
         delete user.refresh_token;
 
-        return res.status(200).json({ accessToken, user});
+        return res.status(200).json({ accessToken, guest : user});
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
