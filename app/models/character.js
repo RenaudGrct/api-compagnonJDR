@@ -18,6 +18,7 @@ module.exports = {
     * @returns - Etat de l'aajout du personnage.
   */
   async insert(characterData){
+    console.debug("🚀 ~ characterData", characterData);
     const fields = [];
     const params = [];
     const values = [];
@@ -40,8 +41,10 @@ module.exports = {
       RETURNING id`,
       values
     };
+    console.debug("🚀 ~ query", query);
 
     const savedCharacter = await client.query(query);
+    console.debug("🚀 ~ savedCharacter", savedCharacter);
 
     return savedCharacter.rows[0].id;
   },
