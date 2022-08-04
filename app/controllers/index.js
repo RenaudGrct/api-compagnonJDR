@@ -5,6 +5,7 @@ const raceController = require("./race");
 const classeController = require("./classe");
 const backgroundController = require("./background");
 const guestController = require("./guest");
+const characterController = require("./character");
 
 const apiController = {
   /**
@@ -29,5 +30,6 @@ module.exports = {
   raceController,
   classeController,
   backgroundController,
-  guestController
+  guestController,
+  characterController
 };

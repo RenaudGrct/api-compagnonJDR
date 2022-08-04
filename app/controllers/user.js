@@ -32,7 +32,6 @@ module.exports = {
   */
   async createProfile(req, res) {
     const user = await profile.isExist(req.body);
-
     if (user) {
       unvailableFields(user, req.body);
     }
