@@ -18,14 +18,13 @@ module.exports = {
     * @returns - Etat de l'aajout du personnage.
   */
   async insert(characterData){
-    console.debug("🚀 ~ characterData", characterData);
     const fields = [];
     const params = [];
     const values = [];
     Object.entries(characterData).forEach(([key, value], index)=>{
       fields.push(`${key}`);
       params.push(`$${index +1}`);
-      if (["name"].includes(value)) {
+      if (["name"].includes(key)) {
         values.push(value);
       }else{
         values.push(parseInt(value));
@@ -41,10 +40,8 @@ module.exports = {
       RETURNING id`,
       values
     };
-    console.debug("🚀 ~ query", query);
 
     const savedCharacter = await client.query(query);
-    console.debug("🚀 ~ savedCharacter", savedCharacter);
 
     return savedCharacter.rows[0].id;
   },
