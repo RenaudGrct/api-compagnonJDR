@@ -26,7 +26,6 @@ module.exports = {
 
     const abilityScoreId = await score.insert(req.body.ability_score);
     data.ability_score_id = abilityScoreId;
-    console.debug("🚀 ~ data", data)
     const characterId = await character.insert(data);
 
     await chosenSkills.insert(characterId, req.body.skill_id);

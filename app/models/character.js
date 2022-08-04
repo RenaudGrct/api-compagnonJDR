@@ -36,7 +36,6 @@ module.exports = {
       RETURNING id`,
       values
     };
-    console.debug("🚀 ~ query", query)
 
     const savedCharacter = await client.query(query);
 
