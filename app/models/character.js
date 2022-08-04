@@ -24,7 +24,11 @@ module.exports = {
     Object.entries(characterData).forEach(([key, value], index)=>{
       fields.push(`${key}`);
       params.push(`$${index +1}`);
-      values.push(value);
+      if (["name"].includes(value)) {
+        values.push(value);
+      }else{
+        values.push(parseInt(value));
+      }
     });
 
     const query = {
@@ -52,7 +56,7 @@ module.exports = {
     Object.entries(id).forEach(([key, value]) => {
       if (value) {
         field.push(`${key}`);
-        values.push(value);
+        values.push(parseInt(value));
       }
     });
 

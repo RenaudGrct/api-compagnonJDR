@@ -10,7 +10,7 @@ module.exports = {
     Object.entries(abilityScore).forEach(([key, value], index) => {
       fields.push(`"${key}"`);
       params.push(`$${index +1}`);
-      values.push(value);
+      values.push(parseInt(value));
     });
 
     const query = {

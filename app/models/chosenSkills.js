@@ -7,7 +7,7 @@ module.exports = {
     values.push(characterId);
 
     skillsId.forEach(skillId => {
-      values.push(`${skillId}`);
+      values.push(`${parseInt(skillId)}`);
     });
 
     const query = {

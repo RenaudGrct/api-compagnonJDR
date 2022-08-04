@@ -4,7 +4,7 @@ module.exports = {
   async insert(characterId, featureChoiceId) {
     const values = [];
 
-    values.push(characterId, featureChoiceId);
+    values.push(characterId, parseInt(featureChoiceId));
 
     const query = {
       text:`

@@ -14,4 +14,6 @@ cjdr.feature_choice_chosen
 CASCADE
 ;
 
+DROP VIEW IF EXISTS cjdr.character_list;
+
 COMMIT;
