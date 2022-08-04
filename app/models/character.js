@@ -21,7 +21,6 @@ module.exports = {
     const fields = [];
     const params = [];
     const values = [];
-
     Object.entries(characterData).forEach(([key, value], index)=>{
       fields.push(`${key}`);
       params.push(`$${index +1}`);
@@ -37,6 +36,7 @@ module.exports = {
       RETURNING id`,
       values
     };
+    console.debug("🚀 ~ query", query)
 
     const savedCharacter = await client.query(query);
 

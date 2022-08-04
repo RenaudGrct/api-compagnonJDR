@@ -15,12 +15,19 @@ module.exports = {
     * @returns réponse de la Route API JSON
   */
   async createOneCharacter (req, res) {
-    const ability_score = req.body.ability_score;
+    const data = req.body.character;
+    if (req.params.userId) {
+      data.user_id = parseInt(req.params.userId);
+    }
 
-    const abilityScoreId = await score.insert(ability_score);
-    delete req.body.ability_score;
-    req.body.character.ability_score_id = abilityScoreId;
-    const characterId = await character.insert(req.body.character);
+    if (req.params.guestId) {
+      data.guest_id = parseInt(req.params.guestId);
+    }
+
+    const abilityScoreId = await score.insert(req.body.ability_score);
+    data.ability_score_id = abilityScoreId;
+    console.debug("🚀 ~ data", data)
+    const characterId = await character.insert(data);
 
     await chosenSkills.insert(characterId, req.body.skill_id);
 
