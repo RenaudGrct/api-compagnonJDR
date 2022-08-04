@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const authRouter = require("./auth");
 const userRouter = require("./user");
+const guestRoute = require("./guest");
 const racesRouter = require("./race");
 const classesRouter = require("./classe");
 const backgroundsRouter = require("./background");
@@ -23,6 +24,7 @@ router.use("/auth", authRouter);
 router.use(controllerHandler(verifyToken));
 
 router.use("/profile", userRouter);
+router.use("/guest", guestRoute);
 router.use("/races", racesRouter);
 router.use("/classes", classesRouter);
 router.use("/backgrounds", backgroundsRouter);

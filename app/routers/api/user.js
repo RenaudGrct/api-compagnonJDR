@@ -3,7 +3,6 @@ const express = require("express");
 // Importation du service de validation Joi et ses schema.
 const validate = require("../../services/validation/validator");
 const updateSchema = require("../../services/validation/schemas/userUpdateSchema");
-const createSchema = require("../../services/validation/schemas/userCreateSchema");
 
 // Importation du controller et le handler
 const {

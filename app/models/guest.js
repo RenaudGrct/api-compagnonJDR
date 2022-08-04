@@ -47,6 +47,26 @@ module.exports = {
   },
 
   /**
+    * Récupère le compte invité selon son id
+    * @returns Le compte invité existant en BDD
+  */
+  async findByPk(guestId) {
+    const query = {
+      text:`
+      SELECT * FROM cjdr.guest
+      WHERE id = $1
+      `,
+      values: [guestId]
+    };
+    const result = await client.query(query);
+
+    if(result.rowCount === 0) {
+      return undefined;
+    }
+    return result.rows[0];
+  },
+
+  /**
   * On récupère le dernier invité insérer en BDD
   * @returns {Object} Dernier invité insérer en BDD
   */
