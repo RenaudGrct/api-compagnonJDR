@@ -62,6 +62,7 @@ module.exports = {
 
     const query = {
       text: `SELECT
+      "id",
       "name",
       "race"::json->'name' as race,
       "class"::json->'name' as class
