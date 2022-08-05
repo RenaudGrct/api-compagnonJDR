@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 
 const router = express.Router();
 const authRouter = require("./auth");
@@ -14,7 +15,10 @@ const { verifyToken } = require("../../middleware/verifyJWT");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 // Route par défaut de l'API qui renvoie le liens de la documention de notre API
-router.all("/", apiController.home);
+// router.all("/", apiController.home);
+router.all("/", (req , res) => {
+  res.sendFile(path.join(__dirname, "../../public", "index.html"));
+});
 
 // Toutes les routes de notre API
 

@@ -4,6 +4,7 @@ module.exports = {
   accessControl (req, res, next){
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
+      res.header("content_security_policy", "script-src 'self' http://localhost:4000; object-src 'self'");
       res.header("Access-Control-Allow-Origin", origin);
       res.header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
       res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
