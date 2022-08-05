@@ -40,6 +40,7 @@ SELECT
 C.id,
 C."name",
 C.user_id,
+C.guest_id,
 (SELECT JSON_BUILD_OBJECT(
 	'id', Cl.id,
 	'name',Cl."name",

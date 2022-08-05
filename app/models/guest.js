@@ -66,6 +66,40 @@ module.exports = {
     return result.rows[0];
   },
 
+  async update(guestId, guestData) {
+    const fields = [];
+    const values = [];
+    // On récupère les entrée et les valeurs associé de l'objet
+    Object.entries(guestData).forEach(([key, value], index) => {
+      // les deux clefs qui doivent être unique
+      if(["email", "username", "newPassword", "refresh_token"].includes(key)) {
+        // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
+        fields.push(`"${key}" = $${index + 1}`);
+        // On insère les valeurs correspondantes à sa clef
+        values.push(value);
+      }
+    });
+    values.push(guestId);
+
+    const query = {
+      text :
+      `
+      UPDATE cjdr.guest
+        SET
+        ${fields.join(",")}
+        WHERE "id" = $${values.length}
+      `,
+      values
+    };
+    /* Potentiel function en BDD
+    text: `SELECT update_user($1, $2)`,
+    values: [userId, userData]
+    */
+    const result = await client.query(query);
+    //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
+    return !!result.rowCount;
+  },
+
   /**
   * On récupère le dernier invité insérer en BDD
   * @returns {Object} Dernier invité insérer en BDD

@@ -7,19 +7,19 @@ const controllerHandler = require("../../services/handlers/controllerHandler");
 
 const router = express.Router();
 
-router.route("/user/:userId")
+router.route("/user/:userId(\\d+)")
   .get(controllerHandler(character.getAllCharacters))
   .post(controllerHandler(character.createOneCharacter))
 
-router.route("/:characterId/user/:userId")
+router.route("/:characterId(\\d+)/user/:userId(\\d+)")
   .get(controllerHandler(character.getOneCharacter))
   .delete(controllerHandler(character.destroyOneCharacter));
 
-router.route("/guest/:guestId")
+router.route("/guest/:guestId(\\d+)")
   .get(controllerHandler(character.getAllCharacters))
   .post(controllerHandler(character.createOneCharacter))
 
-router.route("/:characterId/guest/:guestId")
+router.route("/:characterId(\\d+)/guest/:guestId(\\d+)")
   .get(controllerHandler(character.getOneCharacter))
   .delete(controllerHandler(character.destroyOneCharacter));
 

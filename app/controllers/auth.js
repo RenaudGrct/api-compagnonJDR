@@ -34,26 +34,26 @@ module.exports = {
   },
 
   async guestLogin(req, res) {
-    const user = await guestDatamapper.isVecna(req.body);
-    if (user) {
+    const guest = await guestDatamapper.isVecna(req.body);
+    if (guest) {
       // verification du mot de passe
-      const check = await bcrypt.compare(req.body.password, user.password);
+      const check = await bcrypt.compare(req.body.password, guest.password);
       if (check) {
-        delete user.password;
+        delete guest.password;
         const accessToken = await generateAccessToken({
-          username : user.username,
-          email : user.email
+          username : guest.username,
+          email : guest.email
         });
         const refreshToken = await generateRefreshToken({
-          username : user.username,
-          email: user.email
+          username : guest.username,
+          email: guest.email
         });
-        await userDatamapper.update(user.id, { refresh_token : refreshToken });
+        await guestDatamapper.update(guest.id, { refresh_token : refreshToken });
 
         res.cookie("jwt", refreshToken, cookieOptions);
-        delete user.refresh_token;
+        delete guest.refresh_token;
 
-        return res.status(200).json({ accessToken, guest : user});
+        return res.status(200).json({ accessToken, guest : guest});
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
