@@ -155,7 +155,7 @@ C.user_id,
 				FROM cjdr.feature_choice AS FC
 				JOIN cjdr.feature_choice_chosen AS FCC
 					ON FCC.feature_choice_id = FC.id
-				WHERE C.id = FCC.character_id)))
+				WHERE C.id = FCC.character_id AND F.id = FC.feature_id)))
 			FROM cjdr.feature AS F	 
 			WHERE F.class_id = Cl.id))
 	

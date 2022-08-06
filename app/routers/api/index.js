@@ -9,7 +9,6 @@ const racesRouter = require("./race");
 const classesRouter = require("./classe");
 const backgroundsRouter = require("./background");
 const characterRouter = require("./character");
-const { apiController } = require("../../controllers");
 const { ApiError } = require("../../services/handlers/errorHandler");
 const { verifyToken } = require("../../middleware/verifyJWT");
 const controllerHandler = require("../../services/handlers/controllerHandler");
