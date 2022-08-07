@@ -18,6 +18,7 @@ module.exports = {
         throw new ApiError(" Token invalide !", { statusCode : 403 });
       }
       req.user = user;
+      req.guest = user;
     });
     next();
   }
