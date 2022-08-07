@@ -33,6 +33,41 @@ tags:
   - name: Personnage
     description: Toutes les routes qui concerne la création du personnage
 paths:
+  /auth/guest:
+    post:
+      tags:
+        - Authentification
+      summary: Connexion en tant qu'invité
+      description: Crée un compte invité généré automatiquement suivi d'un login.
+      operationId: findPetsByTags
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guest'
+        '400':
+          description: Bad request response
+
+  /auth/register:
+    post:
+      tags:
+        - Authentification
+      summary: Création d'un compte utilisateur
+      description: Insert un utilisateur en base de donnée
+      operationId: userId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: successful operation
+          
+        '400':
+          description: Bad request Response
   /auth/login:
     post:
       tags:
@@ -67,44 +102,7 @@ paths:
       description: Deconnecte le compte utilisateur courant et vide le cookie 'jwt'
       responses:
         '204':
-          description: No content
-  /auth/register:
-    post:
-      tags:
-        - Authentification
-      summary: Création d'un compte utilisateur
-      description: Insert un utilisateur en base de donnée
-      operationId: userId
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserInput'
-      responses:
-        '200':
-          description: successful operation
-          
-        '400':
-          description: Bad request Response
-          
-  /auth/guest:
-    post:
-      tags:
-        - Authentification
-      summary: Connexion en tant qu'invité
-      description: Crée un compte invité généré automatiquement suivi d'un login.
-      operationId: findPetsByTags
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Guest'
-        '400':
-          description: Bad request response
+          description: No content  
           
   /auth/refresh:
     get:
@@ -119,8 +117,8 @@ paths:
           content:
             application/json:
               schema:
-                type : string
-                example: 
+                type : object
+                example: { accessToken : "2eb.$@vecna15fd#.ac51!" } 
         '400':
           description: Invalid ID supplied
         '401':
@@ -128,7 +126,7 @@ paths:
         '404':
           description: Token not found
       security:
-        - api_key: []
+        - bearerAuth: []
         
   /guest/{id}:
     get:
@@ -146,6 +144,12 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Guest"
         '400':
           description: Bad request
         '401':
@@ -153,7 +157,39 @@ paths:
         '404':
           description: Guest not found
       security:
-        - api_key: []
+        - bearerAuth: []
+  
+  /guest/{guestId}/confirm-register:
+    post:
+      tags:
+        - Invité
+      summary: Confirmé une inscription d'un compte invité
+      description: Insert un nouvel utilisateur et transfert les personnages du compte invité
+      operationId: confirmAccount
+      parameters:
+        - name: guestId
+          in: path
+          description: ID de l'invité
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+            description: successful operation
+        '400':
+          description: Bad request
+        '401':
+          description: Not authorized
+        '404':
+          description: Guest not found
+      security:
+        - bearerAuth: []
         
   /profile/{id}:
     get:
@@ -171,6 +207,12 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
         '400':
           description: Bad request
         '401':
@@ -178,7 +220,37 @@ paths:
         '404':
           description: User not found
       security:
-        - api_key: []
+        - bearerAuth: []    
+    patch:
+      tags:
+        - Utilisateur
+      summary: Mise à jour du compte utilisateur
+      description: Mise à jour des données personnelles de l'utilisateur
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'utilisateur
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Bad request
+        '401':
+          description: Not authorized
+        '404':
+          description: User not found
+      security:
+        - bearerAuth: []
     delete:
       tags:
         - Utilisateur
@@ -200,6 +272,8 @@ paths:
             type: integer
             format: int64
       responses:
+        '200':
+          description: successful operation
         '400':
           description: Bad request
         '401':
@@ -207,41 +281,7 @@ paths:
         '404':
           description: User not found
       security:
-        - api_key: []
-    patch:
-      tags:
-        - Utilisateur
-      summary: Mise à jour du compte utilisateur
-      description: Mise à jour des données personnelles de l'utilisateur
-      operationId: updateUser
-      parameters:
-        - name: jwt
-          in: header
-          description: 'token jwt'
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: ID de l'utilisateur
-          required: true
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserInput'
-      responses:
-        '400':
-          description: Bad request
-        '401':
-          description: Not authorized
-        '404':
-          description: User not found
-      security:
-        - api_key: []
+        - bearerAuth: []
             
   /character/user/{userId}:
     get:
@@ -264,7 +304,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Character'
+                $ref: '#/components/schemas/Characters'
         '400':
           description: Bad request
         '401':
@@ -272,7 +312,7 @@ paths:
         '404':
           description: Character not found
       security:
-        - api_key: []
+        - bearerAuth: []
     post:
       tags:
         - Utilisateur
@@ -291,7 +331,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Character'
+              $ref: '#/components/schemas/CharacterBuild'
       responses:
         '200':
           description: successful operation
@@ -306,13 +346,13 @@ paths:
         '404':
           description: User not found
       security:
-        - api_key: []
+        - bearerAuth: []
             
   /character/{characterId}/user/{userId}:
     get:
       tags:
         - Utilisateur
-      summary: Retourne les détails d'un personnage de l'utilisateur par son ID
+      summary: Détails d'un personnage
       description: Renvoie un JSON contenant toutes les informations du personnage de l'utilisateur
       operationId: getInventory
       parameters:
@@ -336,10 +376,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
+                $ref: '#/components/schemas/Character'
         '400':
           description: Bad request
         '401':
@@ -347,7 +384,7 @@ paths:
         '404':
           description: Character not found
       security:
-        - api_key: []
+        - bearerAuth: []
   
   /character/guest/{guestId}:
     get:
@@ -370,7 +407,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Character'
+                $ref: '#/components/schemas/Characters'
         '400':
           description: Bad request
         '401':
@@ -378,7 +415,7 @@ paths:
         '404':
           description: Character not found
       security:
-        - api_key: []
+        - bearerAuth: []
     post:
       tags:
         - Invité
@@ -397,7 +434,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Character'
+              $ref: '#/components/schemas/CharacterBuild'
       responses:
         '200':
           description: successful operation
@@ -412,7 +449,7 @@ paths:
         '404':
           description: User not found
       security:
-        - api_key: []
+        - bearerAuth: []
             
   /character/{characterId}/guest/{guestId}:
     get:
@@ -442,10 +479,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
+                $ref: '#/components/schemas/Character'
         '400':
           description: Bad request
         '401':
@@ -453,7 +487,7 @@ paths:
         '404':
           description: Character not found
       security:
-        - api_key: []
+        - bearerAuth: []
   
   /backgrounds:
     get:
@@ -476,7 +510,7 @@ paths:
         '404':
           description: Backgrounds not found
       security:
-        - api_key: []
+        - bearerAuth: []
           
   /class/{index}:
     get:
@@ -508,7 +542,7 @@ paths:
         '404':
           description: Class not found
       security:
-        - api_key: []
+        - bearerAuth: []
   
   /race/{index}:
     get:
@@ -524,6 +558,9 @@ paths:
           required: true
           schema:
             type: string
+            enum:
+              - Drakéide
+              - Humain
       responses:
         '200':
           description: successful operation
@@ -538,7 +575,7 @@ paths:
         '404':
           description: Race not found
       security:
-        - api_key: []
+        - bearerAuth: []
 components:
   schemas:
     UserInput:
@@ -546,13 +583,13 @@ components:
       properties:
         username:
           type: string
-          example: "Vecna"
+          example: "True_Vecna"
         email:
           type: string
-          example: "Vecna@donjonsql.com"
+          example: "true_vecna@donjonSQL.com"
         password:
           type: string
-          example: "@rch1l1che"
+          example: "archiliche"
     Login:
       required:
         - email
@@ -562,10 +599,10 @@ components:
         email:
           type: string
           format: string
-          example: "Vecna@donjonsql.com"
+          example: "true_vecna@donjonSQL.com"
         password:
           type: string
-          example: "@rch1l1che"  
+          example: "archiliche"  
     User:
       type: object
       properties:
@@ -737,6 +774,80 @@ components:
           skill:
             type: string
             example: ["Religion", "Intuition"]
+    CharacterBuild:
+      type: object
+      properties:
+        character:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Norixius Balasar"
+            race_id:
+              type: integer
+              format: int64
+              example: 2
+            class_id:
+              type: integer
+              format: int64
+              example: 2
+            background_id:
+              type: integer
+              format: int64
+              example: 2
+        skill_id:
+              type: integer
+              format: int64
+              example: [5, 6]
+        feature_choice_id:
+              type: integer
+              format: int64
+              example: 1
+        ability_score:
+          type: object
+          properties:
+            strength:
+              type: integer
+              format: int64
+              example: 15
+            dexterity:
+              type: integer
+              format: int64
+              example: 15
+            constitution:
+              type: integer
+              format: int64
+              example: 16
+            wisdom:
+              type: integer
+              format: int64
+              example: 19
+            charisma:
+              type: integer
+              format: int64
+              example: 20
+            intelligence:
+              type: integer
+              format: int64
+              example: 18
+    Characters:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+            example: 1
+          name:
+            type: string
+            example: "Norixius Balasar"
+          race:
+            type: string
+            example: "Drakéide"
+          class:
+            type: string
+            example: "Paladin"
     Character:
       type: object
       properties:
@@ -913,7 +1024,7 @@ components:
   #           items:
   #             $ref: '#/components/schemas/User'
   securitySchemes:
-    api_key:
-      type: apiKey
-      name: jwt
-      in: header
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    

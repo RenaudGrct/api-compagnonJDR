@@ -121,15 +121,15 @@ C.user_id,
 	GROUP BY B.id) AS background,
 
 (SELECT JSON_BUILD_OBJECT(
-	'force', score.strength,
-	'dextérité', score.dexterity,
+	'strength', score.strength,
+	'dexterity', score.dexterity,
 	'constitution', score.constitution,
-	'sagesse', score.wisdom,
-	'intélligence', score.intelligence,
-	'charisme', score.charisma)
+	'wisdom', score.wisdom,
+	'intelligence', score.intelligence,
+	'charisma', score.charisma)
 	FROM cjdr.ability_score AS score
 	WHERE score.id = C.ability_score_id) AS ability_score
 
-FROM cjdr."character" AS C
+FROM cjdr."character" AS C;
 
 COMMIT;

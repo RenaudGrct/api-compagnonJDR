@@ -1,9 +1,9 @@
 const ApiError = require("../errors/apiError.js");
 const {
-  characterDatamapper: character,
-  abilityScoreDatamapper: score,
-  chosenSkillsDatamapper: chosenSkills,
-  chosenFeatureChoiceDatamapper: chosenFeatureChoice
+  characterDatamapper: characterDM,
+  abilityScoreDatamapper: scoreDM,
+  chosenSkillsDatamapper: chosenSkillDM,
+  chosenFeatureChoiceDatamapper: chosenFeatureChoiceDM
 } = require("../models");
 
 module.exports = {
@@ -24,14 +24,14 @@ module.exports = {
       data.guest_id = parseInt(req.params.guestId);
     }
 
-    const abilityScoreId = await score.insert(req.body.ability_score);
+    const abilityScoreId = await scoreDM.insert(req.body.ability_score);
     data.ability_score_id = abilityScoreId;
-    const characterId = await character.insert(data);
+    const characterId = await characterDM.insert(data);
 
-    await chosenSkills.insert(characterId, req.body.skill_id);
+    await chosenSkillDM.insert(characterId, req.body.skill_id);
 
     if (req.body.feature_choice_id) {
-      await chosenFeatureChoice.insert(characterId, req.body.feature_choice_id);
+      await chosenFeatureChoiceDM.insert(characterId, req.body.feature_choice_id);
     }
 
     return res.status(200).json(`${req.body.character.name} à été ajouté à vos personnages`);
@@ -46,7 +46,7 @@ module.exports = {
   */
   async getAllCharacters (req, res){
 
-    const foundedCharacter = await character.findAll({ user_id : req.params.userId, guest_id: req.params.guestId });
+    const foundedCharacter = await characterDM.findAll({ user_id : req.params.userId, guest_id: req.params.guestId });
 
     if (!foundedCharacter) {
       throw new ApiError("Vous n'avez aucun personnages de sauvegardés", { statusCode: 404 });
@@ -65,7 +65,7 @@ module.exports = {
   async getOneCharacter (req, res){
     const characterId = req.params.characterId;
     //On requête la BDD si il existe une classe demandé en req.params
-    const foundedCharacter = await character.findOne({ user_id: req.params.userId, guest_id: req.params.guestId }, characterId);
+    const foundedCharacter = await characterDM.findOne({ user_id: req.params.userId, guest_id: req.params.guestId }, characterId);
 
     if (!foundedCharacter) {
       throw new ApiError("Ce personnage s'est perdu dans les limbes", { statusCode: 404 });
@@ -83,7 +83,7 @@ module.exports = {
   */
   async destroyOneCharacter (req, res){
 
-    const result = await character.delete(req.params.characterId);
+    const result = await characterDM.delete(req.params.characterId);
 
     if (!result) {
       throw new ApiError("Le personnage est introuvable ou à déjà été supprimé", { statusCode : 404 });

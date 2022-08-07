@@ -14,7 +14,6 @@ const { verifyToken } = require("../../middleware/verifyJWT");
 const controllerHandler = require("../../services/handlers/controllerHandler");
 
 // Route par défaut de l'API qui renvoie le liens de la documention de notre API
-// router.all("/", apiController.home);
 router.all("/", (req , res) => {
   res.sendFile(path.join(__dirname, "../../public", "index.html"));
 });
