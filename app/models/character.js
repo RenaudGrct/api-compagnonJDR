@@ -1,17 +1,5 @@
 const client = require("../services/database");
 
-//~~~~ DOC SWAGGER ~~~~
-// /**
-//   * @typedef {object} Character
-//   * @property {number} id - Identifiant unique (PK)
-//   * @property {string} name - Nom de la race
-//   * @property {array<object>} proficiencies - Compétences liées à la classe
-//   * @property {array<string>} saving_throw - Jet de sauvegarde liée à la classe
-//   * @property {array<string>} skills - Aptitudes maîtrisées liées à la classe
-//   * @property {array<object>} feature - caractéristiques liées à la classe
-// */
-//~~~~~~~~
-
 module.exports = {
   /**
     * ajoute un personnage liés à l'utilisateur ou compte invité

@@ -10,15 +10,6 @@ const router = express.Router();
 //~~ SELECT BACKGROUND
 //~~~~~~~~~~~~~~~~~~~~
 router.route("/")
-/**
- * GET /api/backgrounds
- * @summary Renvoie tous les Historiques
- * @tags Création du personnage
- * @return {Backgrounds} 200 - success response - application/json
- * @return {ApiError} 400 - Bad request response - application/json
- * @return {ApiError} 401 - Invalid connection informations application/json
- * @return {ApiError} 404 - race not found - application/json
- */
   .get(controllerHandler(backgrounds.getAllBackgrounds));
 
 module.exports = router;

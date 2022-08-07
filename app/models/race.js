@@ -1,20 +1,6 @@
 // const debug = require("debug")("models:races");
 const client = require("../services/database");
 
-//~~~~ DOC SWAGGER ~~~~
-/**
-  * @typedef {object} RaceSelected
-  * @property {number} id - Identifiant unique (PK)
-  * @property {string} name - Nom de la race
-  * @property {string} speed - Vitesse de marche
-  * @property {array<object>} score_modifier - Modificateur de score
-  * @property {number} additional_language - Nombre de langues supplémentaire acquises
-  * @property {array<string>} language - Langue parlée
-  * @property {array<object>} racial_ability - Traits raciaux
-  * @property {boolean} night_vision - Vision nocturne
-*/
-//~~~~~~~~
-
 module.exports = {
   /**
     * Récupère toutes les données liées à la race

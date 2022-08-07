@@ -1,46 +1,6 @@
 // const debug = require("debug")("models:user");
 const client = require("../services/database");
 
-//~~~~ DOC SWAGGER ~~~~
-/**
-  * @typedef {object} User
-  * @property {number} id - Identifiant unique (PK)
-  * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} username - Pseudo de l'utilisateur
-  * @property {string} password - Mot de passe de l'utilisateur
-*/
-
-/**
-  * @typedef {object} InputUser
-  * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} username - Pseudo de l'utilisateur
-  * @property {string} password - Mot de passe de l'utilisateur
-  * @property {string} newPassword - Nouveau mot de passe de l'utilisateur
-*/
-
-/**
-  * @typedef {object} LoginUser
-  * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} password - Mot de passe de l'utilisateur
-*/
-
-/**
-  * @typedef {object} UserLogged
-  * @property {number} id - ID de l'utilisateur
-  * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} username - Mot de passe de l'utilisateur
-  * @property {string} accessToken - AccessToken de l'utilisateur
-*/
-//~~~~~~~~
-
-/**
-  * @typedef {object} InputUserRegister
-  * @property {string} email - Adresse mail de l'utilisateur
-  * @property {string} username - Pseudo de l'utilisateur
-  * @property {string} password - Mot de passe de l'utilisateur
-*/
-
-
 module.exports = {
   /**
     * Récupère l'utilisateur selon son id

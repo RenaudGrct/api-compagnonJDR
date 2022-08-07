@@ -1,18 +1,6 @@
 // const debug = require("debug")("models:classes");
 const client = require("../services/database");
 
-//~~~~ DOC SWAGGER ~~~~
-/**
-  * @typedef {object} ClassSelected
-  * @property {number} id - Identifiant unique (PK)
-  * @property {string} name - Nom de la race
-  * @property {array<object>} proficiencies - Compétences liées à la classe
-  * @property {array<string>} saving_throw - Jet de sauvegarde liée à la classe
-  * @property {array<string>} skills - Aptitudes maîtrisées liées à la classe
-  * @property {array<object>} feature - caractéristiques liées à la classe
-*/
-//~~~~~~~~
-
 module.exports = {
   /**
     * Récupère toutes les données liées à la classe
