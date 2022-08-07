@@ -65,7 +65,11 @@ paths:
       responses:
         '200':
           description: successful operation
-          
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Votre compte à bien été enregistré"          
         '400':
           description: Bad request Response
   /auth/login:
@@ -163,7 +167,7 @@ paths:
     post:
       tags:
         - Invité
-      summary: Confirmé une inscription d'un compte invité
+      summary: Confirmer une inscription d'un compte invité
       description: Insert un nouvel utilisateur et transfert les personnages du compte invité
       operationId: confirmAccount
       parameters:
@@ -182,6 +186,12 @@ paths:
       responses:
         '200':
             description: successful operation
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: "Votre compte à été enregistré. Vos personnages ont été transférés sur votre nouveau compte utilisateur"
+
         '400':
           description: Bad request
         '401':
@@ -385,6 +395,43 @@ paths:
           description: Character not found
       security:
         - bearerAuth: []
+    delete:
+      tags:
+        - Utilisateur
+      summary: Supprimer un personnage
+      description: Supprime le personnage de l'utilisateur en base de donnée
+      operationId: deleteUserCharacter
+      parameters:
+        - name: userId
+          in: path
+          description: ID de l'utilisateur
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: characterId
+          in: path
+          description: ID du personnage
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Votre personnage à bien été supprimé"
+        '400':
+          description: Bad request
+        '401':
+          description: Not authorized
+        '404':
+          description: Character not found
+      security:
+        - bearerAuth: []
   
   /character/guest/{guestId}:
     get:
@@ -488,6 +535,43 @@ paths:
           description: Character not found
       security:
         - bearerAuth: []
+    delete:
+      tags:
+        - Invité
+      summary: Supprimer un personnage
+      description: Supprime le personnage de l'invité en base de donnée
+      operationId: deleteUserCharacter
+      parameters:
+        - name: guestId
+          in: path
+          description: ID de l'utilisateur
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: characterId
+          in: path
+          description: ID du personnage
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Votre personnage à bien été supprimé"
+        '400':
+          description: Bad request
+        '401':
+          description: Not authorized
+        '404':
+          description: Character not found
+      security:
+        - bearerAuth: []
   
   /backgrounds:
     get:
@@ -516,7 +600,7 @@ paths:
     get:
       tags:
         - Personnage
-      summary: Trouve une classe
+      summary: Trouver une classe
       description: Renvoie le détails d'une classe selon son index
       operationId: getClassById
       parameters:
@@ -548,7 +632,7 @@ paths:
     get:
       tags:
         - Personnage
-      summary: Trouve une race
+      summary: Trouver une race
       description: Renvoie le détails d'une race selon son index
       operationId: getOrderById
       parameters:
@@ -1005,24 +1089,6 @@ components:
           type: string
         message:
           type: string
-  # requestBodies:
-  #   Pet:
-  #     description: Pet object that needs to be added to the store
-  #     content:
-  #       application/json:
-  #         schema:
-  #           $ref: '#/components/schemas/Pet'
-  #       application/xml:
-  #         schema:
-  #           $ref: '#/components/schemas/Pet'
-  #   UserArray:
-  #     description: List of user object
-  #     content:
-  #       application/json:
-  #         schema:
-  #           type: array
-  #           items:
-  #             $ref: '#/components/schemas/User'
   securitySchemes:
     bearerAuth:            
       type: http

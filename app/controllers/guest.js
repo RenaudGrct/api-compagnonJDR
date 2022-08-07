@@ -41,14 +41,13 @@ module.exports = {
 
     // On va chercher tous les personnages du compte invité
     const guestCharacters = await characterDM.findAll({ guest_id : guestId });
-
+    let successMessage = " Votre compte à bien été enregistré.";
     if (guestCharacters) {
       // Mise à jour des personnages présent sur le compte invité transférant la valeur de la colonne guest_id vers user_id
       await characterDM.update(newUser, guestId);
-      const transferConfirmed = "Vos personnages ont été transférés sur votre nouveau compte d'utilisateur.";
-      return res.status(200).json(`Votre compte à bien été enregistré. ${transferConfirmed}`);
+      successMessage += " Vos personnages ont été transférés sur votre nouveau compte d'utilisateur.";
     }
-
-    return res.status(200).json("Votre compte à bien été enregistré.");
+    successMessage += " Veuillez vous reconnecter avec votre nouveau compte utlisateur";
+    return res.status(200).json({ successMessage });
   }
 };

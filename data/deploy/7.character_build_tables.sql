@@ -1,3 +1,4 @@
+-- Active: 1652370291034@@127.0.0.1@5432@cjdr@cjdr
 -- Deploy compagnon-jdr:7.character_build_tables to pg
 
 BEGIN;

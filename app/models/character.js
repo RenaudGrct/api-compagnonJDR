@@ -78,7 +78,7 @@ module.exports = {
 
     const result = await client.query(query);
 
-    if (!result.rowCount === 0 ) {
+    if (result.rowCount === 0 ) {
       return null;
     }
 
