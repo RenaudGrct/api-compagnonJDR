@@ -268,12 +268,6 @@ paths:
       description: Retire l'utilisateur de la base de donnée
       operationId: deleteUser
       parameters:
-        - name: jwt
-          in: header
-          description: 'token jwt'
-          required: true
-          schema:
-            type: string
         - name: id
           in: path
           description: ID de l'utilisateur
