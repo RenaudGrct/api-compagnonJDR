@@ -49,9 +49,13 @@ module.exports = {
   async findByPk(userId) {
     const query = {
       text:`
-      SELECT * FROM cjdr.user
-      WHERE id = $1
-      `,
+      SELECT
+      id,
+      "username",
+      "email",
+      "password"
+      FROM cjdr.user
+      WHERE id = $1`,
       values: [userId]
     };
     const result = await client.query(query);
@@ -67,18 +71,19 @@ module.exports = {
    * @param {inputUser} user - l'utilisateur à insérer
    * @returns L'utilisateur insérer
    */
-  async insert(guest) {
-    const {email, username, password} = guest;
+  async insert(body) {
+    const {email, username, password} = body;
     const query = {
       text:`
       INSERT INTO cjdr.user 
       (email, username, password) 
-      VALUES ($1, $2, $3)`,
+      VALUES ($1, $2, $3)
+      RETURNING id`,
       values:[email, username, password]
     };
     const savedUser = await client.query(query);
     //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
-    return !!savedUser.rowCount;
+    return savedUser.rows[0].id;
   },
 
   /**

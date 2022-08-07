@@ -42,6 +42,24 @@ module.exports = {
     return savedCharacter.rows[0].id;
   },
 
+  async update(userId, guestId) {
+
+    const query = {
+      text: `
+      UPDATE cjdr."character" 
+      SET
+      "user_id" = $1
+      WHERE
+      "guest_id" = $2
+      `,
+      values: [userId, guestId]
+    };
+
+    const updateCharacters = await client.query(query);
+
+    return !!updateCharacters.rowCount;
+  },
+
   /**
     * Récupère tous les personnages liés à l'utilisateur
     * @returns {object} - Tous les personnages (nom, race, classe) de l'utilisateur.

@@ -60,7 +60,6 @@ module.exports = {
     }
     const check = await bcrypt.compare(req.body.password, user.password);
 
-
     if (!check) {
       throw new ApiError("Mot de passe incorrect", { statusCode : 401 });
     }

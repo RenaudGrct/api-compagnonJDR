@@ -46,6 +46,36 @@ module.exports = {
     return savedGuest.rows[0];
   },
 
+  async update(guestId, guestData) {
+    const fields = [];
+    const values = [];
+    Object.entries(guestData).forEach(([key, value], index) => {
+      if(["refresh_token"].includes(key)) {
+        fields.push(`"${key}" = $${index + 1}`);
+        values.push(value);
+      }
+    });
+    values.push(guestId);
+
+    const query = {
+      text :
+      `
+      UPDATE cjdr.guest
+        SET
+        ${fields.join(",")}
+        WHERE "id" = $${values.length}
+      `,
+      values
+    };
+    /* Potentiel function en BDD
+    text: `SELECT * FROM update_guest($1)`,
+    values: [guestId, guestData]
+    */
+    const result = await client.query(query);
+    //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
+    return !!result.rowCount;
+  },
+
   /**
     * Récupère le compte invité selon son id
     * @returns Le compte invité existant en BDD
@@ -53,7 +83,11 @@ module.exports = {
   async findByPk(guestId) {
     const query = {
       text:`
-      SELECT * FROM cjdr.guest
+      SELECT
+      id,
+      "email",
+      "username"
+      FROM cjdr.guest
       WHERE id = $1
       `,
       values: [guestId]
