@@ -1,14 +1,18 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
-require("./services/swaggerDocs")(app);
 const { accessControl } = require("./middleware/accessControl");
 
 const router = require("./routers");
 
 //~~ Protection de notre API
 app.use(helmet());
+
+
+//~~ Dossier static
+app.use(express.static(path.join(__dirname, "public")));
 
 //~~ ENCODAGE
 // JSON payload parser

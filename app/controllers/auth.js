@@ -2,14 +2,16 @@ require("dotenv").config();
 // const debug = require("debug")("controllers:auth");
 const bcrypt = require("bcrypt");
 const ApiError = require("../errors/apiError.js");
-const userDatamapper = require("../models/user.js");
-const guestDatamapper = require("../models/guest");
+const {
+  userDatamapper: userDM,
+  guestDatamapper : guestDM
+} = require("../models");
 const { generateAccessToken, generateRefreshToken } = require("../services/Token/generateToken.js");
 const cookieOptions = require("../config/cookieOptions");
 
 module.exports = {
   async login(req, res) {
-    const user = await userDatamapper.isExist(req.body);
+    const user = await userDM.isExist(req.body);
     if (user) {
       // verification du mot de passe
       const check = await bcrypt.compare(req.body.password, user.password);
@@ -23,7 +25,7 @@ module.exports = {
           username : user.username,
           email: user.email
         });
-        await userDatamapper.update(user.id, { refresh_token : refreshToken });
+        await userDM.update(user.id, { refresh_token : refreshToken });
         res.cookie("jwt", refreshToken, cookieOptions);
         delete user.refresh_token;
 
@@ -34,7 +36,7 @@ module.exports = {
   },
 
   async guestLogin(req, res) {
-    const guest = await guestDatamapper.isVecna(req.body);
+    const guest = await guestDM.isVecna(req.body);
     if (guest) {
       // verification du mot de passe
       const check = await bcrypt.compare(req.body.password, guest.password);
@@ -48,12 +50,12 @@ module.exports = {
           username : guest.username,
           email: guest.email
         });
-        await guestDatamapper.update(guest.id, { refresh_token : refreshToken });
+        await guestDM.update(guest.id, { refresh_token : refreshToken });
 
         res.cookie("jwt", refreshToken, cookieOptions);
         delete guest.refresh_token;
 
-        return res.status(200).json({ accessToken, guest : guest});
+        return res.status(200).json({ accessToken, guest });
       }
     }
     throw new ApiError("Informations de connexion invalides", { statusCode : 401 });
@@ -69,7 +71,7 @@ module.exports = {
     const refreshToken = cookies.jwt;
 
     // Verifions si le refreshToken est en BDD
-    const user = await userDatamapper.isExist({ refresh_token : refreshToken });
+    const user = await userDM.isExist({ refresh_token : refreshToken });
 
     if (!user) {
       res.clearCookies("jwt", cookieOptions);
@@ -77,7 +79,7 @@ module.exports = {
     }
 
     // Suppression du refreshToken en BDD
-    await userDatamapper.update(user.id, { refresh_token : null });
+    await user.update(user.id, { refresh_token : null });
     res.clearCookies("jwt", cookieOptions);
     res.sendStatus(204);
 

@@ -34,13 +34,12 @@ CREATE TABLE IF NOT EXISTS cjdr.feature_choice_chosen(
             ON DELETE CASCADE
 );
 
-CREATE OR REPLACE VIEW cjdr.character_list
+CREATE OR REPLACE VIEW character_list
 AS
 SELECT
 C.id,
 C."name",
 C.user_id,
-C.guest_id,
 (SELECT JSON_BUILD_OBJECT(
 	'id', Cl.id,
 	'name',Cl."name",
@@ -65,7 +64,7 @@ C.guest_id,
 				FROM cjdr.feature_choice AS FC
 				JOIN cjdr.feature_choice_chosen AS FCC
 					ON FCC.feature_choice_id = FC.id
-				WHERE C.id = FCC.character_id)))
+				WHERE C.id = FCC.character_id AND F.id = FC.feature_id)))
 			FROM cjdr.feature AS F	 
 			WHERE F.class_id = Cl.id))
 	
@@ -122,16 +121,15 @@ C.guest_id,
 	GROUP BY B.id) AS background,
 
 (SELECT JSON_BUILD_OBJECT(
-	'force', score.strength,
-	'dextérité', score.dexterity,
+	'strength', score.strength,
+	'dexterity', score.dexterity,
 	'constitution', score.constitution,
-	'sagesse', score.wisdom,
-	'intélligence', score.intelligence,
-	'charisme', score.charisma)
+	'wisdom', score.wisdom,
+	'intelligence', score.intelligence,
+	'charisma', score.charisma)
 	FROM cjdr.ability_score AS score
 	WHERE score.id = C.ability_score_id) AS ability_score
 
-FROM cjdr."character" AS C
-;
+FROM cjdr."character" AS C;
 
 COMMIT;
