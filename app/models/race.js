@@ -12,7 +12,7 @@ module.exports = {
     //les données liées à cette race.
 
     const query = {
-      text: "SELECT * FROM cjdr.race_list WHERE LOWER(race_list.name) = LOWER($1)",
+      text: "SELECT * FROM race_list WHERE LOWER(race_list.name) = LOWER($1)",
       values: [raceIndex]
     };
 

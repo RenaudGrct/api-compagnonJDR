@@ -3,19 +3,19 @@
 BEGIN;
 
 DROP TABLE IF EXISTS
-cjdr."character",
-cjdr.ability_score,
-cjdr.background,
-cjdr.skill,
-cjdr.race,
-cjdr.score_modifier,
-cjdr.world_language,
-cjdr.racial_ability,
-cjdr."class",
-cjdr.saving_throw,
-cjdr.proficiencies,
-cjdr.feature,
-cjdr.feature_choice
+character,
+ability_score,
+background,
+skill,
+race,
+score_modifier,
+world_language,
+racial_ability,
+class,
+saving_throw,
+proficiencies,
+feature,
+feature_choice
 CASCADE;
 
 COMMIT;

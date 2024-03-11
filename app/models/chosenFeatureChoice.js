@@ -8,7 +8,7 @@ module.exports = {
 
     const query = {
       text:`
-      INSERT INTO cjdr.feature_choice_chosen (character_id, feature_choice_id)
+      INSERT INTO feature_choice_chosen (character_id, feature_choice_id)
       VALUES
       ($1, $2)
       `,

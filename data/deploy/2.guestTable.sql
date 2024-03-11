@@ -2,10 +2,10 @@
 
 BEGIN;
 
-ALTER TABLE cjdr.user
+ALTER TABLE user
 DROP isguest;
 
-CREATE TABLE IF NOT EXISTS cjdr.guest (
+CREATE TABLE IF NOT EXISTS guest (
   id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email text NOT NULL,
   username text NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS cjdr.guest (
   updatedAt TIMESTAMPTZ DEFAULT null
 );
 
-INSERT INTO cjdr.guest (email, username, password)
+INSERT INTO guest (email, username, password)
 VALUES ('vecna1@donjonsql.com', 'vecna1', '$2b$10$hJIF5HQSe6aa19oHhKQbXuiTBgnXhw3gm2yT4tpQLmaIHZCO3qOEa');
 
 COMMIT;

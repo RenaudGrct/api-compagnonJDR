@@ -9,7 +9,7 @@ module.exports = {
   async findAll(){
 
     const query = {
-      text: "SELECT * FROM cjdr.background_list",
+      text: "SELECT * FROM background_list",
     };
 
     const result = await client.query(query);

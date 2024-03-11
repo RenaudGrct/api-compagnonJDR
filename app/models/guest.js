@@ -12,7 +12,7 @@ module.exports = {
     const {email, username} = guest;
     const query = {
       text:`
-      INSERT INTO cjdr.guest
+      INSERT INTO guest
       (email, username, password)
       VALUES ($1, $2, $3)`,
       values:[email, username, hashPassword]
@@ -35,7 +35,7 @@ module.exports = {
     const query = {
       text :
       `
-      UPDATE cjdr.guest
+      UPDATE guest
         SET
         ${fields.join(",")}
         WHERE "id" = $${values.length}
@@ -62,7 +62,7 @@ module.exports = {
       id,
       "email",
       "username"
-      FROM cjdr.guest
+      FROM guest
       WHERE id = $1
       `,
       values: [guestId]
@@ -93,7 +93,7 @@ module.exports = {
     const query = {
       text :
       `
-      UPDATE cjdr.guest
+      UPDATE guest
         SET
         ${fields.join(",")}
         WHERE "id" = $${values.length}
@@ -116,7 +116,7 @@ module.exports = {
   async isGuestExist() {
     const query = {
       text: `
-      SELECT * FROM cjdr.guest
+      SELECT * FROM guest
         WHERE "username"
         LIKE 'vecna%'
         ORDER BY "id"
@@ -149,7 +149,7 @@ module.exports = {
       }
     });
     const query = {
-      text : `SELECT * FROM cjdr.guest WHERE ${fields.join(" OR ")}`,
+      text : `SELECT * FROM guest WHERE ${fields.join(" OR ")}`,
       values
     };
 

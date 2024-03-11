@@ -6,17 +6,17 @@ SELECT
 C.name,
 (SELECT JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 	'skills', (SELECT JSON_AGG(S.name)
-			FROM cjdr.skill AS S
-			JOIN cjdr.has_skill AS HS
+			FROM skill AS S
+			JOIN has_skill AS HS
 				ON HS.skill_id = S.id
-			JOIN cjdr.proficiencies AS P
+			JOIN proficiencies AS P
 				ON P.id = HS.proficiencies_id
 			WHERE P.id = C.id),
 	'saving_throws', (SELECT JSON_AGG(ST.name)
-			FROM cjdr.saving_throw AS ST
-			JOIN cjdr.has_saving_throw AS HST
+			FROM saving_throw AS ST
+			JOIN has_saving_throw AS HST
 				ON HST.saving_throw_id = ST.id
-			JOIN cjdr.proficiencies AS P
+			JOIN proficiencies AS P
 				ON P.id = HST.proficiencies_id
 			WHERE P.id = C.id)))) AS proficiencies,
 
@@ -29,12 +29,12 @@ C.name,
 				'name', FC.name,
 				'description', FC.description
 			))
-			FROM cjdr.feature_choice AS FC
+			FROM feature_choice AS FC
 			WHERE FC.feature_id = F.id)
 	)))AS feature
 
-FROM cjdr.class AS C
-JOIN cjdr.feature AS F ON F.class_id = C.id
+FROM class AS C
+JOIN feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;
 
@@ -56,26 +56,26 @@ JSON_AGG(DISTINCT S.name) AS skill,
 				'name', FC.name,
 				'description', FC.description
 			))
-			FROM cjdr.feature_choice AS FC
+			FROM feature_choice AS FC
 			WHERE FC.feature_id = F.id)
 	)))AS feature
 
-FROM cjdr.class AS C
-JOIN cjdr.proficiencies AS P
+FROM class AS C
+JOIN proficiencies AS P
 ON C.id = P.class_id
-JOIN (cjdr.saving_throw AS ST JOIN cjdr.has_saving_throw AS HST ON HST.saving_throw_id = ST.id)
+JOIN (saving_throw AS ST JOIN has_saving_throw AS HST ON HST.saving_throw_id = ST.id)
   ON P.id = HST.proficiencies_id
-JOIN (cjdr.skill AS S JOIN cjdr.has_skill AS HS ON HS.skill_id = S.id)
+JOIN (skill AS S JOIN has_skill AS HS ON HS.skill_id = S.id)
 	ON P.id = HS.proficiencies_id
-JOIN cjdr.feature AS F
+JOIN feature AS F
 	ON C.id = F.class_id
 GROUP BY C.name, C.hit_points
 ;
 
 
-INSERT INTO cjdr."character"
+INSERT INTO character
 (
-	"name",
+	name,
 	user_id,
 	race_id,
 	class_id,
@@ -85,13 +85,13 @@ INSERT INTO cjdr."character"
 VALUES ('Norixius Balasar', 2, 1, 2, 1, 2)
 ;
 
-INSERT INTO cjdr.skill_chosen (character_id, skill_id)
+INSERT INTO skill_chosen (character_id, skill_id)
 VALUES
 (5, 5),
 (5, 6)
 ;
 
-INSERT INTO cjdr.feature_choice_chosen (character_id, feature_choice_id)
+INSERT INTO feature_choice_chosen (character_id, feature_choice_id)
 VALUES
 (5, 2)
 ;
@@ -102,26 +102,26 @@ C.id,
 
 (SELECT JSON_BUILD_OBJECT(
 	'id', Cl.id,
-	'name',Cl."name",
+	'name',Cl.name,
 	'proficiencies', JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 	'skills', (SELECT JSON_AGG(S.*)
-			FROM cjdr.skill AS S
-			JOIN cjdr.has_skill AS HS
+			FROM skill AS S
+			JOIN has_skill AS HS
 				ON HS.skill_id = S.id
-			JOIN cjdr.proficiencies AS P
+			JOIN proficiencies AS P
 				ON P.id = HS.proficiencies_id
 			WHERE P.id = Cl.id),
 	'saving_throws', (SELECT JSON_AGG(ST.score)
-			FROM cjdr.saving_throw AS ST
-			JOIN cjdr.has_saving_throw AS HST
+			FROM saving_throw AS ST
+			JOIN has_saving_throw AS HST
 				ON HST.saving_throw_id = ST.id
-			JOIN cjdr.proficiencies AS P
+			JOIN proficiencies AS P
 				ON P.id = HST.proficiencies_id
 			WHERE P.id = Cl.id)))) AS proficiencies
-	FROM cjdr."class" AS Cl
+	FROM class AS Cl
 	GROUP BY Cl.id)
 
-FROM cjdr."character" AS C
+FROM character AS C
 WHERE user_id = 2
 ;
 
@@ -129,84 +129,84 @@ CREATE OR REPLACE VIEW character_list
 AS
 SELECT
 C.id,
-C."name",
+C.name,
 C.user_id,
 (SELECT JSON_BUILD_OBJECT(
 	'id', Cl.id,
-	'name',Cl."name",
+	'name',Cl.name,
 	
 	'proficiencies', JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT(
 		'skills', (SELECT JSON_AGG(S.*)
-			FROM cjdr.skill AS S
-			JOIN cjdr.skill_chosen AS SC
+			FROM skill AS S
+			JOIN skill_chosen AS SC
 				ON SC.skill_id = S.id
 			WHERE C.id = SC.character_id),
 		'saving_throws', (SELECT JSON_AGG(ST.score)
-			FROM cjdr.saving_throw AS ST
-			JOIN cjdr.has_saving_throw AS HST
+			FROM saving_throw AS ST
+			JOIN has_saving_throw AS HST
 				ON HST.saving_throw_id = ST.id
-			JOIN cjdr.proficiencies AS P
+			JOIN proficiencies AS P
 				ON P.id = HST.proficiencies_id
 			WHERE P.id = Cl.id))),
 	'features', (SELECT JSON_AGG(JSON_BUILD_OBJECT(
-		'name', F."name",
+		'name', F.name,
 		'description', F.description,
 		'choice', (SELECT JSON_AGG(FC.*)
-				FROM cjdr.feature_choice AS FC
-				JOIN cjdr.feature_choice_chosen AS FCC
+				FROM feature_choice AS FC
+				JOIN feature_choice_chosen AS FCC
 					ON FCC.feature_choice_id = FC.id
 				WHERE C.id = FCC.character_id AND F.id = FC.feature_id)))
-			FROM cjdr.feature AS F	 
+			FROM feature AS F	 
 			WHERE F.class_id = Cl.id))
 	
-	FROM cjdr."class" AS Cl
+	FROM class AS Cl
 	WHERE Cl.id = C.class_id
-	GROUP BY Cl.id) AS "class",
+	GROUP BY Cl.id) AS class,
 
 (SELECT JSON_BUILD_OBJECT(
 	'id', R.id,
-	'name', R."name",
+	'name', R.name,
 	'speed', R.speed,
 	'extra_language', R.extra_language,
 	'night_vision', R.night_vision,
 	
 	'score_modifier', (SELECT JSON_AGG(DISTINCT JSONB_BUILD_OBJECT(
-		'score_name', SM."name",
-		'score_number', SM."number"))
-		FROM cjdr.score_modifier AS SM
-		JOIN cjdr.has_score_modifier AS HSM
+		'score_name', SM.name,
+		'score_number', SM.number))
+		FROM score_modifier AS SM
+		JOIN has_score_modifier AS HSM
 			ON HSM.score_modifier_id = SM.id
 		WHERE R.id = HSM.race_id),
 	
-	'language', JSON_AGG(DISTINCT WL."name"),
+	'language', JSON_AGG(DISTINCT WL.name),
 
 	'racial_ability', (SELECT JSON_AGG(DISTINCT JSONB_BUILD_OBJECT(
-		'racial_ability_name', RA."name",
-		'description', RA."description"))
-		FROM cjdr.racial_ability AS RA
-		JOIN cjdr.has_racial_ability AS HRA
+		'racial_ability_name', RA.name,
+		'description', RA.description))
+		FROM racial_ability AS RA
+		JOIN has_racial_ability AS HRA
 			ON HRA.racial_ability_id = RA.id
 		WHERE R.id = HRA.race_id))
 
-	FROM cjdr.race AS R
-	JOIN cjdr.has_world_language AS HWL
+	FROM race AS R
+	JOIN has_world_language AS HWL
 		ON HWL.race_id = R.id
-	JOIN cjdr.world_language AS WL
+	JOIN world_language AS WL
 		ON WL.id = HWL.world_language_id
 	WHERE C.race_id = R.id
 	GROUP BY R.id) AS race,
 	
 (SELECT JSON_BUILD_OBJECT(
 	'id', B.id,
-	'name', B."name",
+	'name', B.name,
 	'additional_language', B.additional_language,
 	'ability', B.ability,
 	'ability_description', B.ability_description,
-	'skill', JSON_AGG(DISTINCT S."name"))
-	FROM cjdr.background AS B
-	JOIN cjdr.has_skill AS HS
+	'skill', JSON_AGG(DISTINCT S.name))
+	FROM background AS B
+	JOIN has_skill AS HS
 		ON HS.background_id = B.id
-	JOIN cjdr.skill AS S
+	JOIN skill AS S
 		ON S.id = HS.skill_id
 	WHERE B.id = C.background_id
 	GROUP BY B.id) AS background,
@@ -218,7 +218,44 @@ C.user_id,
 	'sagesse', score.wisdom,
 	'intélligence', score.intelligence,
 	'charisme', score.charisma)
-	FROM cjdr.ability_score AS score
+	FROM ability_score AS score
 	WHERE score.id = C.ability_score_id) AS ability_score
 
-FROM cjdr."character" AS C
+FROM character AS C
+
+
+create or replace procedure proc_race_list(raceName text)
+language plpgsql
+AS $$
+BEGIN
+SELECT
+R.id,
+R.name,
+R.speed,
+R.extra_language,
+R.night_vision,
+(SELECT JSON_AGG(DISTINCT JSONB_BUILD_OBJECT(
+	'score_name', SM.name,
+	'score_number', SM.number))
+	FROM score_modifier AS SM
+	JOIN has_score_modifier AS HSM
+		ON HSM.score_modifier_id = SM.id
+	WHERE R.id = HSM.race_id ) AS score_modifier,
+JSON_AGG(DISTINCT WL.name) AS languages,
+(SELECT JSON_AGG(JSON_BUILD_OBJECT(
+	'racial_ability_name', RA.name,
+	'description', RA.description))
+	FROM racial_ability AS RA
+	JOIN has_racial_ability AS HRA
+		ON HRA.race_id = RA.id
+	WHERE R.id = HRA.race_id) AS racial_ability
+FROM race AS R
+JOIN (world_language AS WL
+	JOIN has_world_language AS HWL
+		ON HWL.world_language_id = WL.id)
+  ON R.id = HWL.race_id
+WHERE R.name = 'Drakéide'
+GROUP BY R.id;
+COMMIT;
+END;$$;
+CALL proc_race_list('Drakéide');

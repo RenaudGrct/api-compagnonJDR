@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Swagger Compagnon-JDR - OpenAPI 3.0
   description: |-
-    Bienvenue dans l'API de l'application Compagnon-JDR.
+    Bienvenue dans l'API de l'application [Compagnon-JDR](https://compagnonjdr.netlify.app).
     
     J'ai profité des derniers jours pour m'amuser avec [Swagger-UI](https://swagger.io/) et [Rapidoc](https://rapidocweb.com/index.html)
 
