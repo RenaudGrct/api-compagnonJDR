@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM cdjr."character";
+SELECT * FROM character;
 
 ROLLBACK;

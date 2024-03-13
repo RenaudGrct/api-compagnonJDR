@@ -2,7 +2,7 @@
 
 BEGIN;
 
-INSERT INTO cjdr.guest (
+INSERT INTO guest (
   email,
   username,
   password)

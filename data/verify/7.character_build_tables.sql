@@ -2,8 +2,8 @@
 
 BEGIN;
 
-SELECT * FROM cjdr.character_build;
-SELECT * FROM cjdr.skill_chosen;
-SELECT * FROM cjdr.feature_choice_chosen;
+SELECT * FROM character_build;
+SELECT * FROM skill_chosen;
+SELECT * FROM feature_choice_chosen;
 
 ROLLBACK;
