@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE user
+ALTER TABLE "user"
 DROP isguest;
 
 CREATE TABLE IF NOT EXISTS guest (

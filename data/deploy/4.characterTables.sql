@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS has_racial_ability (
     UNIQUE (race_id, racial_ability_id)
 );
 
-CREATE TABLE IF NOT EXISTS class (
+CREATE TABLE IF NOT EXISTS "class" (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     hit_points INTEGER NOT NULL
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS proficiencies (
     name TEXT NOT NULL,
     class_id INTEGER NOT NULL,
     CONSTRAINT fk_class FOREIGN KEY (class_id)
-        REFERENCES class (id)
+        REFERENCES "class" (id)
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS feature (
     use_reset TEXT,
     class_id INTEGER NOT NULL,
     CONSTRAINT fk_class FOREIGN KEY (class_id)
-        REFERENCES class (id)
+        REFERENCES "class" (id)
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 );
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS feature_choice (
         ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS character (
+CREATE TABLE IF NOT EXISTS "character" (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     user_id INTEGER,
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS character (
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
     CONSTRAINT fk_class FOREIGN KEY (class_id)
-        REFERENCES class (id)
+        REFERENCES "class" (id)
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
     CONSTRAINT fk_race FOREIGN KEY (race_id)
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS character (
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (user_id)
-        REFERENCES user (id)
+        REFERENCES "user" (id)
         ON UPDATE NO ACTION
         ON DELETE CASCADE,
     CONSTRAINT fk_guest FOREIGN KEY (guest_id)

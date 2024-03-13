@@ -21,7 +21,7 @@ module.exports = {
 
     const query = {
       text: `
-      INSERT INTO character 
+      INSERT INTO "character"
       (${fields.join(", ")})
       VALUES 
       (${params.join(", ")})
@@ -38,7 +38,7 @@ module.exports = {
 
     const query = {
       text: `
-      UPDATE character
+      UPDATE "character"
       SET
       "user_id" = $1
       WHERE
@@ -125,7 +125,7 @@ module.exports = {
    */
   async delete(characterId){
     const query = {
-      text: "DELETE FROM character WHERE id = $1",
+      text: `DELETE FROM "character" WHERE id = $1`,
       values: [characterId]
     };
 

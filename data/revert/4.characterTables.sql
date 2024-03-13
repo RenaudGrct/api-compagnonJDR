@@ -3,7 +3,7 @@
 BEGIN;
 
 DROP TABLE IF EXISTS
-character,
+"character",
 ability_score,
 background,
 skill,
@@ -11,7 +11,7 @@ race,
 score_modifier,
 world_language,
 racial_ability,
-class,
+"class",
 saving_throw,
 proficiencies,
 feature,

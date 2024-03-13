@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM character;
+SELECT * FROM "character";
 
 ROLLBACK;

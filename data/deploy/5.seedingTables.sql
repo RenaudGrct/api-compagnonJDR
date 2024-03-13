@@ -59,7 +59,7 @@ VALUES
 ('aucun traits raciaux', 'Vous ne possèdez aucun traits raciaux')
 ;
 
-INSERT INTO class (name, hit_points)
+INSERT INTO "class" (name, hit_points)
 VALUES
 ('Paladin', 10),
 ('Guerrier', 10)

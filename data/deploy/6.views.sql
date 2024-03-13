@@ -40,7 +40,7 @@ C.name,
 			WHERE FC.feature_id = F.id)
 	)))AS feature
 
-FROM class AS C
+FROM "class" AS C
 JOIN feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;

@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM character WHERE name = 'BenOclock';
+SELECT * FROM ""character"" WHERE name = 'BenOclock';
 
 ROLLBACK;

@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE user
+ALTER TABLE "user"
 DROP refresh_token;
 ALTER TABLE guest
 DROP refresh_token;

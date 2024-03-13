@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS skill_chosen(
       id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
       character_id INTEGER NOT NULL,
       CONSTRAINT fk_character FOREIGN KEY (character_id)
-            REFERENCES character (id) MATCH SIMPLE
+            REFERENCES "character" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE,
       skill_id INTEGER NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS feature_choice_chosen(
       id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
       character_id INTEGER NOT NULL,
       CONSTRAINT fk_character FOREIGN KEY (character_id)
-            REFERENCES character (id) MATCH SIMPLE
+            REFERENCES "character" (id) MATCH SIMPLE
             ON UPDATE NO ACTION
             ON DELETE CASCADE,
       feature_choice_id INTEGER NOT NULL,
@@ -72,7 +72,7 @@ C.guest_id,
 	
 	FROM class AS Cl
 	WHERE Cl.id = C.class_id
-	GROUP BY Cl.id) AS class,
+	GROUP BY Cl.id) AS "class",
 
 (SELECT JSON_BUILD_OBJECT(
 	'id', R.id,

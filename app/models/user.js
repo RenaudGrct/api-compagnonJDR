@@ -14,7 +14,7 @@ module.exports = {
       "username",
       "email",
       "password"
-      FROM user
+      FROM "user"
       WHERE id = $1`,
       values: [userId]
     };
@@ -35,7 +35,7 @@ module.exports = {
     const {email, username, password} = body;
     const query = {
       text:`
-      INSERT INTO user 
+      INSERT INTO "user" 
       (email, username, password) 
       VALUES ($1, $2, $3)
       RETURNING id`,
@@ -69,7 +69,7 @@ module.exports = {
     const query = {
       text :
       `
-      UPDATE user
+      UPDATE "user"
         SET
         ${fields.join(",")}
         WHERE "id" = $${values.length}
@@ -90,7 +90,7 @@ module.exports = {
    * @returns Etat de la suppression
    */
   async delete(userId) {
-    const query = "DELETE FROM user WHERE id = $1";
+    const query = `DELETE FROM "user" WHERE id = $1`;
     const result = await client.query(query, [userId]);
     //On transforme en booléen le result pour l'envoi d'un message de confirmation si tout s'est bien passé (ou non)
     return !!result.rowCount;
@@ -117,7 +117,7 @@ module.exports = {
     });
 
     const query = {
-      text : `SELECT * FROM user WHERE (${fields.join(" OR ")})`,
+      text : `SELECT * FROM "user" WHERE (${fields.join(" OR ")})`,
       values
     };
 

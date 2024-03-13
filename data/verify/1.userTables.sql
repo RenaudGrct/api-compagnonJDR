@@ -2,7 +2,7 @@
 
 BEGIN;
 
-INSERT INTO user (
+INSERT INTO "user" (
   email,
   username,
   password)

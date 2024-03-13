@@ -12,7 +12,7 @@ module.exports = {
     //les données liées à cette classe.
 
     const query = {
-      text: "SELECT * FROM class_list WHERE LOWER(class_list.name) = LOWER($1)",
+      text: `SELECT * FROM "class" WHERE LOWER(class_list.name) = LOWER($1)`,
       values: [classIndex]
     };
 

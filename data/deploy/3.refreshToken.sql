@@ -2,7 +2,7 @@
 
 BEGIN;
 
-ALTER TABLE user
+ALTER TABLE "user"
 ADD refresh_token text;
 ALTER TABLE guest
 ADD refresh_token TEXT DEFAULT null;

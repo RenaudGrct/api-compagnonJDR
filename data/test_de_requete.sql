@@ -33,7 +33,7 @@ C.name,
 			WHERE FC.feature_id = F.id)
 	)))AS feature
 
-FROM class AS C
+FROM "class" AS C
 JOIN feature AS F ON F.class_id = C.id
 GROUP BY C.id
 ;
@@ -60,7 +60,7 @@ JSON_AGG(DISTINCT S.name) AS skill,
 			WHERE FC.feature_id = F.id)
 	)))AS feature
 
-FROM class AS C
+FROM "class" AS C
 JOIN proficiencies AS P
 ON C.id = P.class_id
 JOIN (saving_throw AS ST JOIN has_saving_throw AS HST ON HST.saving_throw_id = ST.id)
@@ -73,7 +73,7 @@ GROUP BY C.name, C.hit_points
 ;
 
 
-INSERT INTO character
+INSERT INTO "character"
 (
 	name,
 	user_id,
@@ -118,10 +118,10 @@ C.id,
 			JOIN proficiencies AS P
 				ON P.id = HST.proficiencies_id
 			WHERE P.id = Cl.id)))) AS proficiencies
-	FROM class AS Cl
+	FROM "class" AS Cl
 	GROUP BY Cl.id)
 
-FROM character AS C
+FROM "character" AS C
 WHERE user_id = 2
 ;
 
@@ -159,9 +159,9 @@ C.user_id,
 			FROM feature AS F	 
 			WHERE F.class_id = Cl.id))
 	
-	FROM class AS Cl
+	FROM "class" AS Cl
 	WHERE Cl.id = C.class_id
-	GROUP BY Cl.id) AS class,
+	GROUP BY Cl.id) AS "class",
 
 (SELECT JSON_BUILD_OBJECT(
 	'id', R.id,
@@ -221,7 +221,7 @@ C.user_id,
 	FROM ability_score AS score
 	WHERE score.id = C.ability_score_id) AS ability_score
 
-FROM character AS C
+FROM "character" AS C
 
 
 create or replace procedure proc_race_list(raceName text)
