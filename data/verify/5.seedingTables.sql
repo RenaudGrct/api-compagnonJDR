@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM cjdr."character" WHERE "character"."name" = 'BenOclock';
+SELECT * FROM ""character"" WHERE name = 'BenOclock';
 
 ROLLBACK;

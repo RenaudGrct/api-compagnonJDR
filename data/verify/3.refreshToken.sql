@@ -2,12 +2,12 @@
 
 BEGIN;
 
-UPDATE cjdr."user"
+UPDATE "user"
   SET refresh_token
   VALUES "!1doy/203koi54d@de26!#"
 WHERE id = 1;
 
-UPDATE cjdr.guest
+UPDATE guest
   SET refresh_token
   VALUES "!1doy/203koi54d@de26!#"
 WHERE id = 1;

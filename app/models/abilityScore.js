@@ -14,7 +14,7 @@ module.exports = {
     });
 
     const query = {
-      text:`INSERT INTO cjdr.ability_score
+      text:`INSERT INTO ability_score
       (${fields.join(", ")})
       VALUES
       (${params.join(", ")})

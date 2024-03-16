@@ -21,7 +21,7 @@ module.exports = {
 
     const query = {
       text: `
-      INSERT INTO cjdr."character" 
+      INSERT INTO "character"
       (${fields.join(", ")})
       VALUES 
       (${params.join(", ")})
@@ -38,7 +38,7 @@ module.exports = {
 
     const query = {
       text: `
-      UPDATE cjdr."character" 
+      UPDATE "character"
       SET
       "user_id" = $1
       WHERE
@@ -72,7 +72,7 @@ module.exports = {
       "name",
       "race"::json->'name' as race,
       "class"::json->'name' as class
-      FROM cjdr.character_list WHERE ${field} = $1`,
+      FROM character_list WHERE ${field} = $1`,
       values
     };
 
@@ -104,7 +104,7 @@ module.exports = {
 
     const query = {
       text: `
-      SELECT * FROM cjdr.character_list
+      SELECT * FROM character_list
       WHERE ${field} = $1 and id = $2
       `,
       values
@@ -125,7 +125,7 @@ module.exports = {
    */
   async delete(characterId){
     const query = {
-      text: "DELETE FROM cjdr.character WHERE id = $1",
+      text: `DELETE FROM "character" WHERE id = $1`,
       values: [characterId]
     };
 

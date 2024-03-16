@@ -2,11 +2,11 @@ openapi: 3.0.3
 info:
   title: Swagger Compagnon-JDR - OpenAPI 3.0
   description: |-
-    Bienvenue dans l'API de l'application Compagnon-JDR.
+    Bienvenue dans l'API de l'application [Compagnon-JDR](https://compagnonjdr.netlify.app).
     
-    J'ai profité des derniers jours pour m'amuser avec [Swagger-UI](https://swagger.io/) et [Rapidoc](https://rapidocweb.com/index.html)
+    J'ai profité des derniers jours de la session projet pour explorer [Swagger-UI](https://swagger.io/) et [Rapidoc](https://rapidocweb.com/index.html)
 
-    _Compagnon-JDR est un projet de fin de formation qui me tient à coeur et je compte l'emmener plus loin au cours de l'année_
+    _Compagnon-JDR est un projet de fin de formation qui me tient à coeur et je compte l'emmener plus loin lors de mon temps libre._
     
     Cette API n'utilisera que les règles et contenus de la 5eme édition de Donjons et Dragons [SRD](https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf) et de sa traduction française du site [AideDD](https://www.aidedd.org/)
     
@@ -22,7 +22,7 @@ externalDocs:
   url: https://www.aidedd.org/adj/telechargement/
 servers:
   - url: http://localhost:4000/api
-  - url: https://api-compagnon-jdr.herokuapp.com/api
+  - url: https://api-compagnonjdr.horanet.com/api
 tags:
   - name: Authentification
     description: Toutes les routes liées à l'authentification

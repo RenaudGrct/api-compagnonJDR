@@ -5,7 +5,6 @@ const { backgroundsDatamapper: background } = require("../models");
 module.exports = {
   /**
     * backgrounds controller pour obtenir toutes les entrées.
-    * ExpressMiddleware signature
     * @param {object} req Objet de la requête Express
     * @param {object} res Objet de la reponse Express
     * @returns réponse de la Route API JSON

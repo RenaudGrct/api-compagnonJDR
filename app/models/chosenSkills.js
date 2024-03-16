@@ -12,7 +12,7 @@ module.exports = {
 
     const query = {
       text:`
-      INSERT INTO cjdr.skill_chosen (character_id, skill_id)
+      INSERT INTO skill_chosen (character_id, skill_id)
       VALUES
       ($1, $2),
       ($1, $3)

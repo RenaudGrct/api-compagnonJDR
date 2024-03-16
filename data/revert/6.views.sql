@@ -3,9 +3,9 @@
 BEGIN;
 
 DROP VIEW IF EXISTS
-cjdr.background_list,
-cjdr.class_list,
-cjdr.race_list
+background_list,
+class_list,
+race_list
 CASCADE;
 
 COMMIT;

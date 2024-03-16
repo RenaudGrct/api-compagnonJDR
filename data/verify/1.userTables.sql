@@ -2,7 +2,7 @@
 
 BEGIN;
 
-INSERT INTO cjdr."user" (
+INSERT INTO "user" (
   email,
   username,
   password)
