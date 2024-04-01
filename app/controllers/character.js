@@ -48,7 +48,7 @@ module.exports = {
 
     const foundedCharacter = await characterDM.findAll({ user_id : req.params.userId, guest_id: req.params.guestId });
 
-    return res.status(200).json(foundedCharacter);
+    return res.status(200).json(foundedCharacter || []);
   },
 
   /**
