@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.route("/user/:userId(\\d+)")
   .get(controllerHandler(character.getAllCharacters))
-  .post(controllerHandler(character.createOneCharacter))
+  .post(controllerHandler(character.createOneCharacter));
 
 router.route("/:characterId(\\d+)/user/:userId(\\d+)")
   .get(controllerHandler(character.getOneCharacter))
@@ -17,7 +17,7 @@ router.route("/:characterId(\\d+)/user/:userId(\\d+)")
 
 router.route("/guest/:guestId(\\d+)")
   .get(controllerHandler(character.getAllCharacters))
-  .post(controllerHandler(character.createOneCharacter))
+  .post(controllerHandler(character.createOneCharacter));
 
 router.route("/:characterId(\\d+)/guest/:guestId(\\d+)")
   .get(controllerHandler(character.getOneCharacter))

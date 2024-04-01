@@ -1,3 +1,4 @@
+require("dotenv").config();
 const allowedOrigins = require("../config/allowedOrigins");
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
     }
     // response to preflight request
     if (req.method === "OPTIONS") {
-      res.sendStatus(200);
+      return res.sendStatus(204);
     }
     next();
   }

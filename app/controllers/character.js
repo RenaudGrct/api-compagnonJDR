@@ -48,10 +48,6 @@ module.exports = {
 
     const foundedCharacter = await characterDM.findAll({ user_id : req.params.userId, guest_id: req.params.guestId });
 
-    if (!foundedCharacter) {
-      throw new ApiError("Vous n'avez aucun personnages de sauvegardés", { statusCode: 404 });
-    }
-
     return res.status(200).json(foundedCharacter);
   },
 

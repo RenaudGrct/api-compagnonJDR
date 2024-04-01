@@ -25,7 +25,6 @@ app.use(cookieParser());
 //~~ Middleware des CORS options
 app.use(accessControl);
 
-
 //~~ ROUTER
 app.use(router);
 
