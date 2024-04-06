@@ -12,7 +12,7 @@ module.exports = {
     }
     // response to preflight request
     if (req.method === "OPTIONS") {
-      return res.sendStatus(204);
+      return res.sendStatus(200);
     }
     next();
   }

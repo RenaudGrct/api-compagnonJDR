@@ -57,7 +57,7 @@ module.exports = {
     // On récupère les entrée et les valeurs associé de l'objet
     Object.entries(userData).forEach(([key, value], index) => {
       // les deux clefs qui doivent être unique
-      if(["email", "username", "newPassword", "refresh_token"].includes(key)) {
+      if(["email", "username", "password", "refresh_token"].includes(key)) {
         // On mets une clef en paramètre incrémentées par index pour chacune des clefs uniques
         fields.push(`"${key}" = $${index + 1}`);
         // On insère les valeurs correspondantes à sa clef

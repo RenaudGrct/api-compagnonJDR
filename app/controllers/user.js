@@ -66,7 +66,7 @@ module.exports = {
 
     if(req.body.newPassword){
       const hash = await hashing(req.body.newPassword);
-      req.body.newPassword = hash;
+      req.body.password = hash;
     }
 
     if (req.body.email || req.body.username) {
