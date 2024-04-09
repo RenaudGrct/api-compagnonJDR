@@ -22,7 +22,7 @@ externalDocs:
   url: https://www.aidedd.org/adj/telechargement/
 servers:
   - url: http://localhost:4000/api
-  - url: https://api-compagnonjdr.onrender.com/
+  - url: https://api-compagnonjdr.onrender.com/api
 tags:
   - name: Authentification
     description: Toutes les routes liées à l'authentification
