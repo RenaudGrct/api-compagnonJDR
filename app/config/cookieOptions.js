@@ -1,10 +1,8 @@
 const cookieOptions = {
   httpOnly:true,
-  sameSite: "None"
+  sameSite: "None",
+  partitioned: true,
+  secure : process.env.NODE_ENV === "prod"
 };
-
-if (process.env.NODE_ENV === "prod") {
-  cookieOptions.secure = true;
-}
 
 module.exports = cookieOptions;

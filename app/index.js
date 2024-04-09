@@ -20,7 +20,7 @@ app.use(express.json());
 // URLENCODED payload parser
 app.use(express.urlencoded({ extended: false }));
 // COOKIE parser
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //~~ Middleware des CORS options
 app.use(accessControl);
