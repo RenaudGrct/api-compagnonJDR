@@ -4,6 +4,8 @@ const allowedOrigins = require("../config/allowedOrigins");
 module.exports = {
   accessControl (req, res, next){
     const origin = req.headers.origin;
+    console.log(origin);
+    console.log(req.headers);
     if (allowedOrigins.includes(origin)) {
       res.header("Access-Control-Allow-Origin", origin);
       res.header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization");
