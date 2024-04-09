@@ -18,7 +18,7 @@ module.exports = {
     const userId = parseInt(req.params.id);
     const result = await profile.findByPk(userId);
     if (! result){
-      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404});
+      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 200});
     }
     return res.json(result);
   },
@@ -56,7 +56,7 @@ module.exports = {
     const user = await profile.findByPk(userId);
 
     if (!user) {
-      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404 });
+      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 200 });
     }
     const check = await bcrypt.compare(req.body.password, user.password);
 

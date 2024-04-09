@@ -16,7 +16,7 @@ module.exports = {
     const foundedRace = await races.findOne(raceIndex);
 
     if (!foundedRace) {
-      throw new ApiError("Aucune races trouvées", { statusCode: 404 });
+      throw new ApiError("Aucune races trouvées", { statusCode: 200 });
     }
 
     return res.status(200).json(foundedRace);

@@ -20,7 +20,7 @@ module.exports = {
     const guestId = parseInt(req.params.id);
     const result = await guestDM.findByPk(guestId);
     if (! result){
-      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 404});
+      throw new ApiError("Cet utilisateur n'existe pas", { statusCode : 200});
     }
     return res.json(result);
   },

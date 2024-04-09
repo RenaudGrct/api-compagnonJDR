@@ -16,7 +16,7 @@ module.exports = {
     const foundedClass = await classes.findOne(classIndex);
 
     if (!foundedClass) {
-      throw new ApiError("Aucune classes trouvées", { statusCode: 404 });
+      throw new ApiError("Aucune classes trouvées", { statusCode: 200 });
     }
 
     return res.status(200).json(foundedClass);

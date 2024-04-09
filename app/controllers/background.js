@@ -14,7 +14,7 @@ module.exports = {
     const backgrounds = await background.findAll();
 
     if (!backgrounds) {
-      throw new ApiError("Aucuns historiques trouvés", { statusCode: 404 });
+      throw new ApiError("Aucuns historiques trouvés", { statusCode: 200 });
     }
 
     return res.status(200).json(backgrounds);
